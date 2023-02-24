@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2023 at 11:20 AM
+-- Generation Time: Feb 24, 2023 at 11:33 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -21,12 +21,44 @@ SET time_zone = "+00:00";
 -- Database: `ims-52`
 --
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `item`
+-- Table structure for table `item`
 --
 
-INSERT INTO `item` (`id`, `school_id`, `name`, `code`, `note`, `status`, `created_at`, `created_by`, `modified_at`, `modified_by`) VALUES
-(2, 1, 'test item', '001', 'testing', 1, '2023-02-23 22:45:21', 1, '2023-02-23 22:45:21', NULL);
+CREATE TABLE `item` (
+  `id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `note` text NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(11) DEFAULT NULL,
+  `modified_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `modified_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `item`
+--
+ALTER TABLE `item`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `item`
+--
+ALTER TABLE `item`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

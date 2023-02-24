@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2023 at 11:20 AM
+-- Generation Time: Feb 24, 2023 at 11:34 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -21,12 +21,43 @@ SET time_zone = "+00:00";
 -- Database: `ims-52`
 --
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `category`
+-- Table structure for table `category`
 --
 
-INSERT INTO `category` (`id`, `school_id`, `name`, `note`, `status`, `created_at`, `created_by`, `modified_at`, `modified_by`) VALUES
-(1, 1, 'test', '123456 test', 1, '2023-02-22 23:17:58', 1, '2023-02-22 23:17:58', NULL);
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `note` text NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(11) DEFAULT NULL,
+  `modified_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `modified_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
