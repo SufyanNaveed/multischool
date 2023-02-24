@@ -1387,3 +1387,52 @@ $config['my_academic']['liveclass']['2'] = '1|1|1|1';
 $config['my_academic']['liveclass']['3'] = '0|0|1|0';
 $config['my_academic']['liveclass']['4'] = '0|0|1|0';
 $config['my_academic']['liveclass']['5'] = '1|1|1|1';
+
+
+$config['my_procurement']['category']['1'] = '1|1|1|1';
+$config['my_procurement']['category']['2'] = '1|1|1|0';
+$config['my_procurement']['category']['3'] = '0|0|1|0';
+$config['my_procurement']['category']['4'] = '0|0|1|0';
+$config['my_procurement']['category']['5'] = '0|0|1|0';
+$config['my_procurement']['category']['6'] = '0|0|0|0';
+$config['my_procurement']['category']['7'] = '0|0|0|0';
+$config['my_procurement']['category']['8'] = '0|0|0|0';
+$config['my_procurement']['category']['9'] = '0|0|0|0';
+$config['my_procurement']['category']['13'] = '0|0|0|0';
+$config['my_procurement']['category']['14'] = '0|0|0|0';
+
+$config['my_procurement']['item']['1'] = '1|1|1|1';
+$config['my_procurement']['item']['2'] = '1|1|1|0';
+$config['my_procurement']['item']['3'] = '0|0|1|0';
+$config['my_procurement']['item']['4'] = '0|0|1|0';
+$config['my_procurement']['item']['5'] = '0|0|1|0';
+$config['my_procurement']['item']['6'] = '0|0|0|0';
+$config['my_procurement']['item']['7'] = '0|0|0|0';
+$config['my_procurement']['item']['8'] = '0|0|0|0';
+$config['my_procurement']['item']['9'] = '0|0|0|0';
+$config['my_procurement']['item']['13'] = '0|0|0|0';
+$config['my_procurement']['item']['14'] = '0|0|0|0';
+
+$config['my_procurement']['suppliers']['1'] = '1|1|1|1';
+$config['my_procurement']['suppliers']['2'] = '1|1|1|0';
+$config['my_procurement']['suppliers']['3'] = '0|0|1|0';
+$config['my_procurement']['suppliers']['4'] = '0|0|1|0';
+$config['my_procurement']['suppliers']['5'] = '0|0|1|0';
+$config['my_procurement']['suppliers']['6'] = '0|0|0|0';
+$config['my_procurement']['suppliers']['7'] = '0|0|0|0';
+$config['my_procurement']['suppliers']['8'] = '0|0|0|0';
+$config['my_procurement']['suppliers']['9'] = '0|0|0|0';
+$config['my_procurement']['suppliers']['13'] = '0|0|0|0';
+$config['my_procurement']['suppliers']['14'] = '0|0|0|0';
+
+$config['my_procurement']['purchase_order']['1'] = '1|1|1|1';
+$config['my_procurement']['purchase_order']['2'] = '1|1|1|0';
+$config['my_procurement']['purchase_order']['3'] = '0|0|1|0';
+$config['my_procurement']['purchase_order']['4'] = '0|0|1|0';
+$config['my_procurement']['purchase_order']['5'] = '0|0|1|0';
+$config['my_procurement']['purchase_order']['6'] = '0|0|0|0';
+$config['my_procurement']['purchase_order']['7'] = '0|0|0|0';
+$config['my_procurement']['purchase_order']['8'] = '0|0|0|0';
+$config['my_procurement']['purchase_order']['9'] = '0|0|0|0';
+$config['my_procurement']['purchase_order']['13'] = '0|0|0|0';
+$config['my_procurement']['purchase_order']['14'] = '0|0|0|0';

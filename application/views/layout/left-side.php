@@ -54,7 +54,25 @@
                         <?php } ?>                          
                     <?php } ?>
                                         
-                    
+                    <li>
+                        <a><i class="fa fa-user"></i> <?php echo $this->lang->line('Procurement'); ?> <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <?php if(has_permission(VIEW, 'procurement', 'category')){ ?>   
+                                <li><a href="<?php echo site_url('procurement/category/index'); ?>"> <?php echo $this->lang->line('category'); ?></a></li>
+                            <?php } ?>
+                            <?php if(has_permission(VIEW, 'procurement', 'item')){ ?>   
+                                <li><a href="<?php echo site_url('procurement/item/index'); ?>"> <?php echo $this->lang->line('item'); ?></a></li>
+                            <?php } ?>
+                            <?php if(has_permission(VIEW, 'procurement', 'suppliers')){ ?>   
+                                <li><a href="<?php echo site_url('procurement/suppliers/index'); ?>"> <?php echo $this->lang->line('suppliers'); ?></a></li>
+                            <?php } ?>
+                            <?php if(has_permission(VIEW, 'procurement', 'purchase_order')){ ?>   
+                                <li><a href="<?php echo site_url('procurement/purchase_order/index'); ?>"> <?php echo $this->lang->line('purchase_order'); ?></a></li>
+                            <?php } ?>
+                            
+                        </ul>
+                    </li>
+
                     <?php if(has_permission(VIEW, 'theme', 'theme')){ ?>
                             <li><a  href="<?php echo site_url('theme'); ?>"><i class="fa fa-cubes"></i> <?php echo $this->lang->line('theme'); ?></a></li> 
                     <?php } ?>  

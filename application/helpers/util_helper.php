@@ -1373,6 +1373,38 @@ if (!function_exists('get_school_list')) {
     }
 }
 
+if (!function_exists('get_category_list')) {
+
+    function get_category_list() {
+        $ci = & get_instance();
+        $ci->db->select('C.*');
+        $ci->db->from('category AS C');
+        $ci->db->where('C.status', 1);
+        return $ci->db->get()->result();
+    }
+}
+
+if (!function_exists('get_item_list')) {
+
+    function get_item_list() {
+        $ci = & get_instance();
+        $ci->db->select('I.*');
+        $ci->db->from('item AS I');
+        $ci->db->where('I.status', 1);
+        return $ci->db->get()->result();
+    }
+}
+
+if (!function_exists('get_suppliers_list')) {
+
+    function get_suppliers_list() {
+        $ci = & get_instance();
+        $ci->db->select('S.*');
+        $ci->db->from('suppliers AS S');
+        $ci->db->where('S.status', 1);
+        return $ci->db->get()->result();
+    }
+}
 if (!function_exists('get_lang')) {
 
     function get_lang() {
