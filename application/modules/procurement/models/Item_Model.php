@@ -11,9 +11,10 @@ class Item_Model extends MY_Model {
     
      public function get_item_list($school_id = null){
         
-        $this->db->select('C.*,S.school_name, ');
+        $this->db->select('C.*,S.school_name, cat.name as cat_name');
         $this->db->from('item AS C');
         $this->db->join('schools AS S', 'S.id = C.school_id', 'left');
+        $this->db->join('category AS cat', 'cat.id = C.category_id', 'left');
         
         if($this->session->userdata('role_id') != SUPER_ADMIN){
             $this->db->where('C.school_id', $this->session->userdata('school_id'));

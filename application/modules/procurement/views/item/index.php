@@ -1,3 +1,10 @@
+<?php 
+
+$category = get_category_list(); 
+
+
+?>
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -49,6 +56,7 @@
                                         <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
+                                        <th><?php echo $this->lang->line('category'); ?></th>
                                         <th><?php echo $this->lang->line('item').' '.$this->lang->line('name'); ?></th>
                                         <th><?php echo $this->lang->line('note'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>  
@@ -73,6 +81,7 @@
                                             <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
+                                            <td><?php echo $obj->cat_name; ?></td>
                                             <td><?php echo $obj->name; ?></td>
                                             <td><?php echo $obj->note; ?></td>                                           
                                             <td>
@@ -96,6 +105,19 @@
                                <?php echo form_open(site_url('procurement/item/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
                                 <?php $this->load->view('layout/school_list_form'); ?>
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category_id"><?php echo $this->lang->line('category'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12 fn_category_id" name="category_id" id="add_category_id" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select_category'); ?>--</option>
+                                            <?php foreach($category as $obj){ ?>
+                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($post['category_id']) && $post['category_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('category_id'); ?></div>
+                                    </div>
+                                </div>
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('item'); ?> <?php echo $this->lang->line('name'); ?> <span class="required">*</span>
@@ -141,6 +163,19 @@
                                <?php echo form_open(site_url('procurement/item/edit/'.$item->id), array('name' => 'edit', 'id' => 'edit', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
                                 <?php $this->load->view('layout/school_list_edit_form'); ?> 
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category_id"><?php echo $this->lang->line('category'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12 fn_category_id" name="category_id" id="edit_category_id" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select_category'); ?>--</option>
+                                            <?php foreach($category as $obj){ ?>
+                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($item->category_id) && $item->category_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('category_id'); ?></div>
+                                    </div>
+                                </div>
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('item'); ?> <?php echo $this->lang->line('name'); ?> <span class="required">*</span>

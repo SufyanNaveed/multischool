@@ -17,7 +17,7 @@ class Application_Model extends MY_Model {
         $this->db->join('roles AS R', 'R.id = A.role_id', 'left');
         $this->db->join('schools AS S', 'S.id = A.school_id', 'left'); 
         $this->db->join('academic_years AS AY', 'AY.id = A.academic_year_id', 'left');
-        $this->db->where('A.leave_status', $status);
+        // $this->db->where('A.leave_status', $status);
                 
         if($school_id){
              $this->db->where('A.school_id', $school_id);

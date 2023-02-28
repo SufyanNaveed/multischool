@@ -663,9 +663,6 @@ if (!function_exists('get_position_in_class')) {
 
 }
 
-
-
-
 if (!function_exists('get_enrollment')) {
 
     function get_enrollment($student_id, $academic_year_id, $school_id = null) {
@@ -678,6 +675,18 @@ if (!function_exists('get_enrollment')) {
             $ci->db->where('E.school_id', $school_id);
         }
         return $ci->db->get()->row();
+    }
+
+}
+
+if (!function_exists('get_employees_list')) {
+
+    function get_employees_list() {
+        $ci = & get_instance();
+        $ci->db->select('E.id,E.name as emp_name, D.name AS designation');
+        $ci->db->from('employees AS E');
+        $ci->db->join('designations AS D', 'D.id = E.designation_id', 'left');
+        return $ci->db->get()->result();
     }
 
 }
@@ -922,7 +931,9 @@ if (!function_exists('get_hostel_types')) {
         return array(
             'boys' => $ci->lang->line('boys'),
             'girls' => $ci->lang->line('girls'),
-            'combine' => $ci->lang->line('combine')
+            'combine' => $ci->lang->line('combine'),
+            'withmeal' => $ci->lang->line('withmeal'),
+            'withoutmeal' => $ci->lang->line('withoutmeal')
         );
     }
 }

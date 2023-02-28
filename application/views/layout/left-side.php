@@ -69,6 +69,9 @@
                             <?php if(has_permission(VIEW, 'procurement', 'purchase_order')){ ?>   
                                 <li><a href="<?php echo site_url('procurement/purchase_order/index'); ?>"> <?php echo $this->lang->line('purchase_order'); ?></a></li>
                             <?php } ?>
+                            <?php if(has_permission(VIEW, 'procurement', 'utilizations')){ ?>   
+                                <li><a href="<?php echo site_url('procurement/utilizations/index'); ?>"> <?php echo $this->lang->line('utilizations'); ?></a></li>
+                            <?php } ?>
                             
                         </ul>
                     </li>
@@ -206,8 +209,10 @@
                     
                     
                     <?php if(has_permission(VIEW, 'leave', 'leave') || has_permission(VIEW, 'leave', 'type')){ ?>
-                        <li><a><i class="fa fa-bell-o"></i> <?php echo $this->lang->line('manage_leave'); ?> <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
+                        <li>
+                            <a href="<?php echo site_url('leave/type/index'); ?>"><i class="fa fa-bell-o"></i> <?php echo $this->lang->line('manage_leave'); ?> <!-- <span class="fa fa-chevron-down"></span> -->
+                        </a>
+                            <!-- <ul class="nav child_menu">
                                 <?php if(has_permission(VIEW, 'leave', 'type')){ ?>  
                                     <li><a href="<?php echo site_url('leave/type/index'); ?>"><?php echo $this->lang->line('leave_type'); ?></a></li>
                                 <?php } ?>
@@ -223,42 +228,167 @@
                                 <?php if(has_permission(VIEW, 'leave', 'decline')){ ?>  
                                     <li><a href="<?php echo site_url('leave/decline/index'); ?>"><?php echo $this->lang->line('declined_application'); ?></a></li>
                                 <?php } ?>
+                            </ul> -->
+                        </li>   
+                    <?php } ?> 
+                    
+                    <?php if(has_permission(VIEW, 'leave', 'leave') || has_permission(VIEW, 'teacher', 'teacher')){ ?>
+                        <li>
+                            <a><i class="fa fa-users"></i> <?php echo $this->lang->line('teacher'); ?> <span class="fa fa-chevron-down"></span>
+                        </a>
+                            <ul class="nav child_menu">
+                                <?php if(has_permission(VIEW, 'teacher', 'teacher')){ ?>
+                                    <li><a href="<?php echo site_url('teacher/index'); ?>"><!--<i class="fa fa-users"></i>--> <?php echo $this->lang->line('teacher'); ?></a></li>  
+                                <?php } ?>
+                                <?php if(has_permission(VIEW, 'teacher', 'lecture')){ ?>
+                                    <li><a  href="<?php echo site_url('teacher/lecture/index/'); ?>"><!--<i class="fa fa-file-video-o"></i>--> <?php echo $this->lang->line('class_lecture'); ?></a> </li>
+                                <?php } ?>  
+                        
+                                <?php if(has_permission(VIEW, 'academic', 'liveclass')){ ?>
+                                    <li><a  href="<?php echo site_url('academic/liveclass/index'); ?>"><!--<i class="fa fa-headphones"></i>--> <?php echo $this->lang->line('live_class'); ?></a> </li> 
+                                <?php } ?>
+                                    
+                                <?php if(has_permission(VIEW, 'academic', 'classes')){ ?>
+                                    <li><a href="<?php echo site_url('academic/classes/index'); ?>"><!--<i class="fa fa-slideshare"></i> --><?php echo $this->lang->line('class'); ?></a> </li> 
+                                <?php } ?>
+                                
+                                <?php if(has_permission(VIEW, 'academic', 'section')){ ?>
+                                    <li><a  href="<?php echo site_url('academic/section/index'); ?>"><!--<i class="fa fa-bars"></i>--> <?php echo $this->lang->line('section'); ?> </a></li>
+                                <?php } ?>    
+                                                    
+                                <?php if(has_permission(VIEW, 'academic', 'subject')){ ?> 
+                                    <li><a  href="<?php echo site_url('academic/subject/index'); ?>"><!--<i class="fa fa-folder-open"></i> --><?php echo $this->lang->line('subject'); ?> </a></li>
+                                <?php } ?>     
+                                        
+                                <?php if(has_permission(VIEW, 'academic', 'syllabus')){ ?> 
+                                    <li><a  href="<?php echo site_url('academic/syllabus/index'); ?>"><!--<i class="fa fa-clipboard"></i>--> <?php echo $this->lang->line('syllabus'); ?></a> </li>
+                                <?php } ?>     
+                                    
+                                <?php if(has_permission(VIEW, 'academic', 'material')){ ?> 
+                                <li><a  href="<?php echo site_url('academic/material/index'); ?>"><!--<i class="fa fa-file-text-o"></i> --><?php echo $this->lang->line('study_material'); ?></a> </li> 
+                                <?php } ?>
+
+                                <?php if(has_permission(VIEW, 'attendance', 'student') || 
+                                    has_permission(VIEW, 'attendance', 'teacher') || 
+                                    has_permission(VIEW, 'attendance', 'employee') || 
+                                    has_permission(VIEW, 'attendance', 'absentemail') || 
+                                    has_permission(VIEW, 'attendance', 'absentsms')){ ?>
+                            
+                                    <li><a><!--<i class="fa fa-check-circle-o"></i>--> <?php echo $this->lang->line('attendance'); ?> <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <?php if(has_permission(VIEW, 'attendance', 'student')){ ?>                                    
+                                                <?php if($this->session->userdata('role_id') == GUARDIAN){ ?>
+                                                    <li><a href="<?php echo site_url('attendance/student/guardian'); ?>"><?php echo $this->lang->line('student_attendance'); ?></a></li>
+                                                <?php }else{ ?>   
+                                                    <li><a href="<?php echo site_url('attendance/student/index'); ?>"><?php echo $this->lang->line('student_attendance'); ?></a></li>
+                                                <?php } ?>   
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'attendance', 'teacher')){ ?>
+                                                <li><a href="<?php echo site_url('attendance/teacher/index'); ?>"><?php echo $this->lang->line('teacher_attendance'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'attendance', 'employee')){ ?>
+                                                <li><a href="<?php echo site_url('attendance/employee/index'); ?>"><?php echo $this->lang->line('employee_attendance'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'attendance', 'absentemail')){ ?>  
+                                                <li><a href="<?php echo site_url('attendance/absentemail/index/'); ?>"><?php echo $this->lang->line('absent_email'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'attendance', 'absentsms')){ ?>  
+                                                <li><a href="<?php echo site_url('attendance/absentsms/index/'); ?>"><?php echo $this->lang->line('absent_sms'); ?></a></li>
+                                            <?php } ?>     
+                                        </ul>
+                                    </li> 
+                                <?php } ?>
+                                            
+                                <?php if(has_permission(VIEW, 'assignment', 'assignment')){ ?>    
+                                    <li>  <a href="<?php echo site_url('assignment/index/'); ?>"><!--<i class="fa fa-file-word-o"></i>--> <?php echo $this->lang->line('assignment'); ?></a></li> 
+                                <?php } ?> 
+                                                    
+                                <?php if(has_permission(VIEW, 'assignment', 'submission')){ ?> 
+                                    <li>  <a href="<?php echo site_url('assignment/submission/index/'); ?>"><!--<i class="fa fa-upload"></i>--> <?php echo $this->lang->line('submission'); ?></a></li>
+                                <?php } ?>
+                                <?php if(has_permission(VIEW, 'exam', 'grade') || has_permission(VIEW, 'exam', 'exam')){ ?>    
+                                    <li><a><!--<i class="fa fa-graduation-cap"></i>--> <?php echo $this->lang->line('manage_exam'); ?> <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <?php if(has_permission(VIEW, 'exam', 'grade')){ ?>
+                                                <li><a href="<?php echo site_url('exam/grade/index'); ?>"><?php echo $this->lang->line('exam_grade'); ?></a></li>                         
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'exam', 'exam')){ ?>
+                                                <li><a href="<?php echo site_url('exam/index'); ?>"><?php echo $this->lang->line('exam_term'); ?></a></li>                         
+                                            <?php } ?> 
+                                        </ul>
+                                    </li> 
+                                <?php } ?>
+                                    
+                                <?php if(has_permission(VIEW, 'exam', 'schedule')){ ?> 
+                                    <li><a href="<?php echo site_url('exam/schedule/index'); ?>"><!--<i class="fa fa-thumb-tack"></i>--><?php echo $this->lang->line('exam_schedule'); ?></a></li>
+                                <?php } ?>
+
+                                <?php if(has_permission(VIEW, 'exam', 'attendance')){ ?>
+                                    <li><a  href="<?php echo site_url('exam/attendance/index'); ?>"><!--<i class="fa fa-check"></i>--> <?php echo $this->lang->line('exam_attendance'); ?></a></li>
+                                <?php } ?>    
+                                    
+                                <?php if(has_permission(VIEW, 'exam', 'mark') || 
+                                    has_permission(VIEW, 'exam', 'examresult') || 
+                                    has_permission(VIEW, 'exam', 'finalresult') || 
+                                    has_permission(VIEW, 'exam', 'meritlist') || 
+                                    has_permission(VIEW, 'exam', 'marksheet') || 
+                                    has_permission(VIEW, 'exam', 'resultcard') || 
+                                    has_permission(VIEW, 'exam', 'text') || 
+                                    has_permission(VIEW, 'exam', 'mail') || 
+                                    has_permission(VIEW, 'exam', 'resultemail') || 
+                                    has_permission(VIEW, 'exam', 'resultsms')){ ?>    
+                                    <li><a><!--<i class="fa fa-file-text-o"></i>--> <?php echo $this->lang->line('exam_mark'); ?> <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <?php if(has_permission(VIEW, 'exam', 'mark')){ ?>
+                                                <li><a href="<?php echo site_url('exam/mark/index'); ?>"><?php echo $this->lang->line('manage_mark'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'exam', 'examresult')){ ?>
+                                                <li><a href="<?php echo site_url('exam/examresult/index'); ?>"><?php echo $this->lang->line('exam_term_result'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'exam', 'finalresult')){ ?>
+                                                <li><a href="<?php echo site_url('exam/finalresult/index'); ?>"><?php echo $this->lang->line('exam_final_result'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'exam', 'meritlist')){ ?>
+                                                <li><a href="<?php echo site_url('exam/meritlist/index'); ?>"><?php echo $this->lang->line('merit_list'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'exam', 'marksheet')){ ?>
+                                                <li><a href="<?php echo site_url('exam/marksheet/index'); ?>"><?php echo $this->lang->line('mark_sheet'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'exam', 'resultcard')){ ?>
+                                                <li><a href="<?php echo site_url('exam/resultcard/index'); ?>"><?php echo $this->lang->line('result_card'); ?></a></li>
+                                            <?php } ?>                               
+                                            <?php if(has_permission(VIEW, 'exam', 'mail')){ ?>
+                                                <li><a href="<?php echo site_url('exam/mail/index'); ?>"><?php echo $this->lang->line('mark_send_by_email'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'exam', 'text')){ ?>
+                                                <li><a href="<?php echo site_url('exam/text/index'); ?>"><?php echo $this->lang->line('mark_send_by_sms'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'exam', 'resultemail')){ ?>  
+                                                <li><a href="<?php echo site_url('exam/resultemail/index'); ?>"><?php echo $this->lang->line('result_send_by_email'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'exam', 'resultsms')){ ?>  
+                                                <li><a href="<?php echo site_url('exam/resultsms/index'); ?>"><?php echo $this->lang->line('result_send_by_sms'); ?></a></li>
+                                            <?php } ?>    
+                                        </ul>
+                                    </li>
+                                <?php } ?>
+
+
+                                <?php if(has_permission(VIEW, 'certificate', 'certificate') || has_permission(VIEW, 'certificate', 'type')){ ?>
+                                    <li><a><!--<i class="fa fa-certificate"></i>--> <?php echo $this->lang->line('certificate'); ?> <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <?php if(has_permission(VIEW, 'certificate', 'type')){ ?>
+                                                <li><a href="<?php echo site_url('certificate/type/index'); ?>"><?php echo $this->lang->line('certificate_type'); ?></a></li>
+                                            <?php } ?>
+                                            <?php if(has_permission(VIEW, 'certificate', 'certificate')){ ?>
+                                                <li><a href="<?php echo site_url('certificate/index'); ?>"><?php echo $this->lang->line('generate_certificate'); ?></a></li>
+                                            <?php } ?>                                
+                                        </ul>
+                                    </li>
+                                <?php } ?>
                             </ul>
                         </li>   
-                    <?php } ?>  
-                    
-                   
-                    <?php if(has_permission(VIEW, 'teacher', 'teacher')){ ?>
-                        <li><a href="<?php echo site_url('teacher/index'); ?>"><i class="fa fa-users"></i> <?php echo $this->lang->line('teacher'); ?></a> </li>  
                     <?php } ?>
-                        
-                    <?php if(has_permission(VIEW, 'teacher', 'lecture')){ ?>
-                        <li><a  href="<?php echo site_url('teacher/lecture/index/'); ?>"><i class="fa fa-file-video-o"></i> <?php echo $this->lang->line('class_lecture'); ?></a> </li>
-                    <?php } ?>  
-             
-                    <?php if(has_permission(VIEW, 'academic', 'liveclass')){ ?>
-                        <li><a  href="<?php echo site_url('academic/liveclass/index'); ?>"><i class="fa fa-headphones"></i> <?php echo $this->lang->line('live_class'); ?></a> </li> 
-                    <?php } ?>
-                        
-                    <?php if(has_permission(VIEW, 'academic', 'classes')){ ?>
-                        <li><a href="<?php echo site_url('academic/classes/index'); ?>"><i class="fa fa-slideshare"></i> <?php echo $this->lang->line('class'); ?></a> </li> 
-                    <?php } ?>
-                    
-                    <?php if(has_permission(VIEW, 'academic', 'section')){ ?>
-                        <li><a  href="<?php echo site_url('academic/section/index'); ?>"><i class="fa fa-bars"></i> <?php echo $this->lang->line('section'); ?> </a></li>
-                    <?php } ?>    
-                                        
-                    <?php if(has_permission(VIEW, 'academic', 'subject')){ ?> 
-                        <li><a  href="<?php echo site_url('academic/subject/index'); ?>"><i class="fa fa-folder-open"></i> <?php echo $this->lang->line('subject'); ?> </a></li>
-                    <?php } ?>     
-                            
-                    <?php if(has_permission(VIEW, 'academic', 'syllabus')){ ?> 
-                        <li><a  href="<?php echo site_url('academic/syllabus/index'); ?>"><i class="fa fa-clipboard"></i> <?php echo $this->lang->line('syllabus'); ?></a> </li>
-                    <?php } ?>     
-                           
-                    <?php if(has_permission(VIEW, 'academic', 'material')){ ?> 
-                       <li><a  href="<?php echo site_url('academic/material/index'); ?>"><i class="fa fa-file-text-o"></i> <?php echo $this->lang->line('study_material'); ?></a> </li> 
-                    <?php } ?>    
                    
                     <?php if(has_permission(VIEW, 'academic', 'routine')){ ?>
                        <li> <a  href="<?php echo site_url('academic/routine/index'); ?>"> <i class="fa fa-clock-o"></i><?php echo $this->lang->line('class_routine'); ?></a></li>
@@ -297,49 +427,11 @@
                                     <?php } ?> 
                                </ul>
                            </li> 
-                        
                     <?php } ?>
                     
               
                             
-                    <?php if(has_permission(VIEW, 'attendance', 'student') || 
-                            has_permission(VIEW, 'attendance', 'teacher') || 
-                            has_permission(VIEW, 'attendance', 'employee') || 
-                            has_permission(VIEW, 'attendance', 'absentemail') || 
-                            has_permission(VIEW, 'attendance', 'absentsms')){ ?>
-                            
-                        <li><a><i class="fa fa-check-circle-o"></i> <?php echo $this->lang->line('attendance'); ?> <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <?php if(has_permission(VIEW, 'attendance', 'student')){ ?>                                    
-                                    <?php if($this->session->userdata('role_id') == GUARDIAN){ ?>
-                                        <li><a href="<?php echo site_url('attendance/student/guardian'); ?>"><?php echo $this->lang->line('student_attendance'); ?></a></li>
-                                     <?php }else{ ?>   
-                                        <li><a href="<?php echo site_url('attendance/student/index'); ?>"><?php echo $this->lang->line('student_attendance'); ?></a></li>
-                                     <?php } ?>   
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'attendance', 'teacher')){ ?>
-                                    <li><a href="<?php echo site_url('attendance/teacher/index'); ?>"><?php echo $this->lang->line('teacher_attendance'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'attendance', 'employee')){ ?>
-                                    <li><a href="<?php echo site_url('attendance/employee/index'); ?>"><?php echo $this->lang->line('employee_attendance'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'attendance', 'absentemail')){ ?>  
-                                    <li><a href="<?php echo site_url('attendance/absentemail/index/'); ?>"><?php echo $this->lang->line('absent_email'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'attendance', 'absentsms')){ ?>  
-                                    <li><a href="<?php echo site_url('attendance/absentsms/index/'); ?>"><?php echo $this->lang->line('absent_sms'); ?></a></li>
-                                <?php } ?>     
-                            </ul>
-                        </li> 
-                    <?php } ?>
-                                            
-                    <?php if(has_permission(VIEW, 'assignment', 'assignment')){ ?>    
-                       <li>  <a href="<?php echo site_url('assignment/index/'); ?>"><i class="fa fa-file-word-o"></i> <?php echo $this->lang->line('assignment'); ?></a></li> 
-                    <?php } ?> 
-                                           
-                    <?php if(has_permission(VIEW, 'assignment', 'submission')){ ?> 
-                       <li>  <a href="<?php echo site_url('assignment/submission/index/'); ?>"><i class="fa fa-upload"></i> <?php echo $this->lang->line('submission'); ?></a></li>
-                    <?php } ?>    
+                        
                                                    
                     <?php if(has_permission(VIEW, 'card', 'idsetting') || 
                             has_permission(VIEW, 'card', 'schoolidsetting') ||
@@ -382,94 +474,18 @@
                         </li> 
                     <?php } ?>    
                         
-                    <?php if(has_permission(VIEW, 'exam', 'grade') || has_permission(VIEW, 'exam', 'exam')){ ?>    
-                        <li><a><i class="fa fa-graduation-cap"></i> <?php echo $this->lang->line('manage_exam'); ?> <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <?php if(has_permission(VIEW, 'exam', 'grade')){ ?>
-                                    <li><a href="<?php echo site_url('exam/grade/index'); ?>"><?php echo $this->lang->line('exam_grade'); ?></a></li>                         
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'exam', 'exam')){ ?>
-                                    <li><a href="<?php echo site_url('exam/index'); ?>"><?php echo $this->lang->line('exam_term'); ?></a></li>                         
-                                <?php } ?> 
-                            </ul>
-                        </li> 
-                    <?php } ?>
                         
-                    <?php if(has_permission(VIEW, 'exam', 'schedule')){ ?> 
-                        <li><a href="<?php echo site_url('exam/schedule/index'); ?>"><i class="fa fa-thumb-tack"></i><?php echo $this->lang->line('exam_schedule'); ?></a></li>
-                    <?php } ?>    
                     
                     <?php if(has_permission(VIEW, 'exam', 'suggestion')){ ?>  
                         <li><a href="<?php echo site_url('exam/suggestion/index'); ?>"><i class="fa fa-file-text"></i><?php echo $this->lang->line('exam_suggestion'); ?></a></li>
                     <?php } ?>     
              
-                    <?php if(has_permission(VIEW, 'exam', 'attendance')){ ?>
-                        <li><a  href="<?php echo site_url('exam/attendance/index'); ?>"><i class="fa fa-check"></i> <?php echo $this->lang->line('exam_attendance'); ?></a></li>
-                    <?php } ?>    
-                        
-                       <?php if(has_permission(VIEW, 'exam', 'mark') || 
-                               has_permission(VIEW, 'exam', 'examresult') || 
-                               has_permission(VIEW, 'exam', 'finalresult') || 
-                               has_permission(VIEW, 'exam', 'meritlist') || 
-                               has_permission(VIEW, 'exam', 'marksheet') || 
-                               has_permission(VIEW, 'exam', 'resultcard') || 
-                               has_permission(VIEW, 'exam', 'text') || 
-                               has_permission(VIEW, 'exam', 'mail') || 
-                               has_permission(VIEW, 'exam', 'resultemail') || 
-                               has_permission(VIEW, 'exam', 'resultsms')){ ?>    
-                        <li><a><i class="fa fa-file-text-o"></i> <?php echo $this->lang->line('exam_mark'); ?> <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <?php if(has_permission(VIEW, 'exam', 'mark')){ ?>
-                                    <li><a href="<?php echo site_url('exam/mark/index'); ?>"><?php echo $this->lang->line('manage_mark'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'exam', 'examresult')){ ?>
-                                    <li><a href="<?php echo site_url('exam/examresult/index'); ?>"><?php echo $this->lang->line('exam_term_result'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'exam', 'finalresult')){ ?>
-                                    <li><a href="<?php echo site_url('exam/finalresult/index'); ?>"><?php echo $this->lang->line('exam_final_result'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'exam', 'meritlist')){ ?>
-                                    <li><a href="<?php echo site_url('exam/meritlist/index'); ?>"><?php echo $this->lang->line('merit_list'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'exam', 'marksheet')){ ?>
-                                    <li><a href="<?php echo site_url('exam/marksheet/index'); ?>"><?php echo $this->lang->line('mark_sheet'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'exam', 'resultcard')){ ?>
-                                    <li><a href="<?php echo site_url('exam/resultcard/index'); ?>"><?php echo $this->lang->line('result_card'); ?></a></li>
-                                <?php } ?>                               
-                                <?php if(has_permission(VIEW, 'exam', 'mail')){ ?>
-                                    <li><a href="<?php echo site_url('exam/mail/index'); ?>"><?php echo $this->lang->line('mark_send_by_email'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'exam', 'text')){ ?>
-                                    <li><a href="<?php echo site_url('exam/text/index'); ?>"><?php echo $this->lang->line('mark_send_by_sms'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'exam', 'resultemail')){ ?>  
-                                    <li><a href="<?php echo site_url('exam/resultemail/index'); ?>"><?php echo $this->lang->line('result_send_by_email'); ?></a></li>
-                                <?php } ?>
-                                <?php if(has_permission(VIEW, 'exam', 'resultsms')){ ?>  
-                                    <li><a href="<?php echo site_url('exam/resultsms/index'); ?>"><?php echo $this->lang->line('result_send_by_sms'); ?></a></li>
-                                <?php } ?>    
-                            </ul>
-                        </li>
-                    <?php } ?>
+                    
                     
                     <?php if(has_permission(VIEW, 'academic', 'promotion')){ ?>
                         <li><a href="<?php echo site_url('academic/promotion'); ?>"><i class="fa fa-mail-forward"></i><?php echo $this->lang->line('promotion'); ?></a></li>                   
                     <?php } ?>
                         
-                    <?php if(has_permission(VIEW, 'certificate', 'certificate') || has_permission(VIEW, 'certificate', 'type')){ ?>
-                    <li><a><i class="fa fa-certificate"></i> <?php echo $this->lang->line('certificate'); ?> <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <?php if(has_permission(VIEW, 'certificate', 'type')){ ?>
-                                <li><a href="<?php echo site_url('certificate/type/index'); ?>"><?php echo $this->lang->line('certificate_type'); ?></a></li>
-                            <?php } ?>
-                            <?php if(has_permission(VIEW, 'certificate', 'certificate')){ ?>
-                                <li><a href="<?php echo site_url('certificate/index'); ?>"><?php echo $this->lang->line('generate_certificate'); ?></a></li>
-                            <?php } ?>                                
-                        </ul>
-                    </li>
-                    <?php } ?>
-                    
                     <?php if(has_permission(VIEW, 'library', 'book') || 
                             has_permission(VIEW, 'library', 'member') || 
                             has_permission(VIEW, 'library', 'issue') ||   

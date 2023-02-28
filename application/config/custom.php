@@ -1436,3 +1436,16 @@ $config['my_procurement']['purchase_order']['8'] = '0|0|0|0';
 $config['my_procurement']['purchase_order']['9'] = '0|0|0|0';
 $config['my_procurement']['purchase_order']['13'] = '0|0|0|0';
 $config['my_procurement']['purchase_order']['14'] = '0|0|0|0';
+
+
+$config['my_procurement']['utilizations']['1'] = '1|1|1|1';
+$config['my_procurement']['utilizations']['2'] = '1|1|1|0';
+$config['my_procurement']['utilizations']['3'] = '0|0|1|0';
+$config['my_procurement']['utilizations']['4'] = '0|0|1|0';
+$config['my_procurement']['utilizations']['5'] = '0|0|1|0';
+$config['my_procurement']['utilizations']['6'] = '0|0|0|0';
+$config['my_procurement']['utilizations']['7'] = '0|0|0|0';
+$config['my_procurement']['utilizations']['8'] = '0|0|0|0';
+$config['my_procurement']['utilizations']['9'] = '0|0|0|0';
+$config['my_procurement']['utilizations']['13'] = '0|0|0|0';
+$config['my_procurement']['utilizations']['14'] = '0|0|0|0';

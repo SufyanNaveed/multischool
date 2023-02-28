@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-6 col-sm-6 col-xs-6">
         <div class="x_panel">
             <div class="x_title">
                 <h3 class="head-title"><i class="fa fa-bell-o"></i><small> <?php echo $this->lang->line('manage_leave_type'); ?></small></h3>
@@ -181,6 +181,9 @@
             </div>
         </div>
     </div>
+
+    <?php $this->load->view('application/index'); ?>
+
 </div> 
 
 <!-- datatable with buttons -->

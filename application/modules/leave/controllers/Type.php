@@ -20,7 +20,8 @@ class Type extends MY_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model('Type_Model', 'type', true);        
+        $this->load->model('Type_Model', 'type', true); 
+        $this->load->model('Application_Model', 'application', true);        
     }
 
     
@@ -41,6 +42,16 @@ class Type extends MY_Controller {
         $this->data['schools'] = $this->schools;
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_leave_type') .' | ' . SMS);
+
+        $this->data['applications'] = $this->application->get_application_list($school_id);
+        
+        $condition = array();
+        $condition['status'] = 1;        
+        if($this->session->userdata('role_id') != SUPER_ADMIN){            
+            $condition['school_id'] = $this->session->userdata('school_id');
+        }        
+        $this->data['classes'] = $this->application->get_list('classes', $condition, '','', '', 'id', 'ASC');
+        $this->data['school_id'] = $school_id;
         $this->layout->view('type/index', $this->data);  
     }
 

@@ -60,7 +60,7 @@ class Decline extends MY_Controller {
 
         if(!is_numeric($id)){
             error($this->lang->line('unexpected_error'));
-            redirect('leave/decline/index');
+            redirect('leave/type/index');
         }
        
         if ($_POST) {
@@ -72,11 +72,11 @@ class Decline extends MY_Controller {
                 if ($updated) {                    
                     create_log('Has been updated a decline leave');                    
                     success($this->lang->line('update_success'));
-                    redirect('leave/decline/index/'.$this->input->post('school_id'));
+                    redirect('leave/type/index/'.$this->input->post('school_id'));
                     
                 } else {
                     error($this->lang->line('update_failed'));
-                    redirect('leave/decline/update/' . $this->input->post('id'));
+                    redirect('leave/type/update/' . $this->input->post('id'));
                 }
             } else {
                 error($this->lang->line('update_failed'));
@@ -88,7 +88,7 @@ class Decline extends MY_Controller {
             
             $this->data['application'] = $this->decline->get_single_application($id);
             if (!$this->data['application']) {
-                redirect('leave/decline/index');
+                redirect('leave/type/index');
             }
         }
 
@@ -187,7 +187,7 @@ class Decline extends MY_Controller {
         
         if(!is_numeric($id)){
              error($this->lang->line('unexpected_error'));
-             redirect('leave/decline/index');
+             redirect('leave/type/index');
         }
         
         $application = $this->decline->get_single_application($id);
@@ -207,7 +207,7 @@ class Decline extends MY_Controller {
             error($this->lang->line('delete_failed'));
         }
         
-         redirect('leave/decline/index/'.$application->school_id);
+         redirect('leave/type/index/'.$application->school_id);
     }
     
 
@@ -222,7 +222,7 @@ class Decline extends MY_Controller {
     public function waiting($application_id){
         if(!is_numeric($application_id)){
             error($this->lang->line('unexpected_error'));
-            redirect('leave/decline/index');     
+            redirect('leave/type/index');     
         }
         
         $leave = $this->decline->get_single('leave_applications', array('id'=>$application_id));               
@@ -230,10 +230,10 @@ class Decline extends MY_Controller {
         
         if($status){
             success($this->lang->line('update_success'));
-            redirect('leave/decline/index/'.$leave->school_id);  
+            redirect('leave/type/index/'.$leave->school_id);  
         }else{
             error($this->lang->line('update_failed'));
-            redirect('leave/decline/index/'.$leave->school_id);      
+            redirect('leave/type/index/'.$leave->school_id);      
         }
     }
     

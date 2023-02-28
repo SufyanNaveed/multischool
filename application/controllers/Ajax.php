@@ -620,6 +620,28 @@ class Ajax extends My_Controller {
 
         echo $str;
     }
+
+
+    public function get_item_by_school() {
+        
+        $school_id  = $this->input->post('school_id');
+        $category_id  = $this->input->post('category_id');
+        
+       $items = $this->ajax->get_list('item', array('status'=>1, 'school_id'=>$school_id,'category_id'=>$category_id), '','', '', 'id', 'ASC'); 
+        
+       $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
+       $select = 'selected="selected"';
+       if (!empty($items)) {
+           foreach ($items as $obj) {   
+               
+               $selected = $class_id == $obj->id ? $select : '';
+               $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name . '</option>';
+               
+           }
+       }
+
+       echo $str;
+   }
     
     
     

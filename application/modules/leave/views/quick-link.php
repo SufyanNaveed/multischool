@@ -1,4 +1,4 @@
- <span><?php echo $this->lang->line('quick_link'); ?>:</span>
+ <!-- <span><?php echo $this->lang->line('quick_link'); ?>:</span>
 <?php if(has_permission(VIEW, 'leave', 'type')){ ?>
     <a href="<?php echo site_url('leave/type/index'); ?>"> <?php echo $this->lang->line('leave_type'); ?></a>
 <?php } ?>
@@ -13,4 +13,4 @@
 <?php } ?>               
 <?php if(has_permission(VIEW, 'leave', 'decline')){ ?>
    | <a href="<?php echo site_url('leave/decline/index'); ?>"> <?php echo $this->lang->line('declined_application'); ?> </a>
-<?php } ?>    
+<?php } ?>     -->

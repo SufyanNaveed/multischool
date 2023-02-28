@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /* * *****************Classes.php**********************************
  * @product name    : Global Multi School Management System Express
  * @type            : Class
- * @class name      : Item
+ * @class name      : utilizations
  * @description     : Manage academic class.  
  * @author          : Codetroopers Team 	
  * @url             : https://themeforest.net/user/codetroopers      
@@ -13,14 +13,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @copyright       : Codetroopers Team	 	
  * ********************************************************** */
 
-class Item extends MY_Controller {
+class Utilizations extends MY_Controller {
 
     public $data = array();
     
     
     function __construct() {
         parent::__construct();
-        $this->load->model('Item_Model', 'item', true);
+        $this->load->model('Utilizations_Model', 'utilizations', true);
        
     }
 
@@ -36,21 +36,21 @@ class Item extends MY_Controller {
     public function index($school_id = null) {
         $this->output->delete_cache();
         check_permission(VIEW);
-        $this->data['item'] = $this->item->get_item_list($school_id);  
+        $this->data['utilizations'] = $this->utilizations->get_utilizations_list($school_id);  
         
         $condition = array();
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
             $condition['school_id'] = $this->session->userdata('school_id');        
-            $this->data['item'] = $this->item->get_list('item', $condition, '','', '', 'id', 'ASC');
+            $this->data['utilizations'] = $this->utilizations->get_list('utilizations', $condition, '','', '', 'id', 'ASC');
         }   
         
         $this->data['filter_school_id'] = $school_id;
         $this->data['schools'] = $this->schools;
         
         $this->data['list'] = TRUE;
-        $this->layout->title($this->lang->line('manage_item'). ' | ' . SMS);
-        $this->layout->view('item/index', $this->data);            
+        $this->layout->title($this->lang->line('manage_utilizations'). ' | ' . SMS);
+        $this->layout->view('utilizations/index', $this->data);            
        
     }
 
@@ -66,20 +66,19 @@ class Item extends MY_Controller {
     public function add() {
         
         check_permission(ADD);
-        
         if ($_POST) {
             $this->_prepare_class_validation();
             if ($this->form_validation->run() === TRUE) {
                 $data = $this->_get_posted_class_data();
-                $insert_id = $this->item->insert('item', $data);
+                $insert_id = $this->utilizations->insert('utilizations', $data);
                 if ($insert_id) {                    
-                    create_log('Has been created a item :'.$data['name']);
+                    create_log('Has been created a utilizations :'.$data['name']);
                     
                     success($this->lang->line('insert_success'));
-                    redirect('procurement/item/index/'.$data['school_id']);
+                    redirect('procurement/utilizations/index/'.$data['school_id']);
                 } else {
                     error($this->lang->line('insert_failed'));
-                    redirect('procurement/item/add');
+                    redirect('procurement/utilizations/add');
                 }
             } else {
                 error($this->lang->line('insert_failed'));
@@ -87,19 +86,19 @@ class Item extends MY_Controller {
             }
         }
 
-        $this->data['item'] = $this->item->get_item_list();      
+        $this->data['utilizations'] = $this->utilizations->get_utilizations_list();      
         
         $condition = array();
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
             $condition['school_id'] = $this->session->userdata('school_id');        
-            $this->data['teachers'] = $this->item->get_list('item', $condition, '','', '', 'id', 'ASC');
+            $this->data['teachers'] = $this->utilizations->get_list('utilizations', $condition, '','', '', 'id', 'ASC');
         }        
         $this->data['schools'] = $this->schools;
         
         $this->data['add'] = TRUE;
         $this->layout->title($this->lang->line('add'). ' | ' . SMS );
-        $this->layout->view('item/index', $this->data);
+        $this->layout->view('utilizations/index', $this->data);
     }
 
      /*****************Function edit**********************************
@@ -117,36 +116,36 @@ class Item extends MY_Controller {
         
         if(!is_numeric($id)){
             error($this->lang->line('unexpected_error'));
-           redirect('procurement/item/index');  
+           redirect('procurement/utilizations/index');  
         }
         
         if ($_POST) {
             $this->_prepare_class_validation();
             if ($this->form_validation->run() === TRUE) {
                 $data = $this->_get_posted_class_data();
-                $updated = $this->item->update('item', $data, array('id' => $this->input->post('id')));
+                $updated = $this->utilizations->update('utilizations', $data, array('id' => $this->input->post('id')));
 
                 if ($updated) {
                     
                     create_log('Has been updated a class :'.$data['name']);
                     
                     success($this->lang->line('update_success'));
-                    redirect('procurement/item/index/'.$data['school_id']);                   
+                    redirect('procurement/utilizations/index/'.$data['school_id']);                   
                 } else {
                     error($this->lang->line('update_failed'));
-                    redirect('procurement/item/edit/' . $this->input->post('id'));
+                    redirect('procurement/utilizations/edit/' . $this->input->post('id'));
                 }
             } else {
                  error($this->lang->line('update_failed'));
-                $this->data['item'] = $this->item->get_single('item', array('id' => $this->input->post('id')));
+                $this->data['utilizations'] = $this->utilizations->get_single('utilizations', array('id' => $this->input->post('id')));
             }
         }
         
         if ($id) {
-            $this->data['item'] = $this->item->get_single('item', array('id' => $id));
+            $this->data['utilizations'] = $this->utilizations->get_single('utilizations', array('id' => $id));
 
-            if (!$this->data['item']) {
-                 redirect('procurement/item/index');
+            if (!$this->data['utilizations']) {
+                 redirect('procurement/utilizations/index');
             }
         }
 
@@ -154,16 +153,16 @@ class Item extends MY_Controller {
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
             $condition['school_id'] = $this->session->userdata('school_id');        
-            $this->data['item'] = $this->item->get_list('item', $condition, '','', '', 'id', 'ASC');
+            $this->data['utilizations'] = $this->utilizations->get_list('utilizations', $condition, '','', '', 'id', 'ASC');
         } 
         
-        $this->data['school_id'] = $this->data['item']->school_id;
-        $this->data['filter_school_id'] = $this->data['item']->school_id;
+        $this->data['school_id'] = $this->data['utilizations']->school_id;
+        $this->data['filter_school_id'] = $this->data['utilizations']->school_id;
         $this->data['schools'] = $this->schools;
         
         $this->data['edit'] = TRUE;       
         $this->layout->title($this->lang->line('edit').' | ' . SMS );
-        $this->layout->view('item/index', $this->data);
+        $this->layout->view('utilizations/index', $this->data);
     }
 
     /*****************Function _prepare_class_validation**********************************
@@ -179,40 +178,13 @@ class Item extends MY_Controller {
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
         
         $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');   
-        $this->form_validation->set_rules('name', $this->lang->line('name'), 'trim|required|callback_name');
-        $this->form_validation->set_rules('code', $this->lang->line('code'), 'trim|required|callback_name');
+        $this->form_validation->set_rules('category_id', $this->lang->line('category_id'), 'trim|required');   
+        $this->form_validation->set_rules('item_id', $this->lang->line('item_id'), 'trim|required');     
+        $this->form_validation->set_rules('qty', $this->lang->line('qty'), 'trim|required');      
+        $this->form_validation->set_rules('issue_date', $this->lang->line('issue_date'), 'trim|required');      
+        $this->form_validation->set_rules('issue_to', $this->lang->line('issue_to'), 'trim|required');      
     }
     
-    /*****************Function name**********************************
-     * @type            : Function
-     * @function name   : name
-     * @description     : unique check for "Class name"
-     *                       
-     * @param           : null 
-     * @return          : boolean true/flase 
-     * ********************************************************** */
-    public function name()
-   {             
-      if($this->input->post('id') == '')
-      {   
-          $name = $this->item->duplicate_check($this->input->post('school_id'), $this->input->post('name')); 
-          if($name){
-                $this->form_validation->set_message('name', $this->lang->line('already_exist'));         
-                return FALSE;
-          } else {
-              return TRUE;
-          }          
-      }else if($this->input->post('id') != ''){   
-         $name = $this->item->duplicate_check($this->input->post('school_id'), $this->input->post('name'), $this->input->post('id')); 
-          if($name){
-                $this->form_validation->set_message('name', $this->lang->line('already_exist'));         
-                return FALSE;
-          } else {
-              return TRUE;
-          }
-      }   
-   }
-
 
      /*****************Function _get_posted_class_data**********************************
      * @type            : Function
@@ -224,24 +196,32 @@ class Item extends MY_Controller {
      * ********************************************************** */
     private function _get_posted_class_data() {
 
-        $items = array();
-        $items[] = 'school_id';
-        $items[] = 'category_id';
-        $items[] = 'name';
-        $items[] = 'code';
-        $items[] = 'note';
-        $data = elements($items, $_POST);        
+        $utilizations = array();
+        $utilizations[] = 'school_id';
+        $utilizations[] = 'category_id';
+        $utilizations[] = 'item_id'; 
+        $utilizations[] = 'qty'; 
+        $utilizations[] = 'issue_date'; 
+        $utilizations[] = 'return_date'; 
+        $utilizations[] = 'issue_to'; 
+        $utilizations[] = 'note';
+        $data = elements($utilizations, $_POST);        
         
         if ($this->input->post('id')) {
+            $data['issue_by'] = logged_in_user_id();
             $data['modified_at'] = date('Y-m-d H:i:s');
             $data['modified_by'] = logged_in_user_id();
+            $data['issue_date'] = date("Y-m-d", strtotime($data['issue_date']));
+            $data['return_date'] ? $data['return_date'] = date("Y-m-d", strtotime($data['return_date'])) : '';
+            
         } else {
             $data['status'] = 1;
+            $data['issue_date'] = date("Y-m-d", strtotime($data['issue_date']));
+            $data['return_date'] ? $data['return_date'] = date("Y-m-d", strtotime($data['return_date'])) : '';
+            $data['issue_by'] = logged_in_user_id();
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['created_by'] = logged_in_user_id();
-                       
-        }
-       
+        }       
         return $data;
     }
 
@@ -260,20 +240,20 @@ class Item extends MY_Controller {
         
         if(!is_numeric($id)){
              error($this->lang->line('unexpected_error'));
-             redirect('procurement/item/index');    
+             redirect('procurement/utilizations/index');    
         }
         
-        $item = $this->item->get_single('item', array('id' => $id));
+        $utilizations = $this->utilizations->get_single('utilizations', array('id' => $id));
         
-        if ($this->item->delete('item', array('id' => $id))) {
+        if ($this->utilizations->delete('utilizations', array('id' => $id))) {
 
-            create_log('Has been deleted a item : '. $item->name);            
+            create_log('Has been deleted a utilizations : '. $utilizations->name);            
             success($this->lang->line('delete_success'));
             
         } else {
             error($this->lang->line('delete_failed'));
         }
-        redirect('procurement/item/index/'.$item->school_id);
+        redirect('procurement/utilizations/index/'.$utilizations->school_id);
     }
     
     /*****************Function __create_default_section**********************************

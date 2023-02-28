@@ -79,11 +79,11 @@ class Application extends MY_Controller {
                     
                     create_log('Has been added leave application');                     
                     success($this->lang->line('insert_success'));
-                    redirect('leave/application/index/'.$data['school_id']);
+                    redirect('leave/type/index/'.$data['school_id']);
                     
                 } else {
                     error($this->lang->line('insert_failed'));
-                    redirect('leave/application/add/'.$data['school_id']);
+                    redirect('leave/type/add/'.$data['school_id']);
                 }
             } else {
                 error($this->lang->line('insert_failed'));
@@ -106,7 +106,7 @@ class Application extends MY_Controller {
         $this->data['add'] = TRUE;
         
         $this->layout->title($this->lang->line('add'). ' | ' . SMS);
-        $this->layout->view('application/index', $this->data);
+        $this->layout->view('type/index', $this->data);
     }
 
     
@@ -389,7 +389,7 @@ class Application extends MY_Controller {
         
         if(!is_numeric($id)){
              error($this->lang->line('unexpected_error'));
-             redirect('leave/application/index');
+             redirect('leave/type/index');
         }
         
         $application = $this->application->get_single_application($id);
@@ -404,13 +404,13 @@ class Application extends MY_Controller {
             
             create_log('Has been deleted a leave application : '.$application->type);
             success($this->lang->line('delete_success'));
-            redirect('leave/application/index/'.$application->school_id);
+            redirect('leave/type/index/'.$application->school_id);
             
         } else {
             error($this->lang->line('delete_failed'));
         }
         
-        redirect('leave/application/index/');
+        redirect('leave/type/index/');
     }
     
         
@@ -425,7 +425,7 @@ class Application extends MY_Controller {
     public function waiting($application_id){
         if(!is_numeric($application_id)){
             error($this->lang->line('unexpected_error'));
-            redirect('leave/application/index');     
+            redirect('leave/type/index');     
         }
         
         $leave = $this->application->get_single('leave_applications', array('id'=>$application_id));               
@@ -433,10 +433,10 @@ class Application extends MY_Controller {
         
         if($status){
             success($this->lang->line('update_success'));
-            redirect('leave/application/index/'.$leave->school_id);  
+            redirect('leave/type/index/'.$leave->school_id);  
         }else{
             error($this->lang->line('update_failed'));
-            redirect('leave/application/index/'.$leave->school_id);      
+            redirect('leave/type/index/'.$leave->school_id);      
         }
     }
 

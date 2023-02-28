@@ -1,8 +1,9 @@
 <?php 
 
-$category = get_category_list(); 
+$category = get_category_list();
 $item = get_item_list(); 
-$suppliers = get_suppliers_list(); 
+$employees = get_employees_list();  
+
 
 ?>
                                 
@@ -10,7 +11,7 @@ $suppliers = get_suppliers_list();
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h3 class="head-title"><i class="fa fa-slideshare"></i><small> <?php echo $this->lang->line('manage_purchase'); ?></small></h3>
+                <h3 class="head-title"><i class="fa fa-slideshare"></i><small> <?php echo $this->lang->line('manage_utilizations'); ?></small></h3>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>                    
                 </ul>
@@ -21,24 +22,24 @@ $suppliers = get_suppliers_list();
                     
                     <ul  class="nav nav-tabs bordered">
                         <li class="<?php if(isset($list)){ echo 'active'; }?>"><a href="#tab_class_list"   role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-list-ol"></i> <?php echo $this->lang->line('list'); ?></a> </li>
-                        <?php if(has_permission(ADD, 'procurement', 'purchase_order')){ ?>
+                        <?php if(has_permission(ADD, 'procurement', 'utilizations')){ ?>
                             <?php if(isset($edit)){ ?>
-                                <li  class="<?php if(isset($add)){ echo 'active'; }?>"><a href="<?php echo site_url('procurement/purchase_order/add'); ?>"  aria-expanded="false"><i class="fa fa-plus-square-o"></i> <?php echo $this->lang->line('add'); ?></a> </li>                          
+                                <li  class="<?php if(isset($add)){ echo 'active'; }?>"><a href="<?php echo site_url('procurement/utilizations/add'); ?>"  aria-expanded="false"><i class="fa fa-plus-square-o"></i> <?php echo $this->lang->line('add'); ?></a> </li>                          
                              <?php }else{ ?>
-                                 <li  class="<?php if(isset($add)){ echo 'active'; }?>"><a href="#tab_add_purchase_order"  role="tab"  data-toggle="tab" aria-expanded="false"><i class="fa fa-plus-square-o"></i> <?php echo $this->lang->line('add'); ?></a> </li>                          
+                                 <li  class="<?php if(isset($add)){ echo 'active'; }?>"><a href="#tab_add_utilizations"  role="tab"  data-toggle="tab" aria-expanded="false"><i class="fa fa-plus-square-o"></i> <?php echo $this->lang->line('add'); ?></a> </li>                          
                              <?php } ?>
                            
                         <?php } ?> 
                         <?php if(isset($edit)){ ?>
-                            <li  class="active"><a href="#tab_edit_purchase_order"  role="tab"  data-toggle="tab" aria-expanded="false"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?></a> </li>                          
+                            <li  class="active"><a href="#tab_edit_utilizations"  role="tab"  data-toggle="tab" aria-expanded="false"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?></a> </li>                          
                         <?php } ?> 
 
                         <li class="li-class-list">
                        <?php if($this->session->userdata('role_id') == SUPER_ADMIN){  ?>                                 
                             <select  class="form-control col-md-7 col-xs-12" onchange="get_class_by_school(this.value);">
-                                    <option value="<?php echo site_url('procurement/purchase_order/index'); ?>">--<?php echo $this->lang->line('select_school'); ?>--</option> 
+                                    <option value="<?php echo site_url('procurement/utilizations/index'); ?>">--<?php echo $this->lang->line('select_school'); ?>--</option> 
                                 <?php foreach($schools as $obj ){ ?>
-                                    <option value="<?php echo site_url('procurement/purchase_order/index/'.$obj->id); ?>" <?php if(isset($filter_school_id) && $filter_school_id == $obj->id){ echo 'selected="selected"';} ?> > <?php echo $obj->school_name; ?></option>
+                                    <option value="<?php echo site_url('procurement/utilizations/index/'.$obj->id); ?>" <?php if(isset($filter_school_id) && $filter_school_id == $obj->id){ echo 'selected="selected"';} ?> > <?php echo $obj->school_name; ?></option>
                                 <?php } ?>   
                             </select>
                         <?php } ?>  
@@ -58,19 +59,20 @@ $suppliers = get_suppliers_list();
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
                                         <th><?php echo $this->lang->line('category'); ?></th>
-                                        <th><?php echo $this->lang->line('item'); ?></th>
-                                        <th><?php echo $this->lang->line('supplier'); ?></th>
-                                        <th><?php echo $this->lang->line('qty'); ?></th>
-                                        <th><?php echo $this->lang->line('purchase_price'); ?></th>
+                                        <th><?php echo $this->lang->line('item'); ?></th> 
+                                        <th><?php echo 'Issue - Return Date'; ?></th> 
+                                        <th><?php echo 'Isssue To'; ?></th> 
+                                        <th><?php echo 'Isssue By'; ?></th> 
+                                        <th><?php echo $this->lang->line('qty'); ?></th> 
                                         <th><?php echo $this->lang->line('note'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>  
                                     </tr>
                                 </thead>
                                 <tbody>   
-                                    <?php $guardian_data = get_guardian_access_data('class'); ?>
+                                    <?php $guardian_data       = get_guardian_access_data('class'); ?>
                                     <?php $teacher_access_data = get_teacher_access_data('student'); ?>
-                                    <?php $count = 1; if(isset($purchase_order) && !empty($purchase_order)){ ?>
-                                        <?php foreach($purchase_order as $obj){ ?>
+                                    <?php $count = 1; if(isset($utilizations) && !empty($utilizations)){ ?>
+                                        <?php foreach($utilizations as $obj){ ?>
                                         <?php 
                                             if($this->session->userdata('role_id') == GUARDIAN){
                                                 if (!in_array($obj->id, $guardian_data)) {continue; }
@@ -86,17 +88,18 @@ $suppliers = get_suppliers_list();
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
                                             <td><?php echo $obj->category_name; ?></td>
-                                            <td><?php echo $obj->item_name; ?></td>
-                                            <td><?php echo $obj->supplier_name; ?></td>
-                                            <td><?php echo $obj->qty; ?></td>
-                                            <td><?php echo $obj->purchase_price; ?></td>
+                                            <td><?php echo $obj->item_name; ?></td> 
+                                            <td><?php echo $obj->issue_date.' - '.$obj->reutrn_date; ?></td> 
+                                            <td><?php echo $obj->issue_to; ?></td> 
+                                            <td><?php echo $obj->issue_by; ?></td> 
+                                            <td><?php echo $obj->qty; ?></td> 
                                             <td><?php echo $obj->note; ?></td>                                           
                                             <td>
-                                                <?php if(has_permission(EDIT, 'procurement', 'purchase_order')){ ?>
-                                                    <a href="<?php echo site_url('procurement/purchase_order/edit/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
+                                                <?php if(has_permission(EDIT, 'procurement', 'utilizations')){ ?>
+                                                    <a href="<?php echo site_url('procurement/utilizations/edit/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
                                                 <?php } ?>
-                                                <?php if(has_permission(DELETE, 'procurement', 'purchase_order')){ ?>
-                                                    <a href="<?php echo site_url('procurement/purchase_order/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
+                                                <?php if(has_permission(DELETE, 'procurement', 'utilizations')){ ?>
+                                                    <a href="<?php echo site_url('procurement/utilizations/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
                                                 <?php } ?>
                                             </td>
                                         </tr>
@@ -107,9 +110,9 @@ $suppliers = get_suppliers_list();
                             </div>
                         </div>
 
-                        <div  class="tab-pane fade in <?php if(isset($add)){ echo 'active'; }?>" id="tab_add_purchase_order">
+                        <div  class="tab-pane fade in <?php if(isset($add)){ echo 'active'; }?>" id="tab_add_utilizations">
                             <div class="x_content"> 
-                               <?php echo form_open(site_url('procurement/purchase_order/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
+                               <?php echo form_open(site_url('procurement/utilizations/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
                                 <?php $this->load->view('layout/school_list_form'); ?>
                                 
@@ -130,29 +133,12 @@ $suppliers = get_suppliers_list();
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="item_id"><?php echo $this->lang->line('item'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12 fn_item_id" name="item_id" id="add_item_id" required="required">
-                                            <!-- <option value="">--<?php echo $this->lang->line('select_item'); ?>--</option>
-                                            <?php foreach($item as $obj){ ?>
-                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($post['item_id']) && $post['item_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
-                                            <?php } ?> -->
                                         </select>
                                         <div class="help-block"><?php echo form_error('item_id'); ?></div>
                                     </div>
                                 </div>
 
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="suppliers_id"><?php echo $this->lang->line('suppliers'); ?> <span class="required">*</span></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12 fn_supplier_id" name="supplier_id" id="add_supplier_id" required="required">
-                                            <option value="">--<?php echo $this->lang->line('select_suppliers'); ?>--</option>
-                                            <?php foreach($suppliers as $obj){ ?>
-                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($post['supplier_id']) && $post['supplier_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                        <div class="help-block"><?php echo form_error('supplier_id'); ?></div>
-                                    </div>
-                                </div>
-
-                                <div class="purchase_order form-group">
+                                <div class="utilizations form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('qty'); ?> <span class="required">*</span></label>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -161,26 +147,37 @@ $suppliers = get_suppliers_list();
                                     </div>
                                 </div>
 
-                                <div class="purchase_order form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="purchase_price"><?php echo $this->lang->line('purchase_price'); ?> <span class="required">*</span></label>
-                                    </label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">                                
+                                    <div class="utilizations form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo 'Issue Date'; ?> <span class="required">*</span></label>
+                                        </label>
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" name="issue_date" id="issue_date" value="<?php echo isset($post['issue_date']) ?  $post['issue_date'] : ''; ?>" placeholder="Issue Date" required="required" type="text" autocomplete="off"> 
+                                            <div class="help-block"><?php echo form_error('qty'); ?></div>
+                                        </div>
+                                        
+                                        <label class="col-md-1 col-sm-1" style="width: 8.633333% !important;"for="name"><?php echo 'Return Date'; ?> </label>
+                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <input class="form-control col-md-7 col-xs-12" name="return_date" id="return_date" value="<?php echo isset($post['return_date']) ?  $post['return_date'] : ''; ?>" placeholder="Return Date" type="text" autocomplete="off"> 
+                                            <div class="help-block"><?php echo form_error('qty'); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="issue_to"><?php echo 'Issue To'; ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input  class="form-control col-md-7 col-xs-12"  name="purchase_price"  id="add_purchase_price" value="<?php echo isset($post['purchase_price']) ?  $post['purchase_price'] : ''; ?>" placeholder="<?php echo $this->lang->line('purchase_price'); ?>" required="required"  type="text" autocomplete="off">
-                                        <div class="help-block"><?php echo form_error('purchase_price'); ?></div>
+                                        <select  class="form-control col-md-7 col-xs-12 fn_issue_to" name="issue_to" id="add_issue_to" required="required">
+                                            <option value="">--<?php echo 'Select User'; ?>--</option>
+                                            <?php foreach($employees as $obj){ ?>
+                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($post['issue_to']) && $post['issue_to'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->emp_name.'&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;  '.$obj->designation; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('issue_to'); ?></div>
                                     </div>
                                 </div>
                                 
-                                <!-- <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" ><?php echo $this->lang->line('photo'); ?></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 btn btn-default btn-file">
-                                        <i class="fa fa-paperclip"></i> <?php echo $this->lang->line('upload'); ?>
-                                        <input  class="form-control col-md-7 col-xs-12"  name="photo"  id="photo" type="file">
-                                    </div>
-                                    <div class="text-info"><?php echo $this->lang->line('valid_file_format_img'); ?></div>
-                                    <div class="help-block"><?php echo form_error('photo'); ?></div>
-                                </div> -->
-                                
-                                <div class="purchase_order form-group">
+                                <div class="utilizations form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="note"><?php echo $this->lang->line('note'); ?></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <textarea  class="form-control col-md-7 col-xs-12"  name="note"  id="add_note" placeholder="<?php echo $this->lang->line('note'); ?>"><?php echo isset($post['note']) ?  $post['note'] : ''; ?></textarea>
@@ -191,7 +188,7 @@ $suppliers = get_suppliers_list();
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-3">
-                                        <a href="<?php echo site_url('procurement/purchase_order'); ?>" class="btn btn-primary"><?php echo $this->lang->line('cancel'); ?></a>
+                                        <a href="<?php echo site_url('procurement/utilizations'); ?>" class="btn btn-primary"><?php echo $this->lang->line('cancel'); ?></a>
                                         <button id="send" type="submit" class="btn btn-success"><?php echo $this->lang->line('submit'); ?></button>
                                     </div>
                                 </div>
@@ -201,9 +198,9 @@ $suppliers = get_suppliers_list();
                         </div>  
 
                         <?php if(isset($edit)){  ?>
-                        <div class="tab-pane fade in active" id="tab_edit_purchase_order">
+                        <div class="tab-pane fade in active" id="tab_edit_utilizations">
                             <div class="x_content"> 
-                               <?php echo form_open(site_url('procurement/purchase_order/edit/'.$purchase_order->id), array('name' => 'edit', 'id' => 'edit', 'class'=>'form-horizontal form-label-left'), ''); ?>
+                               <?php echo form_open(site_url('procurement/utilizations/edit/'.$utilizations->id), array('name' => 'edit', 'id' => 'edit', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
                                 <?php $this->load->view('layout/school_list_edit_form'); ?>
                                 
@@ -213,7 +210,7 @@ $suppliers = get_suppliers_list();
                                         <select  class="form-control col-md-7 col-xs-12 fn_category_id" name="category_id" id="edit_category_id" required="required">
                                             <option value="">--<?php echo $this->lang->line('select_category'); ?>--</option>
                                             <?php foreach($category as $obj){ ?>
-                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($purchase_order->category_id) && $purchase_order->category_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($utilizations->category_id) && $utilizations->category_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
                                             <?php } ?>
                                         </select>
                                         <div class="help-block"><?php echo form_error('category_id'); ?></div>
@@ -224,60 +221,57 @@ $suppliers = get_suppliers_list();
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="item_id"><?php echo $this->lang->line('item'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12 fn_item_id" name="item_id" id="edit_item_id" required="required">
-                                            <!-- <option value="">--<?php echo $this->lang->line('select_item'); ?>--</option> -->
-                                            <?php foreach($item as $obj){  if(isset($purchase_order->item_id) && $purchase_order->item_id == $obj->id) { ?>
-                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($purchase_order->item_id) && $purchase_order->item_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                            <?php foreach($item as $obj){ if(isset($utilizations->item_id) && $utilizations->item_id == $obj->id) { ?>
+                                                <option value="<?php echo $obj->id; ?>" selected="selected"><?php echo $obj->name; ?></option>
                                             <?php } } ?>
                                         </select>
                                         <div class="help-block"><?php echo form_error('item_id'); ?></div>
                                     </div>
                                 </div>
 
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="suppliers_id"><?php echo $this->lang->line('suppliers'); ?> <span class="required">*</span></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12 fn_supplier_id" name="supplier_id" id="add_supplier_id" required="required">
-                                            <option value="">--<?php echo $this->lang->line('select_suppliers'); ?>--</option>
-                                            <?php foreach($suppliers as $obj){ ?>
-                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($purchase_order->supplier_id) && $purchase_order->supplier_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                        <div class="help-block"><?php echo form_error('supplier_id'); ?></div>
-                                    </div>
-                                </div>
-
-                                <div class="purchase_order form-group">
+                                <div class="utilizations form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('qty'); ?> <span class="required">*</span></label>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input  class="form-control col-md-7 col-xs-12"  name="qty"  id="add_qty" value="<?php echo isset($purchase_order->qty) ?  $purchase_order->qty : ''; ?>" placeholder="<?php echo $this->lang->line('qty'); ?>"  type="text" autocomplete="off" required="required">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="qty"  id="add_qty" value="<?php echo isset($utilizations->qty) ?  $utilizations->qty : ''; ?>" placeholder="<?php echo $this->lang->line('qty'); ?>"  type="text" autocomplete="off" required="required">
                                         <div class="help-block"><?php echo form_error('qty'); ?></div>
                                     </div>
                                 </div>
 
-                                <div class="purchase_order form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="purchase_price"><?php echo $this->lang->line('purchase_price'); ?> <span class="required">*</span></label>
-                                    </label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">                                
+                                    <div class="utilizations form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo 'Issue Date'; ?> <span class="required">*</span></label>
+                                        </label>
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" name="issue_date" id="issue_date" value="<?php echo isset($utilizations->issue_date) ?  $utilizations->issue_date : ''; ?>" placeholder="Issue Date" required="required" type="text" autocomplete="off"> 
+                                            <div class="help-block"><?php echo form_error('qty'); ?></div>
+                                        </div>
+                                        
+                                        <label class="col-md-1 col-sm-1" style="width: 8.633333% !important;"for="name"><?php echo 'Return Date'; ?> </label>
+                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <input class="form-control col-md-7 col-xs-12" name="return_date" id="return_date" value="<?php echo isset($utilizations->return_date) ?  $utilizations->return_date : ''; ?>" placeholder="Return Date" type="text" autocomplete="off"> 
+                                            <div class="help-block"><?php echo form_error('qty'); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="issue_to"><?php echo 'Issue To'; ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input  class="form-control col-md-7 col-xs-12"  name="purchase_price"  id="add_purchase_price" value="<?php echo isset($purchase_order->purchase_price) ?  $purchase_order->purchase_price : ''; ?>" placeholder="<?php echo $this->lang->line('purchase_price'); ?>" required="required"  type="text" autocomplete="off">
-                                        <div class="help-block"><?php echo form_error('purchase_price'); ?></div>
+                                        <select  class="form-control col-md-7 col-xs-12 fn_issue_to" name="issue_to" id="add_issue_to" required="required">
+                                            <option value="">--<?php echo 'Select User'; ?>--</option>
+                                            <?php foreach($employees as $obj){ ?>
+                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($utilizations->issue_to) && $utilizations->issue_to == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->emp_name.'&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;  '.$obj->designation; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('issue_to'); ?></div>
                                     </div>
                                 </div>
                                 
-                                <!-- <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" ><?php echo $this->lang->line('photo'); ?></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 btn btn-default btn-file">
-                                        <i class="fa fa-paperclip"></i> <?php echo $this->lang->line('upload'); ?>
-                                        <input  class="form-control col-md-7 col-xs-12"  name="photo"  id="photo" type="file">
-                                    </div>
-                                    <div class="text-info"><?php echo $this->lang->line('valid_file_format_img'); ?></div>
-                                    <div class="help-block"><?php echo form_error('photo'); ?></div>
-                                </div> -->
-                                
-                                <div class="purchase_order form-group">
+                                <div class="utilizations form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="note"><?php echo $this->lang->line('note'); ?></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <textarea  class="form-control col-md-7 col-xs-12"  name="note"  id="note" placeholder="<?php echo $this->lang->line('note'); ?>"><?php echo isset($purchase_order->note) ?  $purchase_order->note : ''; ?></textarea>
+                                        <textarea  class="form-control col-md-7 col-xs-12"  name="note"  id="note" placeholder="<?php echo $this->lang->line('note'); ?>"><?php echo isset($utilizations->note) ?  $utilizations->note : ''; ?></textarea>
                                         <div class="help-block"><?php echo form_error('note'); ?></div>
                                     </div>
                                 </div>
@@ -285,8 +279,8 @@ $suppliers = get_suppliers_list();
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-3">
-                                        <input type="hidden" name="id" id="id" value="<?php echo $purchase_order->id; ?>" />
-                                        <a href="<?php echo site_url('procurement/purchase_order/index'); ?>" class="btn btn-primary"><?php echo $this->lang->line('cancel'); ?></a>
+                                        <input type="hidden" name="id" id="id" value="<?php echo $utilizations->id; ?>" />
+                                        <a href="<?php echo site_url('procurement/utilizations/index'); ?>" class="btn btn-primary"><?php echo $this->lang->line('cancel'); ?></a>
                                         <button id="send" type="submit" class="btn btn-success"><?php echo $this->lang->line('update'); ?></button>
                                     </div>
                                 </div>
@@ -302,9 +296,17 @@ $suppliers = get_suppliers_list();
     </div>
 </div>
 
+
+<link href="<?php echo VENDOR_URL; ?>datepicker/datepicker.css" rel="stylesheet">
+ <script src="<?php echo VENDOR_URL; ?>datepicker/datepicker.js"></script>
 <!-- Super admin js START  -->
  <script type="text/javascript">
-     
+
+    $('#issue_date').datepicker();  
+    $('#return_date').datepicker();
+    $('#edit_issue_date').datepicker();  
+    $('#edit_return_date').datepicker(); 
+    
     $("document").ready(function() {
          <?php if(isset($class) && !empty($class)){ ?>
             $("#edit_school_id").trigger('change');
@@ -314,9 +316,9 @@ $suppliers = get_suppliers_list();
     $('.fn_category_id').on('change', function(){      
         var school_id = $(this).val();       
         var category_id ='';       
-        var purchase_order_id ='';  
-        <?php if(isset($purchase_order) && !empty($purchase_order->id)){ ?>         
-            purchase_order_id = '<?php echo $purchase_order->id; ?>';
+        var utilization_id ='';  
+        <?php if(isset($utilizations) && !empty($utilizations->id)){ ?>         
+            utilization_id = '<?php echo $utilizations->id; ?>';
             category_id = $('#edit_category_id').val();   
          <?php } else{ ?>
             category_id = $('#add_category_id').val();
@@ -334,7 +336,7 @@ $suppliers = get_suppliers_list();
             success: function(response){                                                   
                 if(response)
                 {    
-                   if(purchase_order_id){
+                   if(utilization_id){
                        $('#edit_item_id').html(response);
                    }else{
                        $('#add_item_id').html(response); 
@@ -342,7 +344,7 @@ $suppliers = get_suppliers_list();
                 }
             }
         });
-    });  
+    }); 
 
     
   </script>
@@ -368,12 +370,5 @@ $suppliers = get_suppliers_list();
         });
         
     $("#add").validate();     
-    $("#edit").validate(); 
-    
-    function get_class_by_school(url){          
-        if(url){
-            window.location.href = url; 
-        }
-    }  
-    
+    $("#edit").validate();    
 </script>

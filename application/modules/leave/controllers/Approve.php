@@ -60,7 +60,7 @@ class Approve extends MY_Controller {
 
         if(!is_numeric($id)){
             error($this->lang->line('unexpected_error'));
-            redirect('leave/approve/index');
+            redirect('leave/type/index');
         }
        
         if ($_POST) {
@@ -72,11 +72,11 @@ class Approve extends MY_Controller {
                 if ($updated) {                    
                     create_log('Has been updated a approve leave');                    
                     success($this->lang->line('update_success'));
-                    redirect('leave/approve/index/'.$this->input->post('school_id'));
+                    redirect('leave/type/index/'.$this->input->post('school_id'));
                     
                 } else {
                     error($this->lang->line('update_failed'));
-                    redirect('leave/approve/update/' . $this->input->post('id'));
+                    redirect('leave/type/update/' . $this->input->post('id'));
                 }
             } else {
                 error($this->lang->line('update_failed'));
@@ -88,7 +88,7 @@ class Approve extends MY_Controller {
             
             $this->data['application'] = $this->approve->get_single_application($id);
             if (!$this->data['application']) {
-                redirect('leave/approve/index');
+                redirect('leave/type/index');
             }
         }
 
@@ -213,7 +213,7 @@ class Approve extends MY_Controller {
         $total_need_leave = $used + $data['leave_day'];
         if( $leave_type->total_leave < $total_need_leave ){
             error($this->lang->line('you_have_remain_leave').' : '. ($leave_type->total_leave - $used));
-            redirect('leave/approve/update/' . $this->input->post('id'));
+            redirect('leave/type/update/' . $this->input->post('id'));
         }else{
             return $data;
         }
@@ -237,7 +237,7 @@ class Approve extends MY_Controller {
         
         if(!is_numeric($id)){
              error($this->lang->line('unexpected_error'));
-             redirect('leave/approve/index');
+             redirect('leave/type/index');
         }
         
         $application = $this->approve->get_single_application($id);
@@ -257,7 +257,7 @@ class Approve extends MY_Controller {
             error($this->lang->line('delete_failed'));
         }
         
-         redirect('leave/approve/index/'.$application->school_id);
+         redirect('leave/type/index/'.$application->school_id);
     }
     
 
@@ -272,7 +272,7 @@ class Approve extends MY_Controller {
     public function waiting($application_id){
         if(!is_numeric($application_id)){
             error($this->lang->line('unexpected_error'));
-            redirect('leave/approve/index');     
+            redirect('leave/type/index');     
         }
         
         $leave = $this->approve->get_single('leave_applications', array('id'=>$application_id));               
@@ -280,10 +280,10 @@ class Approve extends MY_Controller {
         
         if($status){
             success($this->lang->line('update_success'));
-            redirect('leave/approve/index/'.$leave->school_id);  
+            redirect('leave/type/index/'.$leave->school_id);  
         }else{
             error($this->lang->line('update_failed'));
-            redirect('leave/approve/index/'.$leave->school_id);      
+            redirect('leave/type/index/'.$leave->school_id);      
         }
     }
     

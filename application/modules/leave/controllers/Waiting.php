@@ -79,7 +79,7 @@ class Waiting extends MY_Controller {
         
         if(!is_numeric($id)){
              error($this->lang->line('unexpected_error'));
-             redirect('leave/waiting/index');
+             redirect('leave/type/index');
         }
         
         $application = $this->waiting->get_single_application($id);
@@ -99,7 +99,7 @@ class Waiting extends MY_Controller {
             error($this->lang->line('delete_failed'));
         }
         
-         redirect('leave/waiting/index/'.$application->school_id);
+         redirect('leave/type/index/'.$application->school_id);
     }
     
 
