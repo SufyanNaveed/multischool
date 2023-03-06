@@ -68,6 +68,18 @@
                         <td><?php echo $admission->previous_school; ?></td>
                         <th><?php echo $this->lang->line('previous_class'); ?></th>
                         <td><?php echo $admission->previous_class; ?></td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->lang->line('reference'); ?></th>
+                        <td><?php echo $admission->reference; ?></td>
+                        <th><?php echo $this->lang->line('source'); ?></th>
+                        <td><?php echo $admission->source; ?></td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->lang->line('prospectus'); ?></th>
+                        <td><?php echo $admission->prospectus; ?></td>
+                        <th><?php echo $this->lang->line('prospectus_number'); ?></th>
+                        <td><?php echo $admission->prospectus_number; ?></td>
                     </tr>  
                     <tr> 
                         <th><?php echo $this->lang->line('application_date'); ?></th>

@@ -651,6 +651,10 @@ class Web extends CI_Controller {
         
         $items[] = 'previous_school';
         $items[] = 'previous_class';
+        $items[] = 'reference';
+        $items[] = 'source';
+        $items[] = 'prospectus';
+        $items[] = 'prospectus_number';
         
         $data = elements($items, $_POST);        
         

@@ -420,6 +420,9 @@
                                          <li><a href="<?php echo site_url('student/bulk/add'); ?>"> <?php echo $this->lang->line('bulk_admission'); ?></a></li>
                                     <?php } ?> 
                                     <?php if(has_permission(VIEW, 'student', 'admission')){ ?>
+                                         <li><a href="<?php echo site_url('admission-online'); ?>"> <?php echo $this->lang->line('inquiry_form'); ?></a></li>
+                                    <?php } ?>
+                                    <?php if(has_permission(VIEW, 'student', 'admission')){ ?>
                                          <li><a href="<?php echo site_url('student/admission/index'); ?>"> <?php echo $this->lang->line('online_admission'); ?></a></li>
                                     <?php } ?> 
                                     <?php if(has_permission(VIEW, 'student', 'activity')){ ?>

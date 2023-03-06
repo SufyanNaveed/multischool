@@ -301,9 +301,9 @@
                                     
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span></label>
+                                            <label for="class_id"><?php echo $this->lang->line('program'); ?> <span class="required">*</span></label>
                                             <select  class="form-control col-md-7 col-xs-12 quick-field" name="class_id" id="add_class_id" required="required" onchange="get_section_by_class(this.value, '');">
-                                               <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                               <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('program'); ?>--</option>
                                                <?php foreach($classes as $obj){ ?>
                                                    <option value="<?php echo $obj->id; ?>" <?php echo isset($post['class_id']) && $post['class_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
                                                <?php } ?>
@@ -315,27 +315,35 @@
                                         <div class="item form-group">
                                            <label for="section_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="add_section_id" required="required">
-                                               <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                               <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
                                            </select>
                                            <div class="help-block"><?php echo form_error('section_id'); ?></div>
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
-                                         <div class="item form-group">
-                                            <label for="group"><?php echo $this->lang->line('group'); ?> </label>
+                                        <div class="item form-group">
+                                            <label for="group"><?php echo $this->lang->line('semester'); ?> </label>
                                             <select  class="form-control col-md-7 col-xs-12" name="group" id="group">
-                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
                                                 <?php $groups = get_groups(); ?>
                                                 <?php foreach($groups as $key=>$value){ ?>
                                                     <option value="<?php echo $key; ?>" <?php echo isset($post['group']) && $post['group'] == $key ?  'selected="selected"' : ''; ?>><?php echo $value; ?></option>
                                                 <?php } ?>
                                             </select>
                                             <div class="help-block"><?php echo form_error('group'); ?></div>
-                                         </div>
-                                     </div>
+                                        </div>
+                                     </div>                                   
                                 </div>
                                 <div class="row"> 
-                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="department"><?php echo $this->lang->line('department'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($post['department']) ?  $post['department'] : ''; ?>" placeholder="<?php echo $this->lang->line('department'); ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('department'); ?></div>
+                                         </div>
+                                    </div>                                 
+                                     
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                              <label for="roll_no"><?php echo $this->lang->line('roll_no'); ?> <span class="required">*</span></label>
                                              <input  class="form-control col-md-7 col-xs-12"  name="roll_no"  id="roll_no" value="<?php echo isset($post['roll_no']) ?  $post['roll_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('roll_no'); ?>" required="required" type="text" autocomplete="off">
@@ -879,9 +887,9 @@
                                      </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                            <label for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span></label>
+                                            <label for="class_id"><?php echo $this->lang->line('program'); ?> <span class="required">*</span></label>
                                             <select  class="form-control col-md-7 col-xs-12 quick-field" name="class_id" id="edit_class_id" required="required"  onchange="get_section_by_class(this.value, '');">
-                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('program'); ?>--</option>
                                                 <?php foreach($classes as $obj){ ?>
                                                     <option value="<?php echo $obj->id; ?>" <?php if($student->class_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->name; ?></option>
                                                 <?php } ?>
@@ -893,16 +901,16 @@
                                          <div class="item form-group">
                                             <label for="section_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
                                             <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="edit_section_id" required="required">
-                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
                                             </select>
                                             <div class="help-block"><?php echo form_error('section_id'); ?></div>
                                          </div>
                                      </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                            <label for="group"><?php echo $this->lang->line('group'); ?> </label>
+                                            <label for="group"><?php echo $this->lang->line('semester'); ?> </label>
                                             <select  class="form-control col-md-7 col-xs-12" name="group" id="group">
-                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
                                                 <?php $groups = get_groups(); ?>
                                                 <?php foreach($groups as $key=>$value){ ?>
                                                     <option value="<?php echo $key; ?>" <?php if($student->group == $key){ echo 'selected="selected"';} ?>><?php echo $value; ?></option>
@@ -914,6 +922,13 @@
                                 </div>
                                     
                                 <div class="row"> 
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="department"><?php echo $this->lang->line('department'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($post['department']) ?  $post['department'] : ''; ?>" placeholder="<?php echo $this->lang->line('department'); ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('department'); ?></div>
+                                         </div>
+                                    </div>                                    
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                              <label for="roll_no"><?php echo $this->lang->line('roll_no'); ?> <span class="required">*</span></label>

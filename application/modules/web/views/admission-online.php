@@ -422,6 +422,34 @@
                                 <div class="help-block"><?php echo form_error('previous_class'); ?></div>
                              </div>
                          </div>
+                         <div class="col-md-3 col-sm-3 col-xs-12">
+                             <div class="item form-group">
+                                <label for="reference"><?php echo $this->lang->line('reference'); ?></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="reference"  id="reference" value="<?php echo isset($post['reference']) ?  $post['reference'] : ''; ?>" placeholder="<?php echo $this->lang->line('reference'); ?>"  type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('reference'); ?></div>
+                             </div>
+                         </div>
+                         <div class="col-md-3 col-sm-3 col-xs-12">
+                             <div class="item form-group">
+                                <label for="source"><?php echo $this->lang->line('source'); ?></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="source"  id="source" value="<?php echo isset($post['source']) ?  $post['source'] : ''; ?>" placeholder="<?php echo $this->lang->line('source'); ?>"  type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('source'); ?></div>
+                             </div>
+                         </div>
+                         <div class="col-md-3 col-sm-3 col-xs-12">
+                             <div class="item form-group">
+                                <label for="prospectus"><?php echo $this->lang->line('prospectus'); ?></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="prospectus"  id="prospectus" value="<?php echo isset($post['prospectus']) ?  $post['prospectus'] : ''; ?>" placeholder="<?php echo $this->lang->line('prospectus'); ?>"  type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('prospectus'); ?></div>
+                             </div>
+                         </div>
+                         <div class="col-md-3 col-sm-3 col-xs-12">
+                             <div class="item form-group">
+                                <label for="prospectus_number"><?php echo $this->lang->line('prospectus_number'); ?></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="prospectus_number"  id="prospectus_number" value="<?php echo isset($post['prospectus_number']) ?  $post['prospectus_number'] : ''; ?>" placeholder="<?php echo $this->lang->line('prospectus_number'); ?>"  type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('prospectus_number'); ?></div>
+                             </div>
+                         </div>
                     </div>
                     
                     <div class="ln_solid"><hr/></div>

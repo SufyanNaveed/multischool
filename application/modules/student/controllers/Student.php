@@ -475,6 +475,7 @@ class Student extends MY_Controller {
         $items[] = 'national_id';
         $items[] = 'registration_no';
         $items[] = 'group';
+        $items[] = 'department';
         $items[] = 'name';
         $items[] = 'phone';
         $items[] = 'email';
