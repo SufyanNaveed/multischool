@@ -85,7 +85,6 @@ class Student extends MY_Controller {
             $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
             $this->data['types']      = $this->student->get_list('student_types', $condition, '','', '', 'id', 'ASC'); 
         }
-        
         $this->data['schools'] = $this->schools;
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_student') . ' | ' . SMS);
@@ -149,7 +148,11 @@ class Student extends MY_Controller {
             $this->data['guardians'] = $this->student->get_list('guardians', $condition, '','', '', 'id', 'ASC');
             $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
             $this->data['types']      = $this->student->get_list('student_types', $condition, '','', '', 'id', 'ASC');
+        }else{
+            $this->data['classes'] = $this->student->get_list('classes',$condition, '','', '', 'id', 'ASC');
         }
+
+        //echo '<pre>'; print_r($this->data); exit;
         
         $this->data['schools'] = $this->schools;
         $this->data['add'] = TRUE;
