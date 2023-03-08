@@ -63,6 +63,31 @@
                                             <?php } ?>
                                         <?php } ?>
                                     </select>
+                                    <div class="col-md-1 col-sm-1 col-xs-12">
+                                        <div class="item form-group">
+                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="roll_no"  id="roll_no" value="<?php echo isset($filter_roll_no) ?  $filter_roll_no : ''; ?>" placeholder="<?php echo $this->lang->line('roll_no'); ?>" type="text" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-1 col-xs-12">
+                                        <div class="item form-group">
+                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="student_id"  id="student_id" value="<?php echo isset($filter_student_id) ?  $filter_student_id : ''; ?>" placeholder="<?php echo $this->lang->line('student'); ?>" type="text" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-1 col-xs-12">
+                                        <div class="item form-group">
+                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="section_id"  id="section_id" value="<?php echo isset($filter_section_id) ?  $filter_section_id : ''; ?>" placeholder="<?php echo $this->lang->line('section'); ?>" type="text" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-1 col-xs-12">
+                                        <div class="item form-group">
+                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="semester_id"  id="semester_id" value="<?php echo isset($filter_semester_id) ?  $filter_semester_id : ''; ?>" placeholder="<?php echo $this->lang->line('semester'); ?>" type="text" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-1 col-xs-12">
+                                        <div class="item form-group">
+                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="department_id"  id="department_id" value="<?php echo isset($filter_department_id) ?  $filter_department_id : ''; ?>" placeholder="<?php echo $this->lang->line('department'); ?>" type="text" autocomplete="off">
+                                        </div>
+                                    </div>
                                    <?php echo form_close(); ?>
                             
                             <?php }else{  ?> 
@@ -256,8 +281,15 @@
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                             <label for="phone"><?php echo $this->lang->line('phone'); ?> <span class="required">*</span></label>
-                                             <input  class="form-control col-md-7 col-xs-12"  name="phone"  id="add_phone" value="<?php echo isset($post['phone']) ?  $post['phone'] : ''; ?>" placeholder="<?php echo $this->lang->line('phone'); ?>" required="required" type="text" autocomplete="off">
+                                             <label for="phone"><?php echo $this->lang->line('phone').' number 1'; ?> <span class="required">*</span></label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="phone"  id="add_phone" value="<?php echo isset($post['phone']) ?  $post['phone'] : ''; ?>" placeholder="<?php echo $this->lang->line('phone').' number 1'; ?>" required="required" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('phone'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="phone"><?php echo $this->lang->line('phone').' number 2'; ?> </label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="phone_2"  id="add_phone_2" value="<?php echo isset($post['phone_2']) ?  $post['phone_2'] : ''; ?>" placeholder="<?php echo $this->lang->line('phone').' number 2'; ?>" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('phone'); ?></div>
                                          </div>
                                      </div>
@@ -271,11 +303,39 @@
                                     
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                             <label for="national_id"><?php echo $this->lang->line('national_id'); ?> </label>
-                                             <input  class="form-control col-md-7 col-xs-12"  name="national_id"  id="national_id" value="<?php echo isset($post['national_id']) ?  $post['national_id'] : ''; ?>" placeholder="<?php echo $this->lang->line('national_id'); ?>" type="text" autocomplete="off">
+                                             <label for="national_id"><?php echo $this->lang->line('cnic'); ?> </label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="national_id"  id="national_id" value="<?php echo isset($post['national_id']) ?  $post['national_id'] : ''; ?>" placeholder="<?php echo $this->lang->line('cnic'); ?>" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('national_id'); ?></div>
                                          </div>
                                      </div>
+
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="type_id"><?php echo $this->lang->line('select_siblings'); ?></label>
+                                                <select  class="form-control col-md-7 col-xs-12" name="siblings_id" id="siblings_id">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <?php foreach($students_list as $obj){ ?>
+                                                    <option value="<?php echo $obj->id; ?>" <?php echo isset($post['siblings_id']) && $post['siblings_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                                <?php } ?>
+                                                </select>
+                                             <div class="help-block"><?php echo form_error('type_id'); ?></div>
+                                         </div>
+                                     </div>
+                                     
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="special_comments"><?php echo $this->lang->line('special_comments'); ?> </label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="special_comments"  id="special_comments" value="<?php echo isset($post['special_comments']) ?  $post['special_comments'] : ''; ?>" placeholder="<?php echo $this->lang->line('special_comments'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('special_comments'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="admission_reference"><?php echo $this->lang->line('admission_reference'); ?> </label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="admission_reference"  id="admission_reference" value="<?php echo isset($post['admission_reference']) ?  $post['admission_reference'] : ''; ?>" placeholder="<?php echo $this->lang->line('admission_reference'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('admission_reference'); ?></div>
+                                         </div>
+                                     </div>                                     
                                 </div>
                                 
                                   
@@ -337,8 +397,8 @@
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                            <label for="department"><?php echo $this->lang->line('department'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($post['department']) ?  $post['department'] : ''; ?>" placeholder="<?php echo $this->lang->line('department'); ?>" required="required" type="text" autocomplete="off">
+                                            <label for="department"><?php echo $this->lang->line('school'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($post['department']) ?  $post['department'] : ''; ?>" placeholder="<?php echo $this->lang->line('school'); ?>" required="required" type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('department'); ?></div>
                                          </div>
                                     </div>                                 
@@ -383,6 +443,56 @@
                                
                                 <div class="row">                  
                                     <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <h5 class="column-title"><strong><?php echo $this->lang->line('sibling_information'); ?>:</strong></h5>
+                                    </div>
+                                </div> 
+                                <div class="row">  
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="sibling_name"><?php echo $this->lang->line('sibling_name'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="sibling_name"  id="sibling_name" value="<?php echo isset($post['sibling_name']) ?  $post['sibling_name'] : ''; ?>" placeholder="<?php echo $this->lang->line('sibling_name'); ?>" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('sibling_name'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="sibling_relation"><?php echo $this->lang->line('sibling_relation'); ?> </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="sibling_relation"  id="sibling_relation" value="<?php echo isset($post['sibling_relation']) ?  $post['sibling_relation'] : ''; ?>" placeholder="<?php echo $this->lang->line('sibling_relation'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('sibling_relation'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="sibling_roll_no"><?php echo $this->lang->line('sibling_roll_no'); ?> </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="sibling_roll_no"  id="sibling_roll_no" value="<?php echo isset($post['sibling_roll_no']) ?  $post['sibling_roll_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('sibling_roll_no'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('sibling_roll_no'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="sibling_program"><?php echo $this->lang->line('sibling_program'); ?> </label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="sibling_program" id="sibling_program" onchange="get_section_by_class_sibling(this.value, '');">
+                                               <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('program'); ?>--</option>
+                                               <?php foreach($classes as $obj){ ?>
+                                                   <option value="<?php echo $obj->id; ?>" <?php echo isset($post['sibling_program']) && $post['sibling_program'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                               <?php } ?>
+                                           </select>
+                                           <div class="help-block"><?php echo form_error('sibling_program'); ?></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                           <label for="sibling_section"><?php echo $this->lang->line('sibling_section'); ?> <span class="required">*</span></label>
+                                           <select  class="form-control col-md-7 col-xs-12 quick-field" name="sibling_section" id="sibling_section" >
+                                               <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
+                                           </select>
+                                           <div class="help-block"><?php echo form_error('sibling_section'); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">                  
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <h5 class="column-title"><strong><?php echo $this->lang->line('father_information'); ?>:</strong></h5>
                                     </div>
                                 </div> 
@@ -418,8 +528,50 @@
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label for="father_designation"><?php echo $this->lang->line('father_designation'); ?></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="father_designation"  id="father_designation" value="<?php echo isset($post['father_designation']) ?  $post['father_profession'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_designation'); ?>"  type="text" autocomplete="off">
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_designation"  id="father_designation" value="<?php echo isset($post['father_designation']) ?  $post['father_designation'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_designation'); ?>"  type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('father_designation'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_annual_income"><?php echo $this->lang->line('father_annual_income'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_annual_income"  id="father_annual_income" value="<?php echo isset($post['father_annual_income']) ?  $post['father_annual_income'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_annual_income'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_annual_income'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_cnic"><?php echo $this->lang->line('father_cnic'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_cnic"  id="father_cnic" value="<?php echo isset($post['father_cnic']) ?  $post['father_cnic'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_cnic'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_cnic'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_address"><?php echo $this->lang->line('father_address'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_address"  id="father_address" value="<?php echo isset($post['father_address']) ?  $post['father_address'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_address'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_address'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_tax_payer_no"><?php echo $this->lang->line('father_tax_payer_no'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_tax_payer_no"  id="father_tax_payer_no" value="<?php echo isset($post['father_tax_payer_no']) ?  $post['father_tax_payer_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_tax_payer_no'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_tax_payer_no'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_landline"><?php echo $this->lang->line('father_landline'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_landline"  id="father_landline" value="<?php echo isset($post['father_landline']) ?  $post['father_landline'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_landline'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_landline'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_office_address"><?php echo $this->lang->line('father_office_address'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_office_address"  id="father_office_address" value="<?php echo isset($post['father_office_address']) ?  $post['father_office_address'] : ''; ?>" placeholder="<?php echo $this->lang->line('father_office_address'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_office_address'); ?></div>
                                          </div>
                                      </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
@@ -474,6 +626,48 @@
                                             <label for="mother_designation"><?php echo $this->lang->line('mother_designation'); ?></label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="mother_designation"  id="mother_designation" value="<?php echo isset($post['mother_designation']) ?  $post['mother_profession'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_designation'); ?>"  type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('mother_designation'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_annual_income"><?php echo $this->lang->line('mother_annual_income'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_annual_income"  id="mother_annual_income" value="<?php echo isset($post['mother_annual_income']) ?  $post['mother_annual_income'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_annual_income'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_annual_income'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_cnic"><?php echo $this->lang->line('mother_cnic'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_cnic"  id="mother_cnic" value="<?php echo isset($post['mother_cnic']) ?  $post['mother_cnic'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_cnic'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_cnic'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_address"><?php echo $this->lang->line('mother_address'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_address"  id="mother_address" value="<?php echo isset($post['mother_address']) ?  $post['mother_address'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_address'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_address'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_tax_payer_no"><?php echo $this->lang->line('mother_tax_payer_no'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_tax_payer_no"  id="mother_tax_payer_no" value="<?php echo isset($post['mother_tax_payer_no']) ?  $post['mother_tax_payer_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_tax_payer_no'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_tax_payer_no'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_landline"><?php echo $this->lang->line('mother_landline'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_landline"  id="mother_landline" value="<?php echo isset($post['mother_landline']) ?  $post['mother_landline'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_landline'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_landline'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_office_address"><?php echo $this->lang->line('mother_office_address'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_office_address"  id="mother_office_address" value="<?php echo isset($post['mother_office_address']) ?  $post['mother_office_address'] : ''; ?>" placeholder="<?php echo $this->lang->line('mother_office_address'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_office_address'); ?></div>
                                          </div>
                                      </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
@@ -723,7 +917,7 @@
                                      </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label ><?php echo $this->lang->line('photo'); ?></label>
+                                            <label ><?php echo $this->lang->line('student_photo'); ?></label>
                                             <div class="btn btn-default btn-file">
                                                 <i class="fa fa-paperclip"></i> <?php echo $this->lang->line('upload'); ?>
                                                 <input  class="form-control col-md-7 col-xs-12"  name="photo"  id="photo" type="file">
@@ -846,12 +1040,19 @@
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                             <label for="phone"><?php echo $this->lang->line('phone'); ?> <span class="required">*</span></label>
+                                             <label for="phone"><?php echo $this->lang->line('phone').' number 1'; ?> <span class="required">*</span></label>
                                              <input  class="form-control col-md-7 col-xs-12"  name="phone"  id="add_phone" value="<?php echo isset($student->phone) ?  $student->phone : ''; ?>" placeholder="<?php echo $this->lang->line('phone'); ?>" required="required" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('phone'); ?></div>
                                          </div>
                                      </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="phone"><?php echo $this->lang->line('phone').' number 2'; ?> </label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="phone_2"  id="add_phone_2" value="<?php echo isset($student->phone_2) ?  $student->phone_2 : ''; ?>" placeholder="<?php echo $this->lang->line('phone').' number 2'; ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('phone'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label for="email"><?php echo $this->lang->line('email'); ?> </label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="email"   id="email" value="<?php echo isset($student->email) ?  $student->email : ''; ?>" placeholder="<?php echo $this->lang->line('email'); ?>" type="email" autocomplete="off">
@@ -860,9 +1061,36 @@
                                      </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                             <label for="national_id"><?php echo $this->lang->line('national_id'); ?> </label>
-                                             <input  class="form-control col-md-7 col-xs-12"  name="national_id"  id="national_id" value="<?php echo isset($student->national_id) ?  $student->national_id : ''; ?>" placeholder="<?php echo $this->lang->line('national_id'); ?>" type="text" autocomplete="off">
+                                             <label for="national_id"><?php echo $this->lang->line('cnic'); ?> </label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="national_id"  id="national_id" value="<?php echo isset($student->national_id) ?  $student->national_id : ''; ?>" placeholder="<?php echo $this->lang->line('cnic'); ?>" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('national_id'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="type_id"><?php echo $this->lang->line('select_siblings'); ?></label>
+                                                <select  class="form-control col-md-7 col-xs-12" name="siblings_id" id="siblings_id">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <?php foreach($students_list as $obj){ ?>
+                                                    <option value="<?php echo $obj->id; ?>" <?php echo isset($student->siblings_id) && $student->siblings_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                                <?php } ?>
+                                                </select>
+                                             <div class="help-block"><?php echo form_error('type_id'); ?></div>
+                                         </div>
+                                     </div>
+                                     
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="special_comments"><?php echo $this->lang->line('special_comments'); ?> </label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="special_comments"  id="special_comments" value="<?php echo isset($student->special_comments) ?  $student->special_comments : ''; ?>" placeholder="<?php echo $this->lang->line('special_comments'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('special_comments'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                             <label for="admission_reference"><?php echo $this->lang->line('admission_reference'); ?> </label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="admission_reference"  id="admission_reference" value="<?php echo isset($student->admission_reference) ?  $student->admission_reference : ''; ?>" placeholder="<?php echo $this->lang->line('admission_reference'); ?>" type="text" autocomplete="off">
+                                             <div class="help-block"><?php echo form_error('admission_reference'); ?></div>
                                          </div>
                                      </div>                                    
                                 </div>
@@ -924,8 +1152,8 @@
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                            <label for="department"><?php echo $this->lang->line('department'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($post['department']) ?  $post['department'] : ''; ?>" placeholder="<?php echo $this->lang->line('department'); ?>" required="required" type="text" autocomplete="off">
+                                            <label for="department"><?php echo $this->lang->line('school'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($student->department) ?  $student->department : ''; ?>" placeholder="<?php echo $this->lang->line('school'); ?>" required="required" type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('department'); ?></div>
                                          </div>
                                     </div>                                    
@@ -968,6 +1196,56 @@
                                   
                                 <div class="row">                  
                                     <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <h5 class="column-title"><strong><?php echo $this->lang->line('sibling_information'); ?>:</strong></h5>
+                                    </div>
+                                </div> 
+                                <div class="row">  
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="sibling_name"><?php echo $this->lang->line('sibling_name'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="sibling_name"  id="edit_sibling_name" value="<?php echo isset($student->sibling_name) ?  $student->sibling_name : ''; ?>" placeholder="<?php echo $this->lang->line('sibling_name'); ?>" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('sibling_name'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="sibling_relation"><?php echo $this->lang->line('sibling_relation'); ?> </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="sibling_relation"  id="edit_sibling_relation" value="<?php echo isset($student->sibling_relation) ?  $student->sibling_relation : ''; ?>" placeholder="<?php echo $this->lang->line('sibling_relation'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('sibling_relation'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="sibling_roll_no"><?php echo $this->lang->line('sibling_roll_no'); ?> </label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="sibling_roll_no"  id="edit_sibling_roll_no" value="<?php echo isset($student->sibling_roll_no) ?  $student->sibling_roll_no : ''; ?>" placeholder="<?php echo $this->lang->line('sibling_roll_no'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('sibling_roll_no'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="sibling_program"><?php echo $this->lang->line('sibling_program'); ?> </label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="sibling_program" id="edit_sibling_program" onchange="get_section_by_class_sibling(this.value, '');">
+                                               <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('program'); ?>--</option>
+                                               <?php foreach($classes as $obj){ ?>
+                                                   <option value="<?php echo $obj->id; ?>" <?php echo isset($student->sibling_program) && $student->sibling_program == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                               <?php } ?>
+                                           </select>
+                                           <div class="help-block"><?php echo form_error('sibling_program'); ?></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                           <label for="sibling_section"><?php echo $this->lang->line('sibling_section'); ?></label>
+                                           <select  class="form-control col-md-7 col-xs-12 quick-field" name="sibling_section" id="edit_sibling_section" >
+                                               <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
+                                           </select>
+                                           <div class="help-block"><?php echo form_error('sibling_section'); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">                  
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <h5 class="column-title"><strong><?php echo $this->lang->line('father_information'); ?>:</strong></h5>
                                     </div>
                                 </div> 
@@ -1005,6 +1283,48 @@
                                             <label for="father_designation"><?php echo $this->lang->line('father_designation'); ?></label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="father_designation"  id="father_designation" value="<?php echo isset($student->father_designation) ?  $student->father_designation : ''; ?>" placeholder="<?php echo $this->lang->line('father_designation'); ?>"  type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('father_designation'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_annual_income"><?php echo $this->lang->line('father_annual_income'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_annual_income"  id="father_annual_income" value="<?php echo isset($student->father_annual_income) ?  $student->father_annual_income : ''; ?>" placeholder="<?php echo $this->lang->line('father_annual_income'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_annual_income'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_cnic"><?php echo $this->lang->line('father_cnic'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_cnic"  id="father_cnic" value="<?php echo isset($student->father_cnic) ?  $student->father_cnic : ''; ?>" placeholder="<?php echo $this->lang->line('father_cnic'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_cnic'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_address"><?php echo $this->lang->line('father_address'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_address"  id="father_address" value="<?php echo isset($student->father_address) ?  $student->father_address : ''; ?>" placeholder="<?php echo $this->lang->line('father_address'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_address'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_tax_payer_no"><?php echo $this->lang->line('father_tax_payer_no'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_tax_payer_no"  id="father_tax_payer_no" value="<?php echo isset($student->father_tax_payer_no) ?  $student->father_tax_payer_no : ''; ?>" placeholder="<?php echo $this->lang->line('father_tax_payer_no'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_tax_payer_no'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_landline"><?php echo $this->lang->line('father_landline'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_landline"  id="father_landline" value="<?php echo isset($student->father_landline) ?  $student->father_landline : ''; ?>" placeholder="<?php echo $this->lang->line('father_landline'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_landline'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="father_office_address"><?php echo $this->lang->line('father_office_address'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="father_office_address"  id="father_office_address" value="<?php echo isset($student->father_office_address) ? $student->father_office_address : ''; ?>" placeholder="<?php echo $this->lang->line('father_office_address'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('father_office_address'); ?></div>
                                          </div>
                                      </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
@@ -1067,6 +1387,48 @@
                                             <label for="mother_designation"><?php echo $this->lang->line('mother_designation'); ?></label>
                                             <input  class="form-control col-md-7 col-xs-12"  name="mother_designation"  id="mother_designation" value="<?php echo isset($student->mother_designation) ?  $student->mother_designation : ''; ?>" placeholder="<?php echo $this->lang->line('mother_designation'); ?>"  type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('mother_designation'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_annual_income"><?php echo $this->lang->line('mother_annual_income'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_annual_income"  id="mother_annual_income" value="<?php echo isset($student->mother_annual_income) ?  $student->mother_annual_income : ''; ?>" placeholder="<?php echo $this->lang->line('mother_annual_income'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_annual_income'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_cnic"><?php echo $this->lang->line('mother_cnic'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_cnic"  id="mother_cnic" value="<?php echo isset($student->mother_cnic) ?  $student->mother_cnic : ''; ?>" placeholder="<?php echo $this->lang->line('mother_cnic'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_cnic'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_address"><?php echo $this->lang->line('mother_address'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_address"  id="mother_address" value="<?php echo isset($student->mother_address) ?  $student->mother_address : ''; ?>" placeholder="<?php echo $this->lang->line('mother_address'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_address'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_tax_payer_no"><?php echo $this->lang->line('mother_tax_payer_no'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_tax_payer_no"  id="mother_tax_payer_no" value="<?php echo isset($student->mother_tax_payer_no) ?  $student->mother_tax_payer_no : ''; ?>" placeholder="<?php echo $this->lang->line('mother_tax_payer_no'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_tax_payer_no'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_landline"><?php echo $this->lang->line('mother_landline'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_landline"  id="mother_landline" value="<?php echo isset($student->mother_landline) ?  $student->mother_landline : ''; ?>" placeholder="<?php echo $this->lang->line('mother_landline'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_landline'); ?></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="mother_office_address"><?php echo $this->lang->line('mother_office_address'); ?></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="mother_office_address"  id="mother_office_address" value="<?php echo isset($student->mother_office_address) ?  $student->mother_office_address : ''; ?>" placeholder="<?php echo $this->lang->line('mother_office_address'); ?>"  type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('mother_office_address'); ?></div>
                                          </div>
                                      </div>
                                      <div class="col-md-3 col-sm-3 col-xs-12">
@@ -1488,8 +1850,10 @@
   
     <?php if(isset($edit)){ ?>
         get_section_by_class('<?php echo $student->class_id; ?>', '<?php echo $student->section_id; ?>');
+        get_section_by_class_sibling('<?php echo $student->sibling_program; ?>', '<?php echo $student->sibling_section; ?>');
     <?php }elseif($post && !empty ($post)){ ?>  
         get_section_by_class('<?php echo $post['class_id']; ?>', '<?php echo $post['section_id']; ?>');
+        get_section_by_class_sibling('<?php echo $post['sibling_program']; ?>', '<?php echo $post['sibling_section']; ?>');
     <?php } ?>
     
     function get_section_by_class(class_id, section_id){       
@@ -1519,6 +1883,41 @@
                        $('#edit_section_id').html(response);
                    }else{
                        $('#add_section_id').html(response);
+                   }
+               }
+            }
+        });  
+                     
+        
+   }
+
+   function get_section_by_class_sibling(class_id, section_id){       
+        
+        var school_id = '';
+        <?php if(isset($edit)){ ?>                
+            school_id = $('#edit_school_id').val();
+         <?php }else{ ?> 
+            school_id = $('#add_school_id').val();
+         <?php } ?> 
+          
+        
+       if(!school_id){
+           toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+           return false;
+        }
+        
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
+            data   : { school_id:school_id, class_id : class_id , section_id: section_id},               
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               {
+                   if(edit){
+                       $('#edit_sibling_section').html(response);
+                   }else{
+                       $('#sibling_section').html(response);
                    }
                }
             }

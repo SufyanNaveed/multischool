@@ -33,7 +33,7 @@
                         <td><?php echo date($this->global_setting->date_format, strtotime($student->dob)); ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo $this->lang->line('national_id'); ?></th>
+                        <th><?php echo $this->lang->line('cnic'); ?></th>
                         <td><?php echo $student->national_id; ?></td>
                         <th><?php echo $this->lang->line('student_type'); ?></th>
                         <td><?php echo $student->type; ?></td>
@@ -53,8 +53,20 @@
                     <tr>
                         <th><?php echo $this->lang->line('phone'); ?></th>
                         <td><?php echo $student->phone; ?></td>                       
-                         <th><?php echo $this->lang->line('email'); ?></th>
+                         <th><?php echo $this->lang->line('phone_2'); ?></th>
+                        <td><?php echo $student->phone_2; ?></td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->lang->line('email'); ?></th>
                         <td><?php echo $student->email; ?></td>
+                        <th><?php echo $this->lang->line('special_comments'); ?></th>
+                        <td><?php echo $student->special_comments; ?></td>
+                    </tr>
+                    <tr> 
+                    <th><?php echo $this->lang->line('special_comments'); ?></th>
+                        <td><?php echo $student->special_comments; ?></td>
+                        <th><?php echo $this->lang->line('sibling'); ?></th>
+                        <td><?php echo $student->sibling_id; ?></td>
                     </tr>
                     <tr>
                         <th><?php echo $this->lang->line('present_address'); ?></th>

@@ -9,7 +9,7 @@ class Admission_Model extends MY_Model {
         parent::__construct();
     }
     
-    public function get_admission_list($class_id = null, $school_id = null){
+    public function get_admission_list($class_id = null, $school_id = null, $search_by_name = null, $search_by_program = null, $search_by_contact = null){
                 
         $this->db->select('A.*, SC.school_name, T.type, C.name AS class_name');
         $this->db->from('admissions AS A');
@@ -19,6 +19,15 @@ class Admission_Model extends MY_Model {
       
         if($class_id){
               $this->db->where('A.class_id', $class_id);
+        }
+        if($search_by_name){
+            $this->db->like('A.name', $search_by_name);
+        }
+        if($search_by_program){
+            $this->db->like('A.group', $search_by_program);
+        }
+        if($search_by_contact){
+            $this->db->like('A.phone', $search_by_contact);
         }        
         if($this->session->userdata('role_id') == SUPER_ADMIN && $school_id){
               $this->db->where('A.school_id', $school_id);

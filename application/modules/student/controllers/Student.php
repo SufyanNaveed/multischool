@@ -48,6 +48,11 @@ class Student extends MY_Controller {
             
             $school_id = $this->input->post('school_id');
             $class_id  = $this->input->post('class_id');           
+            $roll_no  = $this->input->post('roll_no');           
+            $student_id  = $this->input->post('student_id');           
+            $section_id  = $this->input->post('section_id');           
+            $semester_id  = $this->input->post('semester_id');           
+            $department_id  = $this->input->post('department_id');           
         }
               
         if(!$school_id && $this->session->userdata('role_id') != SUPER_ADMIN){
@@ -67,10 +72,14 @@ class Student extends MY_Controller {
         
         $this->data['class_id'] = $class_id;
         $this->data['filter_class_id'] = $class_id;
-        $this->data['filter_school_id'] = $school_id;
-        
+        $this->data['filter_roll_no'] = $roll_no;
+        $this->data['filter_student_id'] = $student_id;
+        $this->data['filter_section_id'] = $section_id;
+        $this->data['filter_semester_id'] = $semester_id;
+        $this->data['filter_department_id'] = $department_id;
+                
         if($school_id){
-            $this->data['students'] = $this->student->get_student_list($class_id, $school_id, $school->academic_year_id);
+        $this->data['students'] = $this->student->get_student_list($class_id, $school_id, $school->academic_year_id,$roll_no,$student_id,$section_id,$semester_id,$department_id);
         }
                 
         $this->data['roles'] = $this->student->get_list('roles', array('status' => 1), '', '', '', 'id', 'ASC');
@@ -85,6 +94,7 @@ class Student extends MY_Controller {
             $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
             $this->data['types']      = $this->student->get_list('student_types', $condition, '','', '', 'id', 'ASC'); 
         }
+        ///echo '<pre>'; print_r($this->data['class_list']);exit;
         $this->data['schools'] = $this->schools;
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_student') . ' | ' . SMS);
@@ -135,6 +145,7 @@ class Student extends MY_Controller {
 
         $this->data['class_id'] = $class_id;
         $this->data['students'] = $this->student->get_student_list($class_id);
+        $this->data['students_list'] = $this->student->get_student_list();
         $this->data['roles'] = $this->student->get_list('roles', array('status' => 1), '', '', '', 'id', 'ASC');
         
          
@@ -152,7 +163,7 @@ class Student extends MY_Controller {
             $this->data['classes'] = $this->student->get_list('classes',$condition, '','', '', 'id', 'ASC');
         }
 
-        //echo '<pre>'; print_r($this->data); exit;
+        //echo '<pre>'; print_r($this->data['students_list']); exit;
         
         $this->data['schools'] = $this->schools;
         $this->data['add'] = TRUE;
@@ -221,6 +232,7 @@ class Student extends MY_Controller {
         
         $this->data['class_id'] = $class_id;
         $this->data['students'] = $this->student->get_student_list($class_id, $school->id, $school->academic_year_id);
+        $this->data['students_list'] = $this->student->get_student_list();
         $this->data['roles'] = $this->student->get_list('roles', array('status' => 1), '', '', '', 'id', 'ASC');
         
           
@@ -481,6 +493,10 @@ class Student extends MY_Controller {
         $items[] = 'department';
         $items[] = 'name';
         $items[] = 'phone';
+        $items[] = 'phone_2';
+        $items[] = 'siblings_id';
+        $items[] = 'special_comments';
+        $items[] = 'admission_reference';
         $items[] = 'email';
         $items[] = 'gender';
         $items[] = 'blood_group';        
@@ -500,12 +516,30 @@ class Student extends MY_Controller {
         $items[] = 'father_education';
         $items[] = 'father_profession';
         $items[] = 'father_designation';
+        $items[] = 'father_annual_income';
+        $items[] = 'father_cnic';
+        $items[] = 'father_address';
+        $items[] = 'father_tax_payer_no';
+        $items[] = 'father_landline';
+        $items[] = 'father_office_address';
+        
+        $items[] = 'sibling_name';
+        $items[] = 'sibling_relation';
+        $items[] = 'sibling_roll_no';
+        $items[] = 'sibling_program';
+        $items[] = 'sibling_section';
         
         $items[] = 'mother_name';
         $items[] = 'mother_phone';
         $items[] = 'mother_education';
         $items[] = 'mother_profession';
         $items[] = 'mother_designation';
+        $items[] = 'mother_annual_income';
+        $items[] = 'mother_cnic';
+        $items[] = 'mother_address';
+        $items[] = 'mother_tax_payer_no';
+        $items[] = 'mother_landline';
+        $items[] = 'mother_office_address';
         
         $items[] = 'health_condition';
         $items[] = 'other_info';

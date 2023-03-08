@@ -48,13 +48,19 @@ class Admission extends MY_Controller {
             
             $school_id = $this->input->post('school_id');
             $class_id  = $this->input->post('class_id');           
+            $search_by_name  = $this->input->post('search_by_name');           
+            $search_by_program  = $this->input->post('search_by_program');           
+            $search_by_contact  = $this->input->post('search_by_contact');           
         }
         
         $this->data['class_id'] = $class_id;
         $this->data['filter_class_id'] = $class_id;
         $this->data['filter_school_id'] = $school_id;
+        $this->data['search_by_name'] = $search_by_name;
+        $this->data['search_by_program'] = $search_by_program;
+        $this->data['search_by_contact'] = $search_by_contact;
                 
-        $this->data['admissions'] = $this->admission->get_admission_list($class_id, $school_id);
+        $this->data['admissions'] = $this->admission->get_admission_list($class_id, $school_id, $search_by_name, $search_by_program, $search_by_contact);
         $this->data['roles'] = $this->admission->get_list('roles', array('status' => 1), '', '', '', 'id', 'ASC');
         
         

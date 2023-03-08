@@ -53,6 +53,21 @@
                                             <?php } ?>
                                         <?php } ?>
                                     </select>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="search_by_name"  id="search_by_name" value="<?php echo isset($search_by_name) ?  $search_by_name : ''; ?>" placeholder="<?php echo $this->lang->line('search_by_name'); ?>" type="text" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="search_by_program"  id="search_by_program" value="<?php echo isset($search_by_program) ?  $search_by_program : ''; ?>" placeholder="<?php echo $this->lang->line('search_by_program'); ?>" type="text" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <div class="item form-group">
+                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="search_by_contact"  id="search_by_contact" value="<?php echo isset($search_by_contact) ?  $search_by_contact : ''; ?>" placeholder="<?php echo $this->lang->line('search_by_contact'); ?>" type="text" autocomplete="off">
+                                        </div>
+                                    </div>
                                    <?php echo form_close(); ?>
                             
                             <?php } ?>

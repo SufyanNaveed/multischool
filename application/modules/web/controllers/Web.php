@@ -621,7 +621,9 @@ class Web extends CI_Controller {
         $items[] = 'type_id';
         $items[] = 'class_id';
         $items[] = 'group';
-        $items[] = 'second_language';
+        $items[] = 'section';
+        $items[] = 'section';
+        $items[] = 'next_follow_up_date';
         $items[] = 'present_address';
         $items[] = 'permanent_address';
         
@@ -660,6 +662,7 @@ class Web extends CI_Controller {
         
         $data['school_id'] = $this->session->userdata('front_school_id');  
         $data['dob'] = date('Y-m-d', strtotime($this->input->post('dob')));  
+        $data['next_follow_up_date'] = date('Y-m-d', strtotime($this->input->post('next_follow_up_date')));  
         
         if ($this->input->post('id')) {
             $data['modified_at'] = date('Y-m-d H:i:s');

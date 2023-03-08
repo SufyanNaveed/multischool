@@ -154,7 +154,7 @@
                          </div>                        
                          <div class="col-md-3 col-sm-3 col-xs-12">
                              <div class="item form-group">
-                                 <label for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span></label>
+                                 <label for="class_id"><?php echo $this->lang->line('program'); ?> <span class="required">*</span></label>
                                  <select  class="form-control col-md-7 col-xs-12 quick-field" name="class_id" id="add_class_id" required="required" onchange="get_section_by_class(this.value, '');">
                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                     <?php foreach($classes as $obj){ ?>
@@ -166,7 +166,7 @@
                          </div>                        
                          <div class="col-md-3 col-sm-3 col-xs-12">
                              <div class="item form-group">
-                                <label for="group"><?php echo $this->lang->line('group'); ?> </label>
+                                <label for="group"><?php echo $this->lang->line('school'); ?> </label>
                                 <select  class="form-control col-md-7 col-xs-12" name="group" id="group">
                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                     <?php $groups = get_groups(); ?>
@@ -179,14 +179,29 @@
                          </div>                   
                          <div class="col-md-3 col-sm-3 col-xs-12">
                              <div class="item form-group">
+                                <label for="section"><?php echo $this->lang->line('section'); ?></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="section"  id="section" value="<?php echo isset($post['section']) ?  $post['section'] : ''; ?>" placeholder="<?php echo $this->lang->line('section'); ?>" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('section'); ?></div>
+                             </div>
+                         </div>
+                         <div class="col-md-3 col-sm-3 col-xs-12">
+                             <div class="item form-group">
                                 <label for="second_language"><?php echo $this->lang->line('second_language'); ?></label>
                                 <input  class="form-control col-md-7 col-xs-12"  name="second_language"  id="second_language" value="<?php echo isset($post['second_language']) ?  $post['second_language'] : ''; ?>" placeholder="<?php echo $this->lang->line('second_language'); ?>" type="text" autocomplete="off">
                                 <div class="help-block"><?php echo form_error('second_language'); ?></div>
                              </div>
                          </div>
+
+                         <div class="col-md-3 col-sm-3 col-xs-12">
+                             <div class="item form-group">
+                                <label  for="next_follow_up_date"><?php echo $this->lang->line('next_follow_up_date'); ?> <span class="required">*</span></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="next_follow_up_date"  id="next_follow_up_date" value="<?php echo isset($post['next_follow_up_date']) ?  $post['next_follow_up_date'] : ''; ?>" placeholder="<?php echo $this->lang->line('next_follow_up_date'); ?>" type="text" autocomplete="off">
+                                <div class="help-block"><?php echo form_error('next_follow_up_date'); ?></div>
+                             </div>
+                        </div>
                     </div>                
                     
-                          <div class="row">
+                    <div class="row">
                         <div class="col-md-12 col-sm-12"><p class="admission-form-title"><strong><?php echo $this->lang->line('father_information'); ?>:</strong></p> </div>
                     </div>
                      <div class="row">  
@@ -470,6 +485,7 @@
  <script type="text/javascript">     
      
     $('#dob').datepicker({ startView: 2 });
+    $('#next_follow_up_date').datepicker({ });
     $('#admission').validate();
     
         

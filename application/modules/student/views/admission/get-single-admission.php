@@ -27,12 +27,17 @@
                         <td><?php echo $admission->type; ?></td>                                             
                     </tr>
                     <tr>                       
-                        <th><?php echo $this->lang->line('class'); ?></th>
+                        <th><?php echo $this->lang->line('program'); ?></th>
                         <td><?php echo $admission->class_name; ?></td>                         
-                        <th><?php echo $this->lang->line('group'); ?></th>
+                        <th><?php echo $this->lang->line('school'); ?></th>
                         <td><?php echo $this->lang->line($admission->group); ?></td>   
                     </tr>                  
-                    
+                    <tr>
+                        <th><?php echo $this->lang->line('section'); ?></th>
+                        <td><?php echo $admission->section; ?></td>
+                        <th><?php echo $this->lang->line('next_follow_up_date'); ?></th>
+                        <td><?php echo $admission->next_follow_up_date; ?></td>
+                    </tr>
                     <tr>
                         <th><?php echo $this->lang->line('gender'); ?></th>
                         <td><?php echo $this->lang->line($admission->gender); ?></td>

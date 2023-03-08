@@ -9,11 +9,11 @@ class Student_Model extends MY_Model {
         parent::__construct();
     }
     
-    public function get_student_list($class_id = null, $school_id = null, $academic_year_id = null){
+    public function get_student_list($class_id = null, $school_id = null, $academic_year_id = null, $roll_no = null, $student_id = null, $section_id = null, $semester_id = null, $department_id  = null){
             
-        if(!$class_id){
-            return;
-        }
+        // if(!$class_id){
+        //     return;
+        // }
         
         $this->db->select('S.*, SC.school_name, E.roll_no, E.class_id, U.username, U.role_id,  C.name AS class_name, SE.name AS section');
         $this->db->from('enrollments AS E');
@@ -21,13 +21,29 @@ class Student_Model extends MY_Model {
         $this->db->join('users AS U', 'U.id = S.user_id', 'left');
         $this->db->join('classes AS C', 'C.id = E.class_id', 'left');
         $this->db->join('sections AS SE', 'SE.id = E.section_id', 'left');
-        $this->db->join('schools AS SC', 'SC.id = S.school_id', 'left');
+        $this->db->join('schools AS SC', 'SC.id = S.school_id', 'left'); 
         
         if($academic_year_id){
             $this->db->where('E.academic_year_id', $academic_year_id); 
         }
         if($class_id){
             $this->db->where('E.class_id', $class_id);
+        }
+
+        if($roll_no){
+            $this->db->where('e.roll_no', $roll_no);
+        }
+        if($student_id){
+            $this->db->like('s.name', $student_id);
+        }
+        if($section_id){
+            $this->db->like('SE.name', $section_id);
+        }
+        if($semester_id){
+            $this->db->like('s.group', $semester_id);
+        }
+        if($department_id){
+            $this->db->like('s.department', $department_id);
         }
                 
         if($this->session->userdata('role_id') == GUARDIAN){
