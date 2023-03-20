@@ -71,15 +71,16 @@ class Student extends MY_Controller {
         }
         
         $this->data['class_id'] = $class_id;
+        $this->data['filter_school_id'] = $school_id;
         $this->data['filter_class_id'] = $class_id;
-        $this->data['filter_roll_no'] = $roll_no;
-        $this->data['filter_student_id'] = $student_id;
+        // $this->data['filter_roll_no'] = $roll_no;
+        // $this->data['filter_student_id'] = $student_id;
         $this->data['filter_section_id'] = $section_id;
         $this->data['filter_semester_id'] = $semester_id;
-        $this->data['filter_department_id'] = $department_id;
+        // $this->data['filter_department_id'] = $department_id;
                 
         if($school_id){
-        $this->data['students'] = $this->student->get_student_list($class_id, $school_id, $school->academic_year_id,$roll_no,$student_id,$section_id,$semester_id,$department_id);
+            $this->data['students'] = $this->student->get_student_list($class_id, $school_id, $school->academic_year_id,$section_id,$semester_id);
         }
                 
         $this->data['roles'] = $this->student->get_list('roles', array('status' => 1), '', '', '', 'id', 'ASC');
@@ -94,7 +95,8 @@ class Student extends MY_Controller {
             $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
             $this->data['types']      = $this->student->get_list('student_types', $condition, '','', '', 'id', 'ASC'); 
         }
-        ///echo '<pre>'; print_r($this->data['class_list']);exit;
+        // echo '<pre>'; print_r($this->session->userdata());exit;
+        //echo '<pre>'; print_r($this->data['students']);exit;
         $this->data['schools'] = $this->schools;
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_student') . ' | ' . SMS);

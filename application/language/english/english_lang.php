@@ -560,7 +560,7 @@ $lang['transfer'] = "Transfer";
 $lang['health_condition'] = "Health Condition";
 $lang['national_id'] = "National ID";
 $lang['other'] = "Other";
-$lang['contact'] = "Contact";
+$lang['contact'] = "Contact"; 
 $lang['next_year'] = "Next Year";
 $lang['enter_purchase_code'] = "Enter Purchase Code";
 $lang['purchase_code'] = "Purchase Code";
@@ -1087,4 +1087,4 @@ $lang['mother_office_address'] = "Mother Office Address";
 
 $lang['search_by_name'] = "Search By Name";
 $lang['search_by_program'] = "Search By Program";
-$lang['search_by_contact'] = "Search By Contact";
+$lang['search_by_contact'] = "Search By Contact"; 

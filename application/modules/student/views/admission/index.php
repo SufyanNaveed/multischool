@@ -87,7 +87,8 @@
                                         <?php } ?>
                                         <th><?php echo $this->lang->line('photo'); ?></th>
                                         <th><?php echo $this->lang->line('name'); ?></th>
-                                        <th><?php echo $this->lang->line('class'); ?></th>
+                                        <th><?php echo $this->lang->line('program'); ?></th>
+                                        <th><?php echo $this->lang->line('contact'); ?></th>
                                         <th><?php echo $this->lang->line('status'); ?> </th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
@@ -110,6 +111,7 @@
                                             </td>
                                             <td><?php echo $obj->name; ?></td>
                                             <td><?php echo $obj->class_name; ?></td>
+                                            <td><?php echo $obj->phone; ?></td>
                                             <td>
                                                 <?php  if($obj->status == 0){ ?>
                                                     <a href="javascript:void(0);" class="btn btn-default btn-xs"> <?php echo $this->lang->line('new'); ?> </a>

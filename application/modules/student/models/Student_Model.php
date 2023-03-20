@@ -9,7 +9,7 @@ class Student_Model extends MY_Model {
         parent::__construct();
     }
     
-    public function get_student_list($class_id = null, $school_id = null, $academic_year_id = null, $roll_no = null, $student_id = null, $section_id = null, $semester_id = null, $department_id  = null){
+    public function get_student_list($class_id = null, $school_id = null, $academic_year_id = null, $section_id = null, $semester_id = null){
             
         // if(!$class_id){
         //     return;
@@ -29,23 +29,13 @@ class Student_Model extends MY_Model {
         if($class_id){
             $this->db->where('E.class_id', $class_id);
         }
-
-        if($roll_no){
-            $this->db->where('e.roll_no', $roll_no);
-        }
-        if($student_id){
-            $this->db->like('s.name', $student_id);
-        }
         if($section_id){
-            $this->db->like('SE.name', $section_id);
+            $this->db->like('SE.id', $section_id);
         }
         if($semester_id){
             $this->db->like('s.group', $semester_id);
         }
-        if($department_id){
-            $this->db->like('s.department', $department_id);
-        }
-                
+              
         if($this->session->userdata('role_id') == GUARDIAN){
            $this->db->where('S.guardian_id', $this->session->userdata('profile_id'));
         }

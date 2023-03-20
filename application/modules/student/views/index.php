@@ -49,45 +49,30 @@
                             <?php if($this->session->userdata('role_id') == SUPER_ADMIN){  ?>
                             
                                 <?php echo form_open(site_url('student/index'), array('name' => 'filter', 'id' => 'filter', 'class'=>'form-horizontal form-label-left'), ''); ?>
-                                    <select  class="form-control col-md-7 col-xs-12" style="width:auto;" name="school_id"  onchange="get_class_by_school(this.value, '');">
+                                    <select  class="form-control col-md-7 col-xs-12" style="width:auto;" id="filter_school_id" name="school_id"  onchange="get_class_by_school(this.value, '');">
                                             <option value="">--<?php echo $this->lang->line('select_school'); ?>--</option> 
                                         <?php foreach($schools as $obj ){ ?>
                                             <option value="<?php echo $obj->id; ?>" <?php if(isset($filter_school_id) && $filter_school_id == $obj->id){ echo 'selected="selected"';} ?> > <?php echo $obj->school_name; ?></option>
                                         <?php } ?>   
                                     </select>
-                                    <select  class="form-control col-md-7 col-xs-12" id="filter_class_id" name="class_id"  style="width:auto;" onchange="this.form.submit();">
-                                         <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
+                                    <select  class="form-control col-md-7 col-xs-12" id="filter_class_id" name="class_id"  style="width:auto;" onchange="this.form.submit();" >
+                                         <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('program'); ?>--</option> 
                                         <?php if(isset($class_list) && !empty($class_list)){ ?>
                                             <?php foreach($class_list as $obj ){ ?>
                                                 <option value="<?php echo $obj->id; ?>"><?php echo $obj->name; ?></option> 
                                             <?php } ?>
                                         <?php } ?>
                                     </select>
-                                    <div class="col-md-1 col-sm-1 col-xs-12">
-                                        <div class="item form-group">
-                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="roll_no"  id="roll_no" value="<?php echo isset($filter_roll_no) ?  $filter_roll_no : ''; ?>" placeholder="<?php echo $this->lang->line('roll_no'); ?>" type="text" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 col-sm-1 col-xs-12">
-                                        <div class="item form-group">
-                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="student_id"  id="student_id" value="<?php echo isset($filter_student_id) ?  $filter_student_id : ''; ?>" placeholder="<?php echo $this->lang->line('student'); ?>" type="text" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 col-sm-1 col-xs-12">
-                                        <div class="item form-group">
-                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="section_id"  id="section_id" value="<?php echo isset($filter_section_id) ?  $filter_section_id : ''; ?>" placeholder="<?php echo $this->lang->line('section'); ?>" type="text" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 col-sm-1 col-xs-12">
-                                        <div class="item form-group">
-                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="semester_id"  id="semester_id" value="<?php echo isset($filter_semester_id) ?  $filter_semester_id : ''; ?>" placeholder="<?php echo $this->lang->line('semester'); ?>" type="text" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 col-sm-1 col-xs-12">
-                                        <div class="item form-group">
-                                            <input onkeyup="this.form.submit();" class="form-control col-md-7 col-xs-12"  name="department_id"  id="department_id" value="<?php echo isset($filter_department_id) ?  $filter_department_id : ''; ?>" placeholder="<?php echo $this->lang->line('department'); ?>" type="text" autocomplete="off">
-                                        </div>
-                                    </div>
+                                    <select  class="form-control col-md-7 col-xs-12" id="filter_section_id" name="section_id"  style="width:auto;" onchange="this.form.submit();">
+                                        <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>  
+                                    </select>
+                                    <select class="form-control col-md-7 col-xs-12" id="filter_semester_id" name="semester_id"  style="width:auto;" onchange="this.form.submit();">
+                                                <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
+                                                <?php $groups = get_groups(); ?>
+                                                <?php foreach($groups as $key=>$value){ ?>
+                                                    <option value="<?php echo $key; ?>" <?php echo isset($filter_semester_id) && $filter_semester_id == $key ?  'selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                                                <?php } ?>
+                                            </select>
                                    <?php echo form_close(); ?>
                             
                             <?php }else{  ?> 
@@ -129,7 +114,7 @@
                                         <?php } ?>
                                         <th><?php echo $this->lang->line('photo'); ?></th>
                                         <th><?php echo $this->lang->line('name'); ?></th>
-                                        <th><?php echo $this->lang->line('group'); ?></th>
+                                        <th><?php echo $this->lang->line('semester'); ?></th>
                                         <th><?php echo $this->lang->line('class'); ?></th>
                                         <th><?php echo $this->lang->line('section'); ?></th>
                                         <th><?php echo $this->lang->line('roll_no'); ?></th>
@@ -2107,6 +2092,29 @@
                if(response)
                { 
                     $('#filter_class_id').html(response);                     
+               }
+            }
+        });
+    } 
+
+    <?php if(isset($filter_class_id)){ ?>
+        get_section_by_class('<?php echo $filter_class_id; ?>', '<?php echo $filter_section_id; ?>');
+    <?php } ?>
+    
+    function get_section_by_class(class_id, section_id){
+        
+        var school_id = $('#filter_school_id').val();
+
+
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
+            data   : { school_id:school_id, class_id : class_id , section_id: section_id},           
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               { 
+                    $('#filter_section_id').html(response);                     
                }
             }
         });
