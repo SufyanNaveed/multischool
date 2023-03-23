@@ -148,7 +148,8 @@
                                             <td><?php echo ucfirst($obj->name); ?></td>
                                             <td><?php echo $obj->class_name; ?></td>
                                             <td><?php echo $obj->section; ?></td>
-                                            <td><?php echo $this->lang->line($obj->group); ?></td>
+                                            <!-- <td><?php echo $this->lang->line($obj->group); ?></td> -->
+                                            <td><?php echo $obj->group; ?></td>
                                             <td><?php echo $obj->roll_no; ?></td>
                                             <td><?php echo $obj->email; ?></td>
                                             <td>
