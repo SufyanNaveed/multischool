@@ -876,9 +876,9 @@ if (!function_exists('get_groups')) {
     function get_groups() {
         $ci = & get_instance();
         return array(
-            'science' => $ci->lang->line('science'),
-            'arts' => $ci->lang->line('arts'),
-            'commerce' => $ci->lang->line('commerce')
+            'Spring_2023' => $ci->lang->line('Spring_2023'),
+            'Summer_2023' => $ci->lang->line('Summer_2023'),
+            'Fall_2023' => $ci->lang->line('Fall_2023')
         );
     }
 

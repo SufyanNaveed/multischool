@@ -1088,3 +1088,8 @@ $lang['mother_office_address'] = "Mother Office Address";
 $lang['search_by_name'] = "Search By Name";
 $lang['search_by_program'] = "Search By Program";
 $lang['search_by_contact'] = "Search By Contact"; 
+
+
+$lang['Spring_2023'] = "Spring 2023"; 
+$lang['Summer_2023'] = "Summer 2023"; 
+$lang['Fall_2023'] = "Fall 2023"; 
