@@ -1841,16 +1841,42 @@
         get_section_by_class_sibling('<?php echo $post['sibling_program']; ?>', '<?php echo $post['sibling_section']; ?>');
     <?php } ?>
     
+    <?php if(isset($filter_class_id)){ ?>
+        get_section_by_class('<?php echo $filter_class_id; ?>', '<?php echo $filter_section_id; ?>');
+    <?php } ?>
+    
+    // function get_section_by_class(class_id, section_id){
+        
+    //     var school_id = $('#filter_school_id').val();
+
+
+    //     $.ajax({       
+    //         type   : "POST",
+    //         url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
+    //         data   : { school_id:school_id, class_id : class_id , section_id: section_id},           
+    //         async  : false,
+    //         success: function(response){                                                   
+    //            if(response)
+    //            { 
+    //                 $('#filter_section_id').html(response);                     
+    //            }
+    //         }
+    //     });
+    // } 
+
+
     function get_section_by_class(class_id, section_id){       
         
         var school_id = '';
-        <?php if(isset($edit)){ ?>                
+        <?php if(isset($filter_class_id)){ ?>
+            school_id = $('#filter_school_id').val();
+        <?php } else{ ?>
+            <?php if(isset($edit)){ ?>                
             school_id = $('#edit_school_id').val();
-         <?php }else{ ?> 
-            school_id = $('#add_school_id').val();
-         <?php } ?> 
-          
-        
+            <?php }else{ ?> 
+                school_id = $('#add_school_id').val();
+            <?php } ?> 
+        <?php } ?>
        if(!school_id){
            toastr.error('<?php echo $this->lang->line('select_school'); ?>');
            return false;
@@ -1864,11 +1890,17 @@
             success: function(response){                                                   
                if(response)
                {
-                   if(edit){
-                       $('#edit_section_id').html(response);
-                   }else{
-                       $('#add_section_id').html(response);
-                   }
+                    <?php if(isset($filter_class_id)){ ?>
+                        $('#filter_section_id').html(response); 
+                    <?php } else{ ?>
+                        if(edit){
+                            $('#edit_section_id').html(response);
+                        }else{
+                            $('#add_section_id').html(response);
+                        }
+                    <?php } ?>
+        
+                    
                }
             }
         });  
@@ -2092,29 +2124,6 @@
                if(response)
                { 
                     $('#filter_class_id').html(response);                     
-               }
-            }
-        });
-    } 
-
-    <?php if(isset($filter_class_id)){ ?>
-        get_section_by_class('<?php echo $filter_class_id; ?>', '<?php echo $filter_section_id; ?>');
-    <?php } ?>
-    
-    function get_section_by_class(class_id, section_id){
-        
-        var school_id = $('#filter_school_id').val();
-
-
-        $.ajax({       
-            type   : "POST",
-            url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
-            data   : { school_id:school_id, class_id : class_id , section_id: section_id},           
-            async  : false,
-            success: function(response){                                                   
-               if(response)
-               { 
-                    $('#filter_section_id').html(response);                     
                }
             }
         });
