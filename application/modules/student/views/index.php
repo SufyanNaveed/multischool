@@ -114,9 +114,9 @@
                                         <?php } ?>
                                         <th><?php echo $this->lang->line('photo'); ?></th>
                                         <th><?php echo $this->lang->line('name'); ?></th>
-                                        <th><?php echo $this->lang->line('semester'); ?></th>
-                                        <th><?php echo $this->lang->line('class'); ?></th>
+                                        <th><?php echo $this->lang->line('program'); ?></th>
                                         <th><?php echo $this->lang->line('section'); ?></th>
+                                        <th><?php echo $this->lang->line('semester'); ?></th>
                                         <th><?php echo $this->lang->line('roll_no'); ?></th>
                                         <th><?php echo $this->lang->line('email'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
@@ -146,9 +146,9 @@
                                                 <?php } ?>
                                             </td>
                                             <td><?php echo ucfirst($obj->name); ?></td>
-                                            <td><?php echo $this->lang->line($obj->group); ?></td>
                                             <td><?php echo $obj->class_name; ?></td>
                                             <td><?php echo $obj->section; ?></td>
+                                            <td><?php echo $this->lang->line($obj->group); ?></td>
                                             <td><?php echo $obj->roll_no; ?></td>
                                             <td><?php echo $obj->email; ?></td>
                                             <td>
