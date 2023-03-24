@@ -51,8 +51,10 @@ $lang['human_resource'] = "Human Resource";
 $lang['designation'] = "Designation";
 $lang['employee'] = "Employee";
 $lang['teacher'] = "Teacher";
-$lang['class'] = "Class";
-$lang['section'] = "Section";
+// $lang['class'] = "Class";
+$lang['class'] = "Program";
+$lang['section'] = "Session";
+// $lang['section'] = "Section";
 $lang['subject'] = "Subject";
 $lang['syllabus'] = "Syllabus";
 $lang['guardian'] = "Guardian";
@@ -1090,6 +1092,5 @@ $lang['search_by_program'] = "Search By Program";
 $lang['search_by_contact'] = "Search By Contact"; 
 
 
-$lang['Spring_2023'] = "Spring 2023"; 
-$lang['Summer_2023'] = "Summer 2023"; 
-$lang['Fall_2023'] = "Fall 2023"; 
+$lang['5_years'] = "5 years"; 
+$lang['10_years'] = "10 years";  
