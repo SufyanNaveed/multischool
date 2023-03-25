@@ -312,7 +312,7 @@ $suppliers = get_suppliers_list();
     });
      
     $('.fn_category_id').on('change', function(){      
-        var school_id = $(this).val();       
+        var school_id = $('.fn_school_id').val();       
         var category_id ='';       
         var purchase_order_id ='';  
         <?php if(isset($purchase_order) && !empty($purchase_order->id)){ ?>         
