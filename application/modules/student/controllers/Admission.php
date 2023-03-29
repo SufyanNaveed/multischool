@@ -347,6 +347,7 @@ class Admission extends MY_Controller {
         $items[] = 'national_id';
         $items[] = 'registration_no';
         $items[] = 'group';
+        $items[] = 'university';
         $items[] = 'name';
         $items[] = 'phone';
         $items[] = 'email';

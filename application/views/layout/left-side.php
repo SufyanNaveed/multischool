@@ -254,7 +254,15 @@
                                 
                                 <?php if(has_permission(VIEW, 'academic', 'section')){ ?>
                                     <li><a  href="<?php echo site_url('academic/section/index'); ?>"><!--<i class="fa fa-bars"></i>--> <?php echo $this->lang->line('section'); ?> </a></li>
-                                <?php } ?>    
+                                <?php } ?>
+                                
+                                <?php if(has_permission(VIEW, 'academic', 'semester')){ ?>
+                                    <li><a  href="<?php echo site_url('academic/semester/index'); ?>"><!--<i class="fa fa-bars"></i>--> <?php echo $this->lang->line('semester'); ?> </a></li>
+                                <?php } ?>
+
+                                <?php if(has_permission(VIEW, 'academic', 'university')){ ?>
+                                    <li><a  href="<?php echo site_url('academic/university/index'); ?>"><!--<i class="fa fa-bars"></i>--> <?php echo $this->lang->line('university'); ?> </a></li>
+                                <?php } ?>
                                                     
                                 <?php if(has_permission(VIEW, 'academic', 'subject')){ ?> 
                                     <li><a  href="<?php echo site_url('academic/subject/index'); ?>"><!--<i class="fa fa-folder-open"></i> --><?php echo $this->lang->line('subject'); ?> </a></li>

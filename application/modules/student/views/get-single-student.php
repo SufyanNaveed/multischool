@@ -81,6 +81,12 @@
                         <td><?php echo $student->section; ?></td>
                     </tr>
                     <tr>
+                        <th><?php echo $this->lang->line('semester'); ?></th>
+                        <td><?php echo $student->semester; ?></td>
+                        <th><?php echo $this->lang->line('university'); ?></th>
+                        <td><?php echo $student->university; ?></td>
+                    </tr>
+                    <tr>
                         <th><?php echo $this->lang->line('roll_no'); ?></th>
                         <td><?php echo $student->roll_no; ?></td>
                         <th><?php echo $this->lang->line('registration_no'); ?></th>

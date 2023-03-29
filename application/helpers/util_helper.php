@@ -875,12 +875,32 @@ if (!function_exists('get_groups')) {
 
     function get_groups() {
         $ci = & get_instance();
-        return array(
-            '5_years' => $ci->lang->line('5_years'),
-            '10_years' => $ci->lang->line('10_years')
-        );
+        if($ci->session->userdata('role_id') != SUPER_ADMIN){
+            $school_id =  $ci->session->userdata('school_id');
+        }
+        $ci->db->select('*');
+        $ci->db->from('semester');
+        if($school_id){
+            $ci->db->where('school_id', $school_id);
+        }
+        return $ci->db->get()->result_array();
     }
+}
 
+if (!function_exists('get_university')) {
+
+    function get_university() {
+        $ci = & get_instance();
+        if($ci->session->userdata('role_id') != SUPER_ADMIN){
+            $school_id =  $ci->session->userdata('school_id');
+        }
+        $ci->db->select('*');
+        $ci->db->from('university');
+        if($school_id){
+            $ci->db->where('school_id', $school_id);
+        }
+        return $ci->db->get()->result_array();
+    }
 }
 
 

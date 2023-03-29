@@ -51,8 +51,8 @@ class Student extends MY_Controller {
             $roll_no  = $this->input->post('roll_no');           
             $student_id  = $this->input->post('student_id');           
             $section_id  = $this->input->post('section_id');           
-            $semester_id  = $this->input->post('semester_id');           
-            $department_id  = $this->input->post('department_id');           
+            $semester_id  = $this->input->post('semester_id');               
+            $university_id  = $this->input->post('university_id');               
         }
               
         if(!$school_id && $this->session->userdata('role_id') != SUPER_ADMIN){
@@ -72,12 +72,10 @@ class Student extends MY_Controller {
         
         $this->data['class_id'] = $class_id;
         $this->data['filter_school_id'] = $school_id;
-        $this->data['filter_class_id'] = $class_id;
-        // $this->data['filter_roll_no'] = $roll_no;
-        // $this->data['filter_student_id'] = $student_id;
+        $this->data['filter_class_id'] = $class_id; 
         $this->data['filter_section_id'] = $section_id;
-        $this->data['filter_semester_id'] = $semester_id;
-        // $this->data['filter_department_id'] = $department_id;
+        $this->data['filter_semester_id'] = $semester_id; 
+        $this->data['filter_university_id'] = $university_id; 
                 
         if($school_id){
             $this->data['students'] = $this->student->get_student_list($class_id, $school_id, $school->academic_year_id,$section_id,$semester_id);
@@ -492,7 +490,7 @@ class Student extends MY_Controller {
         $items[] = 'national_id';
         $items[] = 'registration_no';
         $items[] = 'group';
-        $items[] = 'department';
+        $items[] = 'university';
         $items[] = 'name';
         $items[] = 'phone';
         $items[] = 'phone_2';

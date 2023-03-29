@@ -45,11 +45,14 @@ class Admission_Model extends MY_Model {
     
     public function get_single_admission($admission_id){
         
-        $this->db->select('A.*, SC.school_name, T.type,  C.name AS class_name');
+        $this->db->select('A.*, SC.school_name, T.type,  C.name AS class_name, SE.name AS section, sem.name AS semester, un.name AS university');
         $this->db->from('admissions AS A');
-        $this->db->join('classes AS C', 'C.id = A.class_id', 'left');
         $this->db->join('student_types AS T', 'T.id = A.type_id', 'left');
-        $this->db->join('schools AS SC', 'SC.id = A.school_id', 'left');     
+        $this->db->join('schools AS SC', 'SC.id = A.school_id', 'left');
+        $this->db->join('classes AS C', 'C.id = A.class_id', 'left');
+        $this->db->join('sections AS SE', 'SE.id = A.section', 'left');
+        $this->db->join('semester AS sem', 'sem.id = A.group', 'left');
+        $this->db->join('university AS un', 'un.id = A.university', 'left'); 
         $this->db->where('A.id', $admission_id);        
         return $this->db->get()->row();        
     }

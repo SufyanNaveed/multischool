@@ -15,13 +15,15 @@ class Student_Model extends MY_Model {
         //     return;
         // }
         
-        $this->db->select('S.*, SC.school_name, E.roll_no, E.class_id, U.username, U.role_id,  C.name AS class_name, SE.name AS section');
+        $this->db->select('S.*, SC.school_name, E.roll_no, E.class_id, U.username, U.role_id,  C.name AS class_name, SE.name AS section, sem.name AS semester, un.name AS university');
         $this->db->from('enrollments AS E');
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
         $this->db->join('users AS U', 'U.id = S.user_id', 'left');
+        $this->db->join('schools AS SC', 'SC.id = S.school_id', 'left'); 
         $this->db->join('classes AS C', 'C.id = E.class_id', 'left');
         $this->db->join('sections AS SE', 'SE.id = E.section_id', 'left');
-        $this->db->join('schools AS SC', 'SC.id = S.school_id', 'left'); 
+        $this->db->join('university AS un', 'un.id = S.university', 'left'); 
+        $this->db->join('semester AS sem', 'sem.id = S.group', 'left'); 
         
         if($academic_year_id){
             $this->db->where('E.academic_year_id', $academic_year_id); 
@@ -33,7 +35,10 @@ class Student_Model extends MY_Model {
             $this->db->like('SE.id', $section_id);
         }
         if($semester_id){
-            $this->db->like('s.group', $semester_id);
+            $this->db->like('S.group', $semester_id);
+        }
+        if($university_id){
+            $this->db->like('S.university', $university_id);
         }
               
         if($this->session->userdata('role_id') == GUARDIAN){
@@ -60,17 +65,19 @@ class Student_Model extends MY_Model {
     
     public function get_single_student($id,  $academic_year_id){
         
-        $this->db->select('S.*,  SC.school_name, T.type, D.amount, D.title AS discount_title, SC.school_name, G.name as guardian, E.academic_year_id, E.roll_no, E.class_id, E.section_id, U.username, U.role_id, R.name AS role,  C.name AS class_name, SE.name AS section');
+        $this->db->select('S.*,  SC.school_name, T.type, D.amount, D.title AS discount_title, SC.school_name, G.name as guardian, E.academic_year_id, E.roll_no, E.class_id, E.section_id, U.username, U.role_id, R.name AS role,  C.name AS class_name, SE.name AS section, sem.name AS semester, un.name AS university');
         $this->db->from('enrollments AS E');
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
         $this->db->join('users AS U', 'U.id = S.user_id', 'left');
-        $this->db->join('roles AS R', 'R.id = U.role_id', 'left');
-        $this->db->join('classes AS C', 'C.id = E.class_id', 'left');
-        $this->db->join('sections AS SE', 'SE.id = E.section_id', 'left');
+        $this->db->join('roles AS R', 'R.id = U.role_id', 'left'); 
         $this->db->join('guardians AS G', 'G.id = S.guardian_id', 'left');
         $this->db->join('schools AS SC', 'SC.id = S.school_id', 'left');
         $this->db->join('discounts AS D', 'D.id = S.discount_id', 'left');
         $this->db->join('student_types AS T', 'T.id = S.type_id', 'left');
+        $this->db->join('classes AS C', 'C.id = E.class_id', 'left');
+        $this->db->join('sections AS SE', 'SE.id = E.section_id', 'left');
+        $this->db->join('semester AS sem', 'sem.id = S.group', 'left'); 
+        $this->db->join('university AS un', 'un.id = S.university', 'left'); 
         $this->db->where('S.id', $id);
         $this->db->where('E.academic_year_id', $academic_year_id);
         

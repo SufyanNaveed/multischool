@@ -1449,3 +1449,28 @@ $config['my_procurement']['utilizations']['8'] = '0|0|0|0';
 $config['my_procurement']['utilizations']['9'] = '0|0|0|0';
 $config['my_procurement']['utilizations']['13'] = '0|0|0|0';
 $config['my_procurement']['utilizations']['14'] = '0|0|0|0';
+
+
+$config['my_academic']['semester']['1'] = '1|1|1|1';
+$config['my_academic']['semester']['2'] = '1|1|1|0';
+$config['my_academic']['semester']['3'] = '0|0|1|0';
+$config['my_academic']['semester']['4'] = '0|0|1|0';
+$config['my_academic']['semester']['5'] = '0|0|1|0';
+$config['my_academic']['semester']['6'] = '0|0|0|0';
+$config['my_academic']['semester']['7'] = '0|0|0|0';
+$config['my_academic']['semester']['8'] = '0|0|0|0';
+$config['my_academic']['semester']['9'] = '0|0|0|0';
+$config['my_academic']['semester']['13'] = '0|0|0|0';
+$config['my_academic']['semester']['14'] = '0|0|0|0';
+
+$config['my_academic']['university']['1'] = '1|1|1|1';
+$config['my_academic']['university']['2'] = '1|1|1|0';
+$config['my_academic']['university']['3'] = '0|0|1|0';
+$config['my_academic']['university']['4'] = '0|0|1|0';
+$config['my_academic']['university']['5'] = '0|0|1|0';
+$config['my_academic']['university']['6'] = '0|0|0|0';
+$config['my_academic']['university']['7'] = '0|0|0|0';
+$config['my_academic']['university']['8'] = '0|0|0|0';
+$config['my_academic']['university']['9'] = '0|0|0|0';
+$config['my_academic']['university']['13'] = '0|0|0|0';
+$config['my_academic']['university']['14'] = '0|0|0|0';

@@ -620,9 +620,9 @@ class Web extends CI_Controller {
         $items[] = 'health_condition';
         $items[] = 'type_id';
         $items[] = 'class_id';
+        $items[] = 'section';
         $items[] = 'group';
-        $items[] = 'section';
-        $items[] = 'section';
+        $items[] = 'university';
         $items[] = 'next_follow_up_date';
         $items[] = 'present_address';
         $items[] = 'permanent_address';

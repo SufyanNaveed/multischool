@@ -166,22 +166,38 @@
                          </div>                        
                          <div class="col-md-3 col-sm-3 col-xs-12">
                              <div class="item form-group">
-                                <label for="group"><?php echo $this->lang->line('school'); ?> </label>
+                                <label for="section"><?php echo $this->lang->line('section'); ?></label>
+                                <select  class="form-control col-md-7 col-xs-12 quick-field" name="section" id="section" required="required">
+                                    <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
+                                </select>
+                                <div class="help-block"><?php echo form_error('section'); ?></div>
+                             </div>
+                         </div>
+                         <div class="col-md-3 col-sm-3 col-xs-12">
+                             <div class="item form-group">
+                                <label for="group"><?php echo $this->lang->line('semester'); ?> </label>
                                 <select  class="form-control col-md-7 col-xs-12" name="group" id="group">
-                                    <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                    <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
                                     <?php $groups = get_groups(); ?>
                                     <?php foreach($groups as $key=>$value){ ?>
-                                        <option value="<?php echo $key; ?>" <?php echo isset($post['group']) && $post['group'] == $key ?  'selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                                        <option value="<?php echo $value['id']; ?>" <?php echo isset($post['group']) && $post['group'] == $value['id'] ?  'selected="selected"' : ''; ?>><?php echo $value['name']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <div class="help-block"><?php echo form_error('group'); ?></div>
                              </div>
-                         </div>                   
+                         </div>
+                         
                          <div class="col-md-3 col-sm-3 col-xs-12">
                              <div class="item form-group">
-                                <label for="section"><?php echo $this->lang->line('section'); ?></label>
-                                <input  class="form-control col-md-7 col-xs-12"  name="section"  id="section" value="<?php echo isset($post['section']) ?  $post['section'] : ''; ?>" placeholder="<?php echo $this->lang->line('section'); ?>" type="text" autocomplete="off">
-                                <div class="help-block"><?php echo form_error('section'); ?></div>
+                                <label for="university"><?php echo $this->lang->line('university'); ?> </label>
+                                <select  class="form-control col-md-7 col-xs-12" name="university" id="university">
+                                    <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('university'); ?>--</option>
+                                    <?php $university = get_university(); ?>
+                                    <?php foreach($university as $key=>$value){ ?>
+                                        <option value="<?php echo $value['id']; ?>" <?php echo isset($post['university']) && $post['university'] == $value['id'] ?  'selected="selected"' : ''; ?>><?php echo $value['name']; ?></option>
+                                    <?php } ?>
+                                </select>
+                                <div class="help-block"><?php echo form_error('university'); ?></div>
                              </div>
                          </div>
                          <div class="col-md-3 col-sm-3 col-xs-12">
@@ -623,5 +639,33 @@
          });  
      });
         
+     <?php if($post && !empty ($post)){ ?>  
+        get_section_by_class('<?php echo $post['class_id']; ?>', '<?php echo $post['section']; ?>'); 
+    <?php } ?>
+    
+    function get_section_by_class(class_id, section_id){       
         
+        var  school_id = '<?php echo $school->id; ?>';
+
+        if(!school_id){
+           toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+           return false;
+        }
+        
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
+            data   : { school_id:school_id, class_id : class_id , section_id: section_id},               
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               {
+                    $('#section').html(response);
+                    
+               }
+            }
+        });  
+                     
+        
+   }
 </script>

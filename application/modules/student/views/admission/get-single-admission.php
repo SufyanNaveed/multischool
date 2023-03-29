@@ -29,8 +29,14 @@
                     <tr>                       
                         <th><?php echo $this->lang->line('program'); ?></th>
                         <td><?php echo $admission->class_name; ?></td>                         
-                        <th><?php echo $this->lang->line('school'); ?></th>
-                        <td><?php echo $this->lang->line($admission->group); ?></td>   
+                        <th><?php echo $this->lang->line('section'); ?></th>
+                        <td><?php echo $admission->section; ?></td>   
+                    </tr>
+                    <tr>                       
+                        <th><?php echo $this->lang->line('semester'); ?></th>
+                        <td><?php echo $admission->semester; ?></td>                         
+                        <th><?php echo $this->lang->line('university'); ?></th>
+                        <td><?php echo $admission->university; ?></td>   
                     </tr>                  
                     <tr>
                         <th><?php echo $this->lang->line('section'); ?></th>

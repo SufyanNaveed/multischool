@@ -67,12 +67,19 @@
                                         <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>  
                                     </select>
                                     <select class="form-control col-md-7 col-xs-12" id="filter_semester_id" name="semester_id"  style="width:auto;" onchange="this.form.submit();">
-                                                <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
-                                                <?php $groups = get_groups(); ?>
-                                                <?php foreach($groups as $key=>$value){ ?>
-                                                    <option value="<?php echo $key; ?>" <?php echo isset($filter_semester_id) && $filter_semester_id == $key ?  'selected="selected"' : ''; ?>><?php echo $value; ?></option>
-                                                <?php } ?>
-                                            </select>
+                                        <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
+                                        <?php $groups = get_groups(); ?>
+                                        <?php foreach($groups as $key=>$value){ ?>
+                                            <option value="<?php echo $value['id']; ?>" <?php echo isset($filter_semester_id) && $filter_semester_id == $value['id'] ?  'selected="selected"' : ''; ?>><?php echo $value['name']; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <select  class="form-control col-md-7 col-xs-12" name="university_id" id="filter_university_id" style="width:auto;" onchange="this.form.submit();">
+                                        <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('university'); ?>--</option>
+                                        <?php $university = get_university(); ?>
+                                        <?php foreach($university as $key=>$value){ ?>
+                                            <option value="<?php echo $value['id']; ?>" <?php echo isset($filter_university_id) && $filter_university_id == $value['id'] ?  'selected="selected"' : ''; ?> ><?php echo $value['name']; ?></option>
+                                        <?php } ?>
+                                    </select>
                                    <?php echo form_close(); ?>
                             
                             <?php }else{  ?> 
@@ -117,6 +124,7 @@
                                         <th><?php echo $this->lang->line('program'); ?></th>
                                         <th><?php echo $this->lang->line('section'); ?></th>
                                         <th><?php echo $this->lang->line('semester'); ?></th>
+                                        <th><?php echo $this->lang->line('university'); ?></th>
                                         <th><?php echo $this->lang->line('roll_no'); ?></th>
                                         <th><?php echo $this->lang->line('email'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
@@ -148,7 +156,8 @@
                                             <td><?php echo ucfirst($obj->name); ?></td>
                                             <td><?php echo $obj->class_name; ?></td>
                                             <td><?php echo $obj->section; ?></td>
-                                            <td><?php echo $this->lang->line($obj->group); ?></td>
+                                            <td><?php echo $obj->semester; ?></td>
+                                            <td><?php echo $obj->university; ?></td>
                                             <td><?php echo $obj->roll_no; ?></td>
                                             <td><?php echo $obj->email; ?></td>
                                             <td>
@@ -368,11 +377,11 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="group"><?php echo $this->lang->line('semester'); ?> </label>
-                                            <select  class="form-control col-md-7 col-xs-12" name="group" id="group">
+                                            <select  class="form-control col-md-7 col-xs-12" name="group" id="add_group">
                                                 <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
                                                 <?php $groups = get_groups(); ?>
                                                 <?php foreach($groups as $key=>$value){ ?>
-                                                    <option value="<?php echo $key; ?>" <?php echo isset($post['group']) && $post['group'] == $key ?  'selected="selected"' : ''; ?>><?php echo $value; ?></option>
+                                                    <option value="<?php echo $value['id']; ?>" <?php echo isset($post['group']) && $post['group'] == $value['id'] ?  'selected="selected"' : ''; ?>><?php echo $value['name']; ?></option>
                                                 <?php } ?>
                                             </select>
                                             <div class="help-block"><?php echo form_error('group'); ?></div>
@@ -382,8 +391,16 @@
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                            <label for="department"><?php echo $this->lang->line('school'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($post['department']) ?  $post['department'] : ''; ?>" placeholder="<?php echo $this->lang->line('school'); ?>" required="required" type="text" autocomplete="off">
+                                            <label for="university"><?php echo $this->lang->line('university'); ?> </label>
+                                            <select  class="form-control col-md-7 col-xs-12" name="university" id="add_university">
+                                                <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('university'); ?>--</option>
+                                                <?php $university = get_university(); ?>
+                                                <?php foreach($university as $key=>$value){ ?>
+                                                    <option value="<?php echo $value['id']; ?>" <?php echo isset($post['university']) && $post['university'] == $value['id'] ?  'selected="selected"' : ''; ?> ><?php echo $value['name']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            
+                                            <!-- <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($post['department']) ?  $post['department'] : ''; ?>" placeholder="<?php echo $this->lang->line('school'); ?>" required="required" type="text" autocomplete="off"> -->
                                             <div class="help-block"><?php echo form_error('department'); ?></div>
                                          </div>
                                     </div>                                 
@@ -1122,11 +1139,11 @@
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label for="group"><?php echo $this->lang->line('semester'); ?> </label>
-                                            <select  class="form-control col-md-7 col-xs-12" name="group" id="group">
+                                            <select  class="form-control col-md-7 col-xs-12" name="group" id="edit_group">
                                                 <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
                                                 <?php $groups = get_groups(); ?>
                                                 <?php foreach($groups as $key=>$value){ ?>
-                                                    <option value="<?php echo $key; ?>" <?php if($student->group == $key){ echo 'selected="selected"';} ?>><?php echo $value; ?></option>
+                                                    <option value="<?php echo $value['id']; ?>" <?php if($student->group ==  $value['id']){ echo 'selected="selected"';} ?>><?php echo $value['name']; ?></option>
                                                 <?php } ?>
                                             </select>
                                             <div class="help-block"><?php echo form_error('group'); ?></div>
@@ -1137,8 +1154,15 @@
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                            <label for="department"><?php echo $this->lang->line('school'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($student->department) ?  $student->department : ''; ?>" placeholder="<?php echo $this->lang->line('school'); ?>" required="required" type="text" autocomplete="off">
+                                            <label for="university"><?php echo $this->lang->line('university'); ?></label>
+                                            <select  class="form-control col-md-7 col-xs-12" name="university" id="edit_university">
+                                                <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('university'); ?>--</option>
+                                                <?php $university = get_university(); ?>
+                                                <?php foreach($university as $key=>$value){ ?>
+                                                    <option value="<?php echo $value['id']; ?>" <?php if($student->university ==  $value['id']){ echo 'selected="selected"';} ?>><?php echo $value['name']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <!-- <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($student->department) ?  $student->department : ''; ?>" placeholder="<?php echo $this->lang->line('school'); ?>" required="required" type="text" autocomplete="off"> -->
                                             <div class="help-block"><?php echo form_error('department'); ?></div>
                                          </div>
                                     </div>                                    
@@ -1843,27 +1867,7 @@
     
     <?php if(isset($filter_class_id)){ ?>
         get_section_by_class('<?php echo $filter_class_id; ?>', '<?php echo $filter_section_id; ?>');
-    <?php } ?>
-    
-    // function get_section_by_class(class_id, section_id){
-        
-    //     var school_id = $('#filter_school_id').val();
-
-
-    //     $.ajax({       
-    //         type   : "POST",
-    //         url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
-    //         data   : { school_id:school_id, class_id : class_id , section_id: section_id},           
-    //         async  : false,
-    //         success: function(response){                                                   
-    //            if(response)
-    //            { 
-    //                 $('#filter_section_id').html(response);                     
-    //            }
-    //         }
-    //     });
-    // } 
-
+    <?php } ?> 
 
     function get_section_by_class(class_id, section_id){       
         
