@@ -321,7 +321,7 @@ class Section extends MY_Controller {
         } else {
             error($this->lang->line('delete_failed'));
         }
-        redirect('academic/section/index/'.$section->class_id);
+        redirect('academic/section/index');
     }
 
 }
