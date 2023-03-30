@@ -150,7 +150,7 @@ class Section extends MY_Controller {
         
         if(!is_numeric($id)){
             error($this->lang->line('unexpected_error'));
-            redirect('academic/section/index/');
+            redirect('academic/section/index');
         }
         
         if ($_POST) {
@@ -180,7 +180,7 @@ class Section extends MY_Controller {
             $this->data['section'] = $this->section->get_single('sections', array('id' => $id));
 
             if (!$this->data['section']) {
-                redirect('academic/section/index/');
+                redirect('academic/section/index');
             }
         }
 
