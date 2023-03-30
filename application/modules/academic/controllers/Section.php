@@ -98,10 +98,10 @@ class Section extends MY_Controller {
                     create_log('Has been created a section : '. $data['name'].' for class : '. $class->name);
                     
                     success($this->lang->line('insert_success'));
-                    redirect('academic/section/index/'.$data['class_id']);
+                    redirect('academic/section/index');
                 } else {
                     error($this->lang->line('insert_failed'));
-                    redirect('academic/section/add/'.$data['class_id']);
+                    redirect('academic/section/add');
                 }
             } else {
                 error($this->lang->line('insert_failed'));
@@ -165,7 +165,7 @@ class Section extends MY_Controller {
                     create_log('Has been updated a section : '. $data['name'].' for class : '. $class->name);
                     
                     success($this->lang->line('update_success'));
-                    redirect('academic/section/index/'.$data['class_id']);                   
+                    redirect('academic/section/index');                   
                 } else {
                     error($this->lang->line('update_failed'));
                     redirect('academic/section/edit/' . $this->input->post('id'));
