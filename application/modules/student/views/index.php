@@ -694,8 +694,8 @@
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="is_guardian"><?php echo $this->lang->line('is_guardian'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="is_guardian" id="is_guardian" required="required" onchange="check_guardian_type(this.value);">
+                                            <label for="is_guardian"><?php echo $this->lang->line('is_guardian'); ?></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="is_guardian" id="is_guardian" onchange="check_guardian_type(this.value);">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                 <option value="father" <?php echo isset($post['is_guardian']) && $post['is_guardian'] == 'father' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('father'); ?></option>
                                                 <option value="mother" <?php echo isset($post['is_guardian']) && $post['is_guardian'] == 'mother' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('mother'); ?></option>
@@ -889,15 +889,15 @@
                                  
                                  <div class="col-md-3 col-sm-3 col-xs-12">
                                      <div class="item form-group">
-                                        <label for="username"><?php echo $this->lang->line('username'); ?> <span class="required">*</span></label>
-                                        <input  class="form-control col-md-7 col-xs-12"  name="username"  id="username" value="<?php echo isset($post['username']) ?  $post['username'] : ''; ?>" placeholder="<?php echo $this->lang->line('username'); ?>" required="required" type="text" autocomplete="off">
+                                        <label for="username"><?php echo $this->lang->line('username'); ?></label>
+                                        <input  class="form-control col-md-7 col-xs-12"  name="username"  id="username" value="<?php echo isset($post['username']) ?  $post['username'] : ''; ?>" placeholder="<?php echo $this->lang->line('username'); ?>" type="text" autocomplete="off">
                                         <div class="help-block"><?php echo form_error('username'); ?></div>
                                      </div>
                                  </div>
                                  <div class="col-md-3 col-sm-3 col-xs-12">
                                      <div class="item form-group">
-                                        <label for="password"><?php echo $this->lang->line('password'); ?> <span class="required">*</span></label>
-                                        <input  class="form-control col-md-7 col-xs-12"  name="password"  id="password" value="<?php echo isset($post['password']) ?  $post['password'] : ''; ?>" placeholder="<?php echo $this->lang->line('password'); ?>" required="required" type="text" autocomplete="off">
+                                        <label for="password"><?php echo $this->lang->line('password'); ?></label>
+                                        <input  class="form-control col-md-7 col-xs-12"  name="password"  id="password" value="<?php echo isset($post['password']) ?  $post['password'] : ''; ?>" placeholder="<?php echo $this->lang->line('password'); ?>" type="text" autocomplete="off">
                                         <div class="help-block"><?php echo form_error('password'); ?></div>
                                      </div>
                                  </div>
@@ -1471,8 +1471,8 @@
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="guardian_id"><?php echo $this->lang->line('guardian_name'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="guardian_id" id="edit_guardian_id" required="required">
+                                            <label for="guardian_id"><?php echo $this->lang->line('guardian_name'); ?> </label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="guardian_id" id="edit_guardian_id">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                 <?php foreach($guardians as $obj){ ?>
                                                     <option value="<?php echo $obj->id; ?>" <?php if($student->guardian_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->name; ?></option>

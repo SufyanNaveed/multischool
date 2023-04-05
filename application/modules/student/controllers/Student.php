@@ -120,7 +120,6 @@ class Student extends MY_Controller {
                 $data = $this->_get_posted_student_data();
 
                 $insert_id = $this->student->insert('students', $data);
-
                 if ($insert_id) {
                     $this->__insert_enrollment($insert_id);
                     create_log('Has been added a srtudent studdent : '. $data['name']);    
@@ -132,6 +131,7 @@ class Student extends MY_Controller {
                 }
             } else {
 
+                echo $insert_id;exit;
                 error($this->lang->line('insert_failed'));
                 $this->data['post'] = $_POST;
                 $this->data['school_id'] = $_POST['school_id'];
@@ -310,8 +310,8 @@ class Student extends MY_Controller {
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
 
         if (!$this->input->post('id')) {
-            $this->form_validation->set_rules('username', $this->lang->line('username'), 'trim|required|callback_username');
-            $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[5]|max_length[30]');
+            // $this->form_validation->set_rules('username', $this->lang->line('username'), 'trim|required|callback_username');
+            // $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[5]|max_length[30]');
             $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');
             $this->form_validation->set_rules('roll_no', $this->lang->line('roll_no'), 'trim|required');          
         }
@@ -338,15 +338,15 @@ class Student extends MY_Controller {
         $this->form_validation->set_rules('other_info', $this->lang->line('other_info'), 'trim');
                 
         
-        if ($this->input->post('is_guardian') == 'exist_guardian') {
-            $this->form_validation->set_rules('guardian_id',  $this->lang->line('guardian_name'), 'trim|required');
-        }
+        // if ($this->input->post('is_guardian') == 'exist_guardian') {
+        //     $this->form_validation->set_rules('guardian_id',  $this->lang->line('guardian_name'), 'trim|required');
+        // }
         
-        if ($this->input->post('is_guardian') != 'exist_guardian' && !$this->input->post('id')) {
-            $this->form_validation->set_rules('gud_username',   $this->lang->line('username'), 'trim|required');
-            $this->form_validation->set_rules('gud_name',   $this->lang->line('name'), 'trim|required');
-            $this->form_validation->set_rules('gud_phone',  $this->lang->line('phone'), 'trim|required');
-        }
+        // if ($this->input->post('is_guardian') != 'exist_guardian' && !$this->input->post('id')) {
+        //     $this->form_validation->set_rules('gud_username',   $this->lang->line('username'), 'trim|required');
+        //     $this->form_validation->set_rules('gud_name',   $this->lang->line('name'), 'trim|required');
+        //     $this->form_validation->set_rules('gud_phone',  $this->lang->line('phone'), 'trim|required');
+        // }
         
         $this->form_validation->set_rules('photo', $this->lang->line('photo'), 'trim|callback_photo');
         $this->form_validation->set_rules('transfer_certificate', $this->lang->line('transfer_certificate'), 'trim|callback_transfer_certificate');
