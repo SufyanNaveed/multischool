@@ -484,7 +484,7 @@
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                           <label for="sibling_section"><?php echo $this->lang->line('sibling_section'); ?> <span class="required">*</span></label>
+                                           <label for="sibling_section"><?php echo $this->lang->line('sibling_section'); ?></label>
                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="sibling_section" id="sibling_section" >
                                                <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
                                            </select>
