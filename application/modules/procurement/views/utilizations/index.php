@@ -314,7 +314,7 @@ $employees = get_employees_list();
     });
      
     $('.fn_category_id').on('change', function(){      
-        var school_id = $(this).val();       
+        var school_id = $('.fn_school_id').val();       
         var category_id ='';       
         var utilization_id ='';  
         <?php if(isset($utilizations) && !empty($utilizations->id)){ ?>         
