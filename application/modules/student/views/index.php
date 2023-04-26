@@ -298,7 +298,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                              <label for="national_id"><?php echo $this->lang->line('cnic'); ?> </label>
-                                             <input  class="form-control col-md-7 col-xs-12"  name="national_id"  id="national_id" value="<?php echo isset($post['national_id']) ?  $post['national_id'] : ''; ?>" placeholder="<?php echo $this->lang->line('cnic'); ?>" type="text" autocomplete="off">
+                                             <input  class="form-control col-md-7 col-xs-12 national_id"  name="national_id"  id="national_id" maxlength="15" value="<?php echo isset($post['national_id']) ?  $post['national_id'] : ''; ?>" placeholder="<?php echo $this->lang->line('cnic'); ?>" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('national_id'); ?></div>
                                          </div>
                                      </div>
@@ -1064,7 +1064,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                              <label for="national_id"><?php echo $this->lang->line('cnic'); ?> </label>
-                                             <input  class="form-control col-md-7 col-xs-12"  name="national_id"  id="national_id" value="<?php echo isset($student->national_id) ?  $student->national_id : ''; ?>" placeholder="<?php echo $this->lang->line('cnic'); ?>" type="text" autocomplete="off">
+                                             <input  class="form-control col-md-7 col-xs-12 national_id"  name="national_id"  id="national_id" maxlength="15" value="<?php echo isset($student->national_id) ?  $student->national_id : ''; ?>" placeholder="<?php echo $this->lang->line('cnic'); ?>" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('national_id'); ?></div>
                                          </div>
                                      </div>
@@ -2155,4 +2155,12 @@
     $("#add").validate();     
     $("#edit").validate();   
     
+
+    $(document).ready(function () {
+        $(".national_id").keyup(function () {
+            if ($(this).val().length == 5 || $(this).val().length == 13) {
+                $(this).val($(this).val() + "-");
+            }
+        });
+    });
 </script>
