@@ -83,11 +83,18 @@
                              </div>
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                             <div class="item form-group">
-                                  <label for="religion"><?php echo $this->lang->line('religion'); ?></label>
-                                  <input  class="form-control col-md-7 col-xs-12"  name="religion"  id="add_religion" value="<?php echo isset($post['religion']) ?  $post['religion'] : ''; ?>" placeholder="<?php echo $this->lang->line('religion'); ?>" type="text" autocomplete="off">
-                                   <div class="help-block"><?php echo form_error('religion'); ?></div>
-                             </div>
+                            <div class="item form-group">
+                                <label for="religion"><?php echo $this->lang->line('religion'); ?></label>
+                                <!-- <input  class="form-control col-md-7 col-xs-12"  name="religion"  id="add_religion" value="<?php echo isset($post['religion']) ?  $post['religion'] : ''; ?>" placeholder="<?php echo $this->lang->line('religion'); ?>" type="text" autocomplete="off"> -->
+                                <select  class="form-control col-md-7 col-xs-12"  name="religion"  id="add_religion" required="required">
+                                    <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                    <option value="Islam" <?php echo isset($post['religion']) && $post['religion'] == 'Islam' ?  'selected="selected"' : ''; ?>>Islam</option>
+                                    <option value="Christian" <?php echo isset($post['religion']) && $post['religion'] == 'Christian' ?  'selected="selected"' : ''; ?>>Christian</option>
+                                    <option value="Hindu" <?php echo isset($post['religion']) && $post['religion'] == 'Hindu' ?  'selected="selected"' : ''; ?>>Hindu</option>
+                                    <option value="Other" <?php echo isset($post['religion']) && $post['religion'] == 'Other' ?  'selected="selected"' : ''; ?>>Other</option>
+                                </select>
+                                <div class="help-block"><?php echo form_error('religion'); ?></div>
+                            </div>
                          </div>
                         <div class="col-md-3 col-sm-3 col-xs-12">
                              <div class="item form-group">
