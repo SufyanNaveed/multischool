@@ -136,4 +136,13 @@ class Student_Model extends MY_Model {
         $this->db->where('username', $username);
         return $this->db->get('users')->num_rows();
     }
+
+
+    public function get_last_student_admission_no(){
+        
+        $this->db->select('admission_no');
+        $this->db->from('students'); 
+        $this->db->order_by('students.id','desc');
+        return $this->db->get()->row()->admission_no;        
+    }
 }

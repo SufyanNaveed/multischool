@@ -196,10 +196,10 @@ class Teacher extends MY_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
 
-        if (!$this->input->post('id')) {   
-            $this->form_validation->set_rules('username', $this->lang->line('username'), 'trim|required|callback_username');
-            $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[5]|max_length[30]');
-        }
+        // if (!$this->input->post('id')) {   
+        //     $this->form_validation->set_rules('username', $this->lang->line('username'), 'trim|required|callback_username');
+        //     $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[5]|max_length[30]');
+        // }
         
         $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|valid_email');
         $this->form_validation->set_rules('role_id', $this->lang->line('role'), 'trim|required');

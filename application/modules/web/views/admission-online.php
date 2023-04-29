@@ -469,15 +469,15 @@
                          </div>
                          <div class="col-md-3 col-sm-3 col-xs-12">
                              <div class="item form-group">
-                                <label for="prospectus"><?php echo $this->lang->line('prospectus'); ?></label>
-                                <input  class="form-control col-md-7 col-xs-12"  name="prospectus"  id="prospectus" value="<?php echo isset($post['prospectus']) ?  $post['prospectus'] : ''; ?>" placeholder="<?php echo $this->lang->line('prospectus'); ?>"  type="text" autocomplete="off">
+                                <label for="prospectus"><?php echo $this->lang->line('prospectus_number'); ?></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="prospectus"  id="prospectus" value="<?php echo isset($post['prospectus']) ?  $post['prospectus'] : ''; ?>" placeholder="<?php echo $this->lang->line('proprospectus_numberspectus'); ?>"  type="text" autocomplete="off">
                                 <div class="help-block"><?php echo form_error('prospectus'); ?></div>
                              </div>
                          </div>
-                         <div class="col-md-3 col-sm-3 col-xs-12">
+                         <div class="col-md-5 col-sm-5 col-xs-12">
                              <div class="item form-group">
-                                <label for="prospectus_number"><?php echo $this->lang->line('prospectus_number'); ?></label>
-                                <input  class="form-control col-md-7 col-xs-12"  name="prospectus_number"  id="prospectus_number" value="<?php echo isset($post['prospectus_number']) ?  $post['prospectus_number'] : ''; ?>" placeholder="<?php echo $this->lang->line('prospectus_number'); ?>"  type="text" autocomplete="off">
+                                <label for="prospectus_number"><?php echo 'Inquiry Number'; ?></label>
+                                <input  class="form-control col-md-7 col-xs-12"  name="prospectus_number"  id="prospectus_number" value="<?php echo isset($post['prospectus_number']) ?  $post['prospectus_number'] : $get_inquiry_number + 1; ?>" placeholder="<?php echo 'Inquiry Number'; ?>"  type="text" autocomplete="off" disable="disabled" readonly="true">
                                 <div class="help-block"><?php echo form_error('prospectus_number'); ?></div>
                              </div>
                          </div>

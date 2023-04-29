@@ -166,5 +166,13 @@ class Web_Model extends MY_Model {
         return $this->db->count_all_results();
     }
     
+    public function get_last_inquiry_number(){
+        
+        $this->db->select('id');
+        $this->db->from('admissions');
+        $this->db->order_by('id', 'desc');
+        return $this->db->get()->row()->id;
+        
+    }
   
 }

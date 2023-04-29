@@ -488,7 +488,7 @@ class Web extends CI_Controller {
        if($this->session->userdata('front_school_id')){
            
            
-           if(isset($this->data['school']->enable_online_admission) && $this->data['school']->enable_online_admission){
+        if(isset($this->data['school']->enable_online_admission) && $this->data['school']->enable_online_admission){
               
             if($_POST){
 
@@ -513,6 +513,10 @@ class Web extends CI_Controller {
             $this->data['classes'] = $this->web->get_list('classes', array('school_id'=>$school_id), '', '', '', 'id', 'ASC');
             $this->data['types'] = $this->web->get_list('student_types', array('school_id'=>$school_id), '', '', '', 'id', 'ASC');
 
+            $this->load->model('web_model','web');
+            $this->data['get_inquiry_number'] = $this->web->get_last_inquiry_number();
+            // echo '<pre>'; print_r($this->data['get_inquiry_number']);exit;
+        
             $this->data['list'] = TRUE;
             $this->layout->title($this->lang->line('online_admission'). ' | ' . SMS);
             $this->layout->view('admission-online', $this->data);

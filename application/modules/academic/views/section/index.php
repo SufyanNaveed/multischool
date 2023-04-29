@@ -83,9 +83,9 @@
                                          <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
-                                        <th><?php echo $this->lang->line('section'); ?></th>
+                                        <th><?php echo $this->lang->line('section').' Duration'; ?></th>
                                         <th><?php echo $this->lang->line('class'); ?></th>
-                                        <th><?php echo $this->lang->line('class_teacher'); ?></th>
+                                        <th><?php echo 'Co-ordinator'; ?></th>
                                         <th width="30%"><?php echo $this->lang->line('note'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
@@ -136,10 +136,10 @@
                                  <?php $this->load->view('layout/school_list_form'); ?>
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('name'); ?> <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo 'Session Duration'; ?> <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input  class="form-control col-md-7 col-xs-12"  name="name"  id="name" value="<?php echo isset($post['name']) ?  $post['name'] : ''; ?>" placeholder="<?php echo $this->lang->line('name'); ?>" required="required" type="text" autocomplete="off">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="name"  id="name" value="<?php echo isset($post['name']) ?  $post['name'] : ''; ?>" placeholder="<?php echo $this->lang->line('name'); ?>" required="required" type="date" autocomplete="off">
                                         <div class="help-block"><?php echo form_error('name'); ?></div>
                                     </div>
                                 </div>
@@ -160,7 +160,7 @@
                                 </div>
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_id"><?php echo $this->lang->line('class_teacher'); ?> <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_id"><?php echo 'Co-ordinator'; ?> <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12"  name="teacher_id"  id="add_teacher_id" required="required" >
@@ -205,10 +205,10 @@
                                 <?php $this->load->view('layout/school_list_edit_form'); ?> 
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('name'); ?> <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo 'Session Duration'; ?> <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input  class="form-control col-md-7 col-xs-12"  name="name"  id="name" value="<?php echo isset($section->name) ?  $section->name : ''; ?>" placeholder="<?php echo $this->lang->line('section'); ?> <?php echo $this->lang->line('name'); ?>" required="required" type="text" autocomplete="off">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="name"  id="name" value="<?php echo isset($section->name) ?  $section->name : ''; ?>" placeholder="<?php echo $this->lang->line('section'); ?> <?php echo $this->lang->line('name'); ?>" required="required" type="date" autocomplete="off">
                                         <div class="help-block"><?php echo form_error('name'); ?></div>
                                     </div>
                                 </div>
@@ -229,7 +229,7 @@
                                 </div>
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_id"><?php echo $this->lang->line('class_teacher'); ?> <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_id"><?php echo 'Co-ordinator'; ?> <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12"  name="teacher_id"  id="edit_teacher_id" required="required" >

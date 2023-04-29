@@ -210,7 +210,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="admission_no"><?php echo $this->lang->line('admission_no'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="admission_no"  id="admission_no" value="<?php echo isset($post['admission_no']) ?  $post['admission_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('admission_no'); ?>" required="required" type="text" autocomplete="off">
+                                            <input  class="form-control col-md-7 col-xs-12"  name="admission_no"  id="admission_no" value="<?php echo isset($post['admission_no']) ?  $post['admission_no'] : $get_admission_no+1; ?>" placeholder="<?php echo $this->lang->line('admission_no'); ?>" required="required" type="text" autocomplete="off" disabled="disabled" readonly="true">
                                             <div class="help-block"><?php echo form_error('admission_no'); ?></div> 
                                         </div>
                                     </div>
@@ -976,7 +976,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="admission_no"><?php echo $this->lang->line('admission_no'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="admission_no"  id="admission_no" value="<?php echo isset($student->admission_no) ?  $student->admission_no : ''; ?>" placeholder="<?php echo $this->lang->line('admission_no'); ?>" required="required" type="text" autocomplete="off">
+                                            <input  class="form-control col-md-7 col-xs-12"  name="admission_no"  id="admission_no" value="<?php echo isset($student->admission_no) ?  $student->admission_no : ''; ?>" placeholder="<?php echo $this->lang->line('admission_no'); ?>" required="required" type="text" autocomplete="off" disabled="disabled" readonly="true">
                                             <div class="help-block"><?php echo form_error('admission_no'); ?></div> 
                                         </div>
                                     </div>

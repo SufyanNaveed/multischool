@@ -164,6 +164,10 @@ class Student extends MY_Controller {
         }
 
         //echo '<pre>'; print_r($this->data['students_list']); exit;
+        $this->load->model('student_model','student');
+        $this->data['get_admission_no'] = $this->student->get_last_student_admission_no('students', $condition, '','', '', 'id', 'DESC');
+        // echo '<pre>'; print_r($this->data['get_admission_no']);exit;
+        
         
         $this->data['schools'] = $this->schools;
         $this->data['add'] = TRUE;
