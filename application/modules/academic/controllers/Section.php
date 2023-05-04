@@ -280,7 +280,9 @@ class Section extends MY_Controller {
         $items[] = 'name';
         $data = elements($items, $_POST);        
         $data['note'] = $this->input->post('note');
-        
+
+        $data['name'] = $_POST['name'].' To '.$_POST['to_name'];
+
         if ($this->input->post('id')) {
             $data['modified_at'] = date('Y-m-d H:i:s');
             $data['modified_by'] = logged_in_user_id();

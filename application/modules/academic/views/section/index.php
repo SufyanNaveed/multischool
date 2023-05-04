@@ -1,3 +1,5 @@
+
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -136,11 +138,17 @@
                                  <?php $this->load->view('layout/school_list_form'); ?>
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo 'Session Duration'; ?> <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo 'Session Duration From'; ?> <span class="required">*</span>
                                     </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
                                         <input  class="form-control col-md-7 col-xs-12"  name="name"  id="name" value="<?php echo isset($post['name']) ?  $post['name'] : ''; ?>" placeholder="<?php echo $this->lang->line('name'); ?>" required="required" type="date" autocomplete="off">
                                         <div class="help-block"><?php echo form_error('name'); ?></div>
+                                    </div>
+                                    <label class="control-label col-md-1 col-sm-3 col-xs-12" for="name"><?php echo 'To'; ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="to_name"  id="to_name" value="<?php echo isset($post['to_name']) ?  $post['to_name'] : ''; ?>" required="required" type="date" autocomplete="off">
+                                        <div class="help-block"><?php echo form_error('to_name'); ?></div>
                                     </div>
                                 </div>
                                 
@@ -197,19 +205,28 @@
                             </div>
                         </div>  
 
-                        <?php if(isset($edit)){ ?>
+                        <?php if(isset($edit)){  
+                            $newsection = explode(' To ', $section->name);
+                            $from = $newsection[0]; 
+                            $to = $newsection[1]; 
+                        ?>
                         <div class="tab-pane fade in active" id="tab_edit_section">
                             <div class="x_content"> 
                                <?php echo form_open(site_url('academic/section/edit/'.$section->id), array('name' => 'edit', 'id' => 'edit', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
                                 <?php $this->load->view('layout/school_list_edit_form'); ?> 
-                                
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo 'Session Duration'; ?> <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo 'Session Duration From'; ?> <span class="required">*</span>
                                     </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input  class="form-control col-md-7 col-xs-12"  name="name"  id="name" value="<?php echo isset($section->name) ?  $section->name : ''; ?>" placeholder="<?php echo $this->lang->line('section'); ?> <?php echo $this->lang->line('name'); ?>" required="required" type="date" autocomplete="off">
+                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="name"  id="name" value="<?php echo isset($from) ?  $from : ''; ?>" required="required" type="date" autocomplete="off">
                                         <div class="help-block"><?php echo form_error('name'); ?></div>
+                                    </div>
+                                    <label class="control-label col-md-1 col-sm-3 col-xs-12" for="name"><?php echo 'To'; ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="to_name"  id="to_name" value="<?php echo isset($to) ?  $to : ''; ?>" required="required" type="date" autocomplete="off">
+                                        <div class="help-block"><?php echo form_error('to_name'); ?></div>
                                     </div>
                                 </div>
                                 
