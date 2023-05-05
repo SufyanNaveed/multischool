@@ -131,7 +131,6 @@ class Student extends MY_Controller {
                 }
             } else {
 
-                echo $insert_id;exit;
                 error($this->lang->line('insert_failed'));
                 $this->data['post'] = $_POST;
                 $this->data['school_id'] = $_POST['school_id'];
@@ -163,10 +162,10 @@ class Student extends MY_Controller {
             $this->data['classes'] = $this->student->get_list('classes',$condition, '','', '', 'id', 'ASC');
         }
 
-        //echo '<pre>'; print_r($this->data['students_list']); exit;
+        // echo '<pre>'; print_r($this->data['students_list']); exit;
         $this->load->model('student_model','student');
-        $this->data['get_admission_no'] = $this->student->get_last_student_admission_no('students', $condition, '','', '', 'id', 'DESC');
-        // echo '<pre>'; print_r($this->data['get_admission_no']);exit;
+        $this->data['get_admission_no'] = $this->student->get_last_student_admission_no();
+        // echo 'test <pre>'; print_r($this->data['get_admission_no']);exit;
         
         
         $this->data['schools'] = $this->schools;
@@ -324,7 +323,7 @@ class Student extends MY_Controller {
         $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');
         $this->form_validation->set_rules('type_id', $this->lang->line('student_type'), 'trim');
         
-        $this->form_validation->set_rules('admission_no', $this->lang->line('admission_no'), 'trim|required');
+        // $this->form_validation->set_rules('admission_no', $this->lang->line('admission_no'), 'trim|required');
         $this->form_validation->set_rules('admission_date', $this->lang->line('admission_date'), 'trim|required');
         $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required');
 
