@@ -211,7 +211,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="admission_no"><?php echo $this->lang->line('admission_no'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="admission_no"  id="admission_no" value="<?php echo $get_admission_no+1; ?>" placeholder="<?php echo $this->lang->line('admission_no'); ?>"  type="text" autocomplete="off" disabled="disabled" readonly="true">
+                                            <input  class="form-control col-md-7 col-xs-12"  name="admission_no"  id="admission_no" value="<?php echo $get_admission_no+1; ?>" placeholder="<?php echo $this->lang->line('admission_no'); ?>"  type="text" autocomplete="off"  readonly="true">
                                             <div class="help-block"><?php echo form_error('admission_no'); ?></div> 
                                         </div>
                                     </div>
@@ -261,7 +261,7 @@
                                         <div class="item form-group">
                                             <label for="religion"><?php echo $this->lang->line('religion'); ?></label>
                                             <!-- <input  class="form-control col-md-7 col-xs-12"  name="religion"  id="add_religion" value="<?php echo isset($post['religion']) ?  $post['religion'] : ''; ?>" placeholder="<?php echo $this->lang->line('religion'); ?>" type="text" autocomplete="off"> -->
-                                            <select  class="form-control col-md-7 col-xs-12"  name="religion"  id="add_religion" required="required">
+                                            <select  class="form-control col-md-7 col-xs-12"  name="religion"  id="add_religion">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                 <option value="Islam" <?php echo isset($post['religion']) && $post['religion'] == 'Islam' ?  'selected="selected"' : ''; ?>>Islam</option>
                                                 <option value="Christian" <?php echo isset($post['religion']) && $post['religion'] == 'Christian' ?  'selected="selected"' : ''; ?>>Christian</option>
@@ -985,7 +985,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="admission_no"><?php echo $this->lang->line('admission_no'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="admission_no"  id="admission_no" value="<?php echo isset($student->admission_no) ?  $student->admission_no : ''; ?>" placeholder="<?php echo $this->lang->line('admission_no'); ?>" required="required" type="text" autocomplete="off" disabled="disabled" readonly="true">
+                                            <input  class="form-control col-md-7 col-xs-12"  name="admission_no"  id="admission_no" value="<?php echo isset($student->admission_no) ?  $student->admission_no : ''; ?>" placeholder="<?php echo $this->lang->line('admission_no'); ?>" required="required" type="text" autocomplete="off" readonly="true">
                                             <div class="help-block"><?php echo form_error('admission_no'); ?></div> 
                                         </div>
                                     </div>
@@ -1037,7 +1037,7 @@
                                         <div class="item form-group">
                                             <label for="religion"><?php echo $this->lang->line('religion'); ?></label>
                                             <!-- <input  class="form-control col-md-7 col-xs-12"  name="religion"  id="add_religion" value="<?php echo isset($student->religion) ?  $student->religion : ''; ?>" placeholder="<?php echo $this->lang->line('religion'); ?>" type="text" autocomplete="off"> -->
-                                            <select  class="form-control col-md-7 col-xs-12"  name="religion"  id="edit_religion" required="required">
+                                            <select  class="form-control col-md-7 col-xs-12"  name="religion"  id="edit_religion">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                 <option value="Islam" <?php echo isset($student->religion) && $student->religion == 'Islam' ?  'selected="selected"' : ''; ?>>Islam</option>
                                                 <option value="Christian" <?php echo isset($student->religion) && $student->religion == 'Christian' ?  'selected="selected"' : ''; ?>>Christian</option>
