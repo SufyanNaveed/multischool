@@ -113,78 +113,78 @@
                     <div class="tab-content">
                         <div  class="tab-pane fade in <?php if(isset($list)){ echo 'active'; }?>" id="tab_student_list" >
                             <div class="x_content">
-                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th><?php echo $this->lang->line('sl_no'); ?></th>
-                                         <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
-                                            <th><?php echo $this->lang->line('school'); ?></th>
-                                        <?php } ?>
-                                        <th><?php echo $this->lang->line('photo'); ?></th>
-                                        <th><?php echo $this->lang->line('name'); ?></th>
-                                        <th><?php echo $this->lang->line('program'); ?></th>
-                                        <th><?php echo $this->lang->line('section'); ?></th>
-                                        <th><?php echo $this->lang->line('semester'); ?></th>
-                                        <th><?php echo $this->lang->line('university'); ?></th>
-                                        <th><?php echo $this->lang->line('roll_no'); ?></th>
-                                        <th><?php echo $this->lang->line('email'); ?></th>
-                                        <th><?php echo $this->lang->line('action'); ?></th>                                            
-                                    </tr>
-                                </thead>
-                                <tbody>  
-                                    <?php $guardian_student_data = get_guardian_access_data('student'); ?> 
-                                    <?php  $count = 1; if(isset($students) && !empty($students)){ ?>
-                                        <?php foreach($students as $obj){ ?>
-                                        <?php 
-                                            if($this->session->userdata('role_id') == GUARDIAN){
-                                                if (!in_array($obj->id, $guardian_student_data)) { continue; }
-                                            }elseif($this->session->userdata('role_id') == TEACHER){
-                                                if (!in_array($obj->class_id, $teacher_student_data)) { continue; }
-                                            }
-                                        ?>
-                                    <tr style="<?php if($obj->status_type !='regular'){ echo 'background:#f9bfbf; color:#000000;';} ?>">
-                                            <td><?php echo $count++; ?></td>
+                                <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th><?php echo $this->lang->line('sl_no'); ?></th>
                                             <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
-                                                <td><?php echo $obj->school_name; ?></td>
+                                                <th><?php echo $this->lang->line('school'); ?></th>
                                             <?php } ?>
-                                            <td>
-                                                <?php  if($obj->photo != ''){ ?>
-                                                <img src="<?php echo UPLOAD_PATH; ?>/student-photo/<?php echo $obj->photo; ?>" alt="" width="70" /> 
-                                                <?php }else{ ?>
-                                                <img src="<?php echo IMG_URL; ?>/default-user.png" alt="" width="70" /> 
-                                                <?php } ?>
-                                            </td>
-                                            <td><?php echo ucfirst($obj->name); ?></td>
-                                            <td><?php echo $obj->class_name; ?></td>
-                                            <td><?php echo $obj->section; ?></td>
-                                            <td><?php echo $obj->semester; ?></td>
-                                            <td><?php echo $obj->university; ?></td>
-                                            <td><?php echo $obj->roll_no; ?></td>
-                                            <td><?php echo $obj->email; ?></td>
-                                            <td>
-                                                <?php if(has_permission(EDIT, 'student', 'student') && $obj->status_type == 'regular'){ ?>
-                                                    <a href="<?php echo site_url('student/edit/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
-                                                <?php } ?>
-                                               <?php if(has_permission(VIEW, 'student', 'student')){ ?>
-                                                        <a href="javascript:void(0);" onclick="get_student_modal(<?php echo $obj->id; ?>);"  data-toggle="modal" data-target=".bs-student-modal-lg" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
-                                                    <?php } ?>
-                                                <?php if(has_permission(DELETE, 'student', 'student') && $obj->status_type == 'regular'){ ?>
-                                                        <br/><a href="<?php echo site_url('student/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
-                                                <?php } ?>
-                                                 <?php if(has_permission(EDIT, 'student', 'student')){ ?>
-                                                    <select  class="form-control col-md-7 col-xs-12 status-type"  name="status_type"  id="status_type" onchange="update_status_type('<?php echo $obj->id; ?>', this.value);">
-                                                        <option value="regular" <?php echo $obj->status_type == 'regular' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('regular'); ?></option>
-                                                        <option value="drop" <?php echo $obj->status_type == 'drop' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('drop'); ?></option>
-                                                        <option value="transfer" <?php echo $obj->status_type == 'transfer' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('transfer'); ?></option>
-                                                        <option value="passed" <?php echo $obj->status_type == 'passed' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('passed'); ?></option>
-                                                    </select>
-                                                <?php } ?>    
-                                            </td>
+                                            <th><?php echo $this->lang->line('photo'); ?></th>
+                                            <th><?php echo $this->lang->line('name'); ?></th>
+                                            <th><?php echo $this->lang->line('program'); ?></th>
+                                            <th><?php echo $this->lang->line('section'); ?></th>
+                                            <th><?php echo $this->lang->line('semester'); ?></th>
+                                            <th><?php echo $this->lang->line('university'); ?></th>
+                                            <th><?php echo $this->lang->line('roll_no'); ?></th>
+                                            <th><?php echo $this->lang->line('email'); ?></th>
+                                            <th><?php echo $this->lang->line('action'); ?></th>                                            
                                         </tr>
+                                    </thead>
+                                    <tbody>  
+                                        <?php $guardian_student_data = get_guardian_access_data('student'); ?> 
+                                        <?php  $count = 1; if(isset($students) && !empty($students)){ ?>
+                                            <?php foreach($students as $obj){ ?>
+                                            <?php 
+                                                if($this->session->userdata('role_id') == GUARDIAN){
+                                                    if (!in_array($obj->id, $guardian_student_data)) { continue; }
+                                                }elseif($this->session->userdata('role_id') == TEACHER){
+                                                    if (!in_array($obj->class_id, $teacher_student_data)) { continue; }
+                                                }
+                                            ?>
+                                        <tr style="<?php if($obj->status_type !='regular'){ echo 'background:#f9bfbf; color:#000000;';} ?>">
+                                                <td><?php echo $count++; ?></td>
+                                                <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
+                                                    <td><?php echo $obj->school_name; ?></td>
+                                                <?php } ?>
+                                                <td>
+                                                    <?php  if($obj->photo != ''){ ?>
+                                                    <img src="<?php echo UPLOAD_PATH; ?>/student-photo/<?php echo $obj->photo; ?>" alt="" width="70" /> 
+                                                    <?php }else{ ?>
+                                                    <img src="<?php echo IMG_URL; ?>/default-user.png" alt="" width="70" /> 
+                                                    <?php } ?>
+                                                </td>
+                                                <td><?php echo ucfirst($obj->name); ?></td>
+                                                <td><?php echo $obj->class_name; ?></td>
+                                                <td><?php echo $obj->section; ?></td>
+                                                <td><?php echo $obj->semester; ?></td>
+                                                <td><?php echo $obj->university; ?></td>
+                                                <td><?php echo $obj->roll_no; ?></td>
+                                                <td><?php echo $obj->email; ?></td>
+                                                <td>
+                                                    <?php if(has_permission(EDIT, 'student', 'student') && $obj->status_type == 'regular'){ ?>
+                                                        <a href="<?php echo site_url('student/edit/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
+                                                    <?php } ?>
+                                                <?php if(has_permission(VIEW, 'student', 'student')){ ?>
+                                                            <a href="javascript:void(0);" onclick="get_student_modal(<?php echo $obj->id; ?>);"  data-toggle="modal" data-target=".bs-student-modal-lg" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
+                                                        <?php } ?>
+                                                    <?php if(has_permission(DELETE, 'student', 'student') && $obj->status_type == 'regular'){ ?>
+                                                            <br/><a href="<?php echo site_url('student/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
+                                                    <?php } ?>
+                                                    <?php if(has_permission(EDIT, 'student', 'student')){ ?>
+                                                        <select  class="form-control col-md-7 col-xs-12 status-type"  name="status_type"  id="status_type" onchange="update_status_type('<?php echo $obj->id; ?>', this.value);">
+                                                            <option value="regular" <?php echo $obj->status_type == 'regular' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('regular'); ?></option>
+                                                            <option value="drop" <?php echo $obj->status_type == 'drop' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('drop'); ?></option>
+                                                            <option value="transfer" <?php echo $obj->status_type == 'transfer' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('transfer'); ?></option>
+                                                            <option value="passed" <?php echo $obj->status_type == 'passed' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('passed'); ?></option>
+                                                        </select>
+                                                    <?php } ?>    
+                                                </td>
+                                            </tr>
+                                            <?php } ?>
                                         <?php } ?>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
@@ -449,6 +449,57 @@
                                             <div class="help-block"><?php echo form_error('second_language'); ?></div>
                                          </div>
                                      </div>
+                                </div>
+
+
+                                <div class="row">                  
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <h5  class="column-title"><strong><?php echo 'Previous '.$this->lang->line('academic_information'); ?>:</strong></h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">  
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th><?php echo 'Sr. No'; ?></th>
+                                                    <th><?php echo 'Certification/Degree'; ?></th>
+                                                    <th><?php echo 'Passing Year'; ?></th>
+                                                    <th><?php echo 'Marks Obtained'; ?></th>                                           
+                                                    <th><?php echo '% Percentage'; ?></th>                                           
+                                                    <th><?php echo 'Board'; ?></th>                                           
+                                                    <th><?php echo 'Action'; ?></th>                                           
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody">  
+                                                <tr id= "entry_1">
+                                                    <td> 1 </td>
+                                                    <td>
+                                                        <input  class="form-control col-md-4" type="text" name="certificate[]" id="certificate" autocomplete="off">
+                                                    </td>
+                                                    <td>
+                                                        <input  class="form-control col-md-4" type="text" name="passing_year[]" id="passing_year" autocomplete="off">
+                                                    </td>
+                                                    <td>
+                                                        <input  class="form-control col-md-4" type="text" name="marks_obtained[]" id="marks_obtained" autocomplete="off">
+                                                    </td>
+                                                    <td>
+                                                        <input  class="form-control col-md-4" type="text" name="percentage[]" id="percentage" autocomplete="off">
+                                                    </td>
+                                                    <td>
+                                                        <input  class="form-control col-md-4" type="text" name="board[]" id="board" autocomplete="off">
+                                                    </td>
+                                                    <td>
+                                                        <input role="button" class="btn btn-danger remove" type="button" name="remove" id="remove" value="Remove">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <input  class="btn btn-success" type="button" name="add_entry" id="add_entry" value="Add">
+
+                                    </div>
                                 </div>
                                 
                                
@@ -1167,29 +1218,31 @@
                                          </div>
                                      </div>                                     
                                 </div>
-                                    
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                            <label for="university"><?php echo $this->lang->line('university'); ?></label>
-                                            <select  class="form-control col-md-7 col-xs-12" name="university" id="edit_university">
+                                            <label for="university"><?php echo $this->lang->line('university'); ?> </label>
+                                            <select  class="form-control col-md-7 col-xs-12" name="university" id="add_university">
                                                 <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('university'); ?>--</option>
                                                 <?php $university = get_university(); ?>
                                                 <?php foreach($university as $key=>$value){ ?>
-                                                    <option value="<?php echo $value['id']; ?>" <?php if($student->university ==  $value['id']){ echo 'selected="selected"';} ?>><?php echo $value['name']; ?></option>
+                                                    <option value="<?php echo $value['id']; ?>" <?php echo isset($student->university) && $student->university == $value['name'] ?  'selected="selected"' : ''; ?> ><?php echo $value['name']; ?></option>
                                                 <?php } ?>
                                             </select>
-                                            <!-- <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($student->department) ?  $student->department : ''; ?>" placeholder="<?php echo $this->lang->line('school'); ?>" required="required" type="text" autocomplete="off"> -->
+                                            
+                                            <!-- <input  class="form-control col-md-7 col-xs-12"  name="department"  id="department" value="<?php echo isset($post['department']) ?  $post['department'] : ''; ?>" placeholder="<?php echo $this->lang->line('school'); ?>" required="required" type="text" autocomplete="off"> -->
                                             <div class="help-block"><?php echo form_error('department'); ?></div>
                                          </div>
-                                    </div>                                    
+                                    </div>                                 
+                                     
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                              <label for="roll_no"><?php echo $this->lang->line('roll_no'); ?> <span class="required">*</span></label>
-                                             <input  class="form-control col-md-7 col-xs-12"  name="roll_no"  id="roll_no"  value="<?php echo isset($student->roll_no) ?  $student->roll_no : ''; ?>" placeholder="<?php echo $this->lang->line('roll_no'); ?>" required="required" type="text" autocomplete="off">
+                                             <input  class="form-control col-md-7 col-xs-12"  name="roll_no"  id="roll_no" value="<?php echo isset($enrollments[0]->roll_no) ?  $enrollments[0]->roll_no : ''; ?>" placeholder="<?php echo $this->lang->line('roll_no'); ?>" required="required" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('roll_no'); ?></div>
                                          </div>
-                                     </div>
+                                     </div>                               
+                               
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label for="registration_no"><?php echo $this->lang->line('registration_no'); ?></label>
@@ -1201,10 +1254,10 @@
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label for="discount_id"><?php echo $this->lang->line('discount'); ?></label>
-                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="discount_id" id="edit_discount_id">
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="discount_id" id="add_discount_id">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                 <?php foreach($discounts as $obj){ ?>                                                    
-                                                    <option value="<?php echo $obj->id; ?>" <?php if($student->discount_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->title; ?> [<?php echo $obj->amount; ?>%]</option>                                                   
+                                                    <option value="<?php echo $obj->id; ?>" <?php if($student->discount_id ==  $obj->id){ echo 'selected="selected"';} ?> ><?php echo $obj->title; ?> [<?php echo $obj->amount; ?>%]</option>                                                   
                                                 <?php } ?>
                                             </select>
                                             <div class="help-block"><?php echo form_error('discount_id'); ?></div>
@@ -1217,6 +1270,59 @@
                                             <div class="help-block"><?php echo form_error('second_language'); ?></div>
                                          </div>
                                      </div>
+                                </div>
+
+
+                                <div class="row">                  
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <h5  class="column-title"><strong><?php echo 'Previous '.$this->lang->line('academic_information'); ?>:</strong></h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">  
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th><?php echo 'Sr. No'; ?></th>
+                                                    <th><?php echo 'Certification/Degree'; ?></th>
+                                                    <th><?php echo 'Passing Year'; ?></th>
+                                                    <th><?php echo 'Marks Obtained'; ?></th>                                           
+                                                    <th><?php echo '% Percentage'; ?></th>                                           
+                                                    <th><?php echo 'Board'; ?></th>                                           
+                                                    <th><?php echo 'Action'; ?></th>                                           
+                                                </tr>
+                                            </thead>
+                                            <tbody id="edit_tbody">  
+                                                <?php if($previous_academic_info) { foreach($previous_academic_info as $nkey=>$nvalue){ ?>
+                                                    <tr id= "edit_entry_<?= $nkey+1; ?>">
+                                                        <td class="edit-row-index"><p><?= $nkey+1; ?></p></td>
+                                                        <td>                                                           
+                                                            <input  class="form-control col-md-4" type="text" name="certificate[]" id="certificate" value="<?= $nvalue->certificate; ?>" autocomplete="off">
+                                                        </td>
+                                                        <td>
+                                                            <input  class="form-control col-md-4" type="text" name="passing_year[]" id="passing_year" value="<?php echo $nvalue->passing_year; ?>" autocomplete="off">
+                                                        </td>
+                                                        <td>
+                                                            <input  class="form-control col-md-4" type="text" name="marks_obtained[]" id="marks_obtained" value="<?php echo $nvalue->marks_obtained; ?>" autocomplete="off">
+                                                        </td>
+                                                        <td>
+                                                            <input  class="form-control col-md-4" type="text" name="percentage[]" id="percentage" value="<?php echo $nvalue->percentage; ?>" autocomplete="off">
+                                                        </td>
+                                                        <td>
+                                                            <input  class="form-control col-md-4" type="text" name="board[]" id="board" value="<?php echo $nvalue->board; ?>" autocomplete="off">
+                                                        </td>
+                                                        <td>
+                                                            <input role="button" class="btn btn-danger remove" type="button" name="remove" id="remove" value="Remove">
+                                                        </td>
+                                                    </tr>
+                                                <?php } } ?>
+                                            </tbody>
+                                        </table>
+
+                                        <input  class="btn btn-success" type="button" name="edit_entry" id="edit_entry" value="Add">
+
+                                    </div>
                                 </div>
                                 
                                   
@@ -2180,4 +2286,89 @@
             }
         });
     });
+
+
+    var rowIdx = "<?php echo $previous_academic_info ? count($previous_academic_info) : 1 ?>";
+  
+    $('#add_entry').on('click', function () {
+    
+        var html = `<tr id="entry_${++rowIdx}">
+                <td class="row-index"><p>${rowIdx}</p></td>
+                <td>
+                    <input  class="form-control col-md-4" type="text" name="certificate[]" id="certificate" autocomplete="off">
+                </td>
+                <td>
+                    <input  class="form-control col-md-4" type="text" name="passing_year[]" id="passing_year" autocomplete="off">
+                </td>
+                <td>
+                    <input  class="form-control col-md-4" type="text" name="marks_obtained[]" id="marks_obtained" autocomplete="off">
+                </td>
+                <td>
+                    <input  class="form-control col-md-4" type="text" name="percentage[]" id="percentage" autocomplete="off">
+                </td>
+                <td>
+                    <input  class="form-control col-md-4" type="text" name="board[]" id="board" autocomplete="off">
+                </td>
+                <td>
+                    <input role="button" class="btn btn-danger remove" type="button" name="remove" id="remove" value="Remove">
+                </td>
+            </tr>`;
+        $('#tbody').append(html);
+    });
+
+    $('#tbody').on('click', '.remove', function () {
+        var child = $(this).closest('tr').nextAll();
+        child.each(function () {
+            var id = $(this).attr('id');
+            var idx = $(this).children('.row-index').children('p');
+            var dig = parseInt(id.substring(6));
+            idx.html(`${dig - 1}`);
+            $(this).attr('id', `entry_${dig - 1}`);
+        });
+
+        $(this).closest('tr').remove();
+        rowIdx--;
+    });
+
+    $('#edit_entry').on('click', function () {
+    
+        var html = `<tr id="edit_entry_${++rowIdx}">
+                <td class="edit-row-index"><p>${rowIdx}</p></td>
+                <td>
+                    <input  class="form-control col-md-4" type="text" name="certificate[]" id="certificate" autocomplete="off">
+                </td>
+                <td>
+                    <input  class="form-control col-md-4" type="text" name="passing_year[]" id="passing_year" autocomplete="off">
+                </td>
+                <td>
+                    <input  class="form-control col-md-4" type="text" name="marks_obtained[]" id="marks_obtained" autocomplete="off">
+                </td>
+                <td>
+                    <input  class="form-control col-md-4" type="text" name="percentage[]" id="percentage" autocomplete="off">
+                </td>
+                <td>
+                    <input  class="form-control col-md-4" type="text" name="board[]" id="board" autocomplete="off">
+                </td>
+                <td>
+                    <input role="button" class="btn btn-danger remove" type="button" name="remove" id="remove" value="Remove">
+                </td>
+            </tr>`;
+        $('#edit_tbody').append(html);
+    });
+
+    $('#edit_tbody').on('click', '.remove', function () {
+        var child = $(this).closest('tr').nextAll();
+        child.each(function () {
+            var id = $(this).attr('id');
+            var idx = $(this).children('.edit-row-index').children('p');
+            var dig = parseInt(id.substring(11));
+            console.log(dig);
+            idx.html(`${dig - 1}`);
+            $(this).attr('id', `entry_${dig - 1}`);
+        });
+
+        $(this).closest('tr').remove();
+        rowIdx--;
+    });
+
 </script>

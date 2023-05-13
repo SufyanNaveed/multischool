@@ -75,6 +75,8 @@
                                          <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
+                                        <th><?php echo $this->lang->line('class'); ?></th>
+                                        <th><?php echo $this->lang->line('section'); ?></th>
                                         <th><?php echo $this->lang->line('name'); ?></th>
                                         <th width="30%"><?php echo $this->lang->line('note'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
@@ -99,6 +101,8 @@
                                             <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
+                                            <td><?php echo $obj->class_name; ?></td>
+                                            <td><?php echo $obj->section_name; ?></td>
                                             <td><?php echo $obj->name; ?></td>
                                             <td><?php echo $obj->note; ?></td>
                                             <td>
@@ -122,6 +126,28 @@
                                <?php echo form_open(site_url('academic/semester/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
                                 <?php $this->load->view('layout/school_list_form'); ?>
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12 select2"  name="class_id"  id="add_class_id" required="required" onchange="get_section_by_class(this.value, '');">
+                                            <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('program'); ?>--</option>  
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('class_id'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="add_section_id" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('section_id'); ?></div>
+                                    </div>
+                                </div>
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('name'); ?> <span class="required">*</span>
@@ -158,6 +184,28 @@
                                <?php echo form_open(site_url('academic/semester/edit/'.$semester->id), array('name' => 'edit', 'id' => 'edit', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
                                 <?php $this->load->view('layout/school_list_edit_form'); ?> 
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12 select2"  name="class_id"  id="edit_class_id" required="required" onchange="get_section_by_class(this.value, '');">
+                                            <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('program'); ?>--</option>  
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('class_id'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="edit_section_id" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('section_id'); ?></div>
+                                    </div>
+                                </div>                                
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('name'); ?> <span class="required">*</span>
@@ -206,6 +254,7 @@
          <?php } ?>
     });
      
+    
     $('.fn_school_id').on('change', function(){
       
         var school_id = $(this).val();
@@ -233,35 +282,12 @@
                        $('#edit_class_id').html(response);   
                    }else{
                        $('#add_class_id').html(response);   
-                   }
-                                    
-                   get_teacher_by_school(school_id, teacher_id);
+                   } 
                }
             }
         });
     }); 
-    
-    
-    function get_teacher_by_school(school_id, teacher_id){
-    
-        $.ajax({       
-            type   : "POST",
-            url    : "<?php echo site_url('ajax/get_teacher_by_school'); ?>",
-            data   : { school_id:school_id, teacher_id: teacher_id},               
-            async  : false,
-            success: function(response){                                                   
-               if(response)
-               {    
-                   if(teacher_id){
-                       $('#edit_teacher_id').html(response);
-                   }else{
-                       $('#add_teacher_id').html(response); 
-                   }
-               }
-            }
-        });
-    }
-    
+        
   </script>
 <!-- Super admin js end -->
   
@@ -286,21 +312,29 @@
         });
         
         
-    <?php if(isset($filter_class_id)){ ?>
-       get_class_by_school('<?php echo $filter_school_id; ?>', '<?php echo $filter_class_id; ?>');
+    <?php if(isset($semester)){ ?>
+       get_class_by_school('<?php echo $semester->school_id; ?>', '<?php echo $semester->class_id; ?>');
     <?php } ?>
     
     function get_class_by_school(school_id, class_id){        
+        var class_id = '';
+        <?php if(isset($semester) && !empty($semester)){ ?>
+            class_id =  '<?php echo $semester->class_id; ?>';
+        <?php } ?>
         
-        $.ajax({       
+         $.ajax({       
             type   : "POST",
             url    : "<?php echo site_url('ajax/get_class_by_school'); ?>",
-            data   : { school_id : school_id, class_id : class_id},               
+            data   : { school_id:school_id, class_id:class_id},               
             async  : false,
             success: function(response){                                                   
                if(response)
-               { 
-                    $('#filter_class_id').html(response);                     
+               {  
+                   if(class_id){
+                       $('#edit_class_id').html(response);   
+                   }else{
+                       $('#add_class_id').html(response);   
+                   } 
                }
             }
         });
@@ -310,9 +344,48 @@
         if(url){
             window.location.href = url; 
         }
-     }  
+    }
+
      
-     
+    <?php if(isset($semester)){ ?>
+        get_section_by_class('<?php echo $semester->class_id; ?>', '<?php echo $semester->section_id; ?>');
+    <?php } ?>
+    
+    function get_section_by_class(class_id, section_id){       
+        var edit = false;
+        <?php if(isset($semester->section_id) && !empty($semester->section_id)){ ?>
+            edit = true; 
+        <?php } ?>
+        var school_id = '';
+        <?php if(isset($semester)){ ?>                
+            school_id = <?php echo $semester->school_id; ?>;
+        <?php }else{ ?> 
+            school_id = $('#add_school_id').val();
+        <?php } ?>
+
+        if(!school_id){
+           toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+           return false;
+        }
+        
+        
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
+            data   : { school_id:school_id, class_id : class_id , section_id: section_id},               
+            async  : false,
+            success: function(response){                                                   
+                if(response)
+                {
+                    if(edit){
+                        $('#edit_section_id').html(response);
+                    }else{
+                        $('#add_section_id').html(response);
+                    }
+                }
+            }
+        });
+    }
     $("#add").validate();     
-    $("#edit").validate();  
+    $("#edit").validate(); 
 </script>

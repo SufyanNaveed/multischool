@@ -122,6 +122,7 @@ class Student extends MY_Controller {
                 $insert_id = $this->student->insert('students', $data);
                 if ($insert_id) {
                     $this->__insert_enrollment($insert_id);
+                    $this->__insert_Previous_academic_information($insert_id);
                     create_log('Has been added a srtudent studdent : '. $data['name']);    
                     success($this->lang->line('insert_success'));
                     redirect('student/index/'.$this->input->post('class_id'));
@@ -204,6 +205,7 @@ class Student extends MY_Controller {
 
                 if ($updated) {
                     $this->__update_enrollment();
+                    $this->__update_Previous_academic_information();
                     create_log('Has been updated a srtudent studdent : '. $data['name']);  
                     success($this->lang->line('update_success'));
                     redirect('student/index/'.$this->input->post('class_id'));
@@ -254,6 +256,12 @@ class Student extends MY_Controller {
         $this->data['class_list'] = $this->student->get_list('classes', $condition, '','', '', 'id', 'ASC');
         $this->data['types']      = $this->student->get_list('student_types', $condition, '','', '', 'id', 'ASC');
         
+        $condition['student_id'] = $id;        
+        $this->data['previous_academic_info']      = $this->student->get_list('previous_academic_info', $condition, '','', '', 'id', 'ASC');
+        $this->data['enrollments']      = $this->student->get_list('enrollments', $condition, '','', '', 'id', 'ASC');
+        
+        // echo '<pre>'; print_r($this->data['student']); exit;
+
         $this->data['school_id'] = $this->data['student']->school_id;
         $this->data['filter_school_id'] = $this->data['student']->school_id;
         
@@ -937,9 +945,54 @@ class Student extends MY_Controller {
                
     }
     
-    
+    /*****************Function __insert_Previous_academic_information**********************************
+    * @type            : Function
+    * @function name   : __insert_Previous_academic_information
+    * @description     : save student info to enrollment while create a new student                  
+    * @param           : $insert_id integer value
+    * @return          : null 
+    * ********************************************************** */
+    private function __insert_Previous_academic_information($insert_id, $m = '') {
+        $data = array();
+        $certificate = $this->input->post('certificate');
+        foreach($certificate as $key => $value){
+            $data[$key]['student_id'] = $insert_id;
+            $data[$key]['school_id'] = $this->input->post('school_id'); 
+            $data[$key]['certificate'] = $this->input->post('certificate')[$key]; 
+            $data[$key]['passing_year'] = $this->input->post('passing_year')[$key]; 
+            $data[$key]['marks_obtained'] = $this->input->post('marks_obtained')[$key]; 
+            $data[$key]['percentage'] = $this->input->post('percentage')[$key]; 
+            $data[$key]['board'] = $this->input->post('board')[$key]; 
+            $data[$key]['created_at'] = date('Y-m-d H:i:s');
+            $data[$key]['created_by'] = logged_in_user_id();
+            $data[$key]['status'] = 1;
+            if($m != ''){
+                $data[$key]['modified_at'] = date('Y-m-d H:i:s');
+                $data[$key]['modified_by'] = logged_in_user_id();
+            }
+        }
+        $this->db->insert_batch('previous_academic_info', $data);
+    }
     
         
+    /*****************Function __update_Previous_academic_information**********************************
+    * @type            : Function
+    * @function name   : __update_Previous_academic_information
+    * @description     : update student info to enrollment while update a student                  
+    * @param           : null
+    * @return          : null 
+    * ********************************************************** */
+    private function __update_Previous_academic_information() {
+
+        $student_id = $this->input->post('id');
+        $this->db->where('student_id', $student_id);
+        $this->db->where('school_id', $this->input->post('school_id')); 
+        $this->db->delete('previous_academic_info'); 
+
+        $this->__insert_Previous_academic_information($student_id,'m');
+               
+    }
+    
     /*****************Function view**********************************
     * @type            : Function
     * @function name   : index

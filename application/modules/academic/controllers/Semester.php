@@ -37,7 +37,6 @@ class Semester extends MY_Controller {
         $this->output->delete_cache();
         check_permission(VIEW);
         $this->data['semesters'] = $this->semester->get_semester_list($school_id);  
-        
         $condition = array();
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
@@ -149,6 +148,7 @@ class Semester extends MY_Controller {
                  redirect('academic/semester/index');
             }
         }
+        // echo '<pre>'; print_r($this->data['semester']); exit;
 
         $condition = array();
         $condition['status'] = 1;        
@@ -225,6 +225,8 @@ class Semester extends MY_Controller {
 
         $items = array();
         $items[] = 'school_id';
+        $items[] = 'class_id';
+        $items[] = 'section_id';
         $items[] = 'name';
         $items[] = 'note';
         $data = elements($items, $_POST);        

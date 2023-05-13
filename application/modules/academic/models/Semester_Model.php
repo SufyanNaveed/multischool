@@ -11,9 +11,11 @@ class Semester_Model extends MY_Model {
     
      public function get_semester_list($school_id = null){
         
-        $this->db->select('C.*,S.school_name, ');
+        $this->db->select('C.*,S.school_name, cl.name as class_name, sec.name as section_name');
         $this->db->from('semester AS C');
         $this->db->join('schools AS S', 'S.id = C.school_id', 'left');
+        $this->db->join('classes AS cl', 'C.class_id = cl.id', 'left');
+        $this->db->join('sections AS sec', 'C.section_id = sec.id', 'left');
         
         if($this->session->userdata('role_id') != SUPER_ADMIN){
             $this->db->where('C.school_id', $this->session->userdata('school_id'));
@@ -24,8 +26,8 @@ class Semester_Model extends MY_Model {
         }
         
         $this->db->where('C.status', 1);
-        
-        return $this->db->get()->result();
+        $query = $this->db->get();
+        return $query->result();
         
     }
     
