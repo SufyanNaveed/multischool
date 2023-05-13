@@ -192,6 +192,37 @@ class Ajax extends My_Controller {
         echo $str;
     }
 
+    /**     * *************Function get_semester_by_class**********************************
+     * @type            : Function
+     * @function name   : get_semester_by_class
+     * @description     : this function used to populate section list by class 
+      for user interface
+     * @param           : null 
+     * @return          : $str string  value with section list
+     * ********************************************************** */
+    public function get_semester_by_class() {
+
+        $school_id = $this->input->post('school_id');
+        $class_id = $this->input->post('class_id');
+        $section_id = $this->input->post('section_id');
+        $semester_id = $this->input->post('semester_id');
+        
+        $semesters = $this->ajax->get_list('semester', array('status' => 1, 'school_id'=>$school_id, 'class_id' => $class_id, 'section_id' => $section_id), '', '', '', 'id', 'ASC');
+        
+        $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
+    
+        $select = 'selected="selected"';
+        if (!empty($semesters)) {
+            foreach ($semesters as $obj) {
+                
+                $selected = $semester_id == $obj->id ? $select : '';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name . '</option>';
+            }
+        }
+
+        echo $str;
+    }
+
     /*     * **************Function get_student_by_section**********************************
      * @type            : Function
      * @function name   : get_student_by_section

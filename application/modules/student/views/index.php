@@ -377,7 +377,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                            <label for="section_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
-                                           <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="add_section_id" required="required">
+                                           <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="add_section_id" required="required" onchange="get_semester_by_class(this.value, '');">
                                                <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
                                            </select>
                                            <div class="help-block"><?php echo form_error('section_id'); ?></div>
@@ -388,10 +388,6 @@
                                             <label for="group"><?php echo $this->lang->line('semester'); ?> </label>
                                             <select  class="form-control col-md-7 col-xs-12" name="group" id="add_group">
                                                 <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
-                                                <?php $groups = get_groups(); ?>
-                                                <?php foreach($groups as $key=>$value){ ?>
-                                                    <option value="<?php echo $value['id']; ?>" <?php echo isset($post['group']) && $post['group'] == $value['id'] ?  'selected="selected"' : ''; ?>><?php echo $value['name']; ?></option>
-                                                <?php } ?>
                                             </select>
                                             <div class="help-block"><?php echo form_error('group'); ?></div>
                                         </div>
@@ -1198,7 +1194,7 @@
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                             <label for="section_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="edit_section_id" required="required">
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="edit_section_id" required="required" onchange="get_semester_by_class(this.value, '');">
                                                 <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
                                             </select>
                                             <div class="help-block"><?php echo form_error('section_id'); ?></div>
@@ -1209,10 +1205,6 @@
                                             <label for="group"><?php echo $this->lang->line('semester'); ?> </label>
                                             <select  class="form-control col-md-7 col-xs-12" name="group" id="edit_group">
                                                 <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
-                                                <?php $groups = get_groups(); ?>
-                                                <?php foreach($groups as $key=>$value){ ?>
-                                                    <option value="<?php echo $value['id']; ?>" <?php if($student->group ==  $value['id']){ echo 'selected="selected"';} ?>><?php echo $value['name']; ?></option>
-                                                <?php } ?>
                                             </select>
                                             <div class="help-block"><?php echo form_error('group'); ?></div>
                                          </div>
@@ -2371,4 +2363,50 @@
         rowIdx--;
     });
 
+    <?php if(isset($edit)){ ?>
+        get_semester_by_class('<?php echo $enrollments[0]->section_id ?>', '<?php echo $student->group; ?>'); 
+    <?php }elseif($post && !empty ($post)){ ?>  
+        get_semester_by_class('<?php echo $post['section']; ?>','<?php echo $post['group']; ?>'); 
+    <?php } ?>
+
+
+    function get_semester_by_class(section_id, semester_id){       
+       
+        var school_id = '';
+        <?php if(isset($edit)){ ?>                
+            school_id = $('#edit_school_id').val();
+         <?php }else{ ?> 
+            school_id = $('#add_school_id').val();
+         <?php } ?> 
+          
+        
+       if(!school_id){
+           toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+           return false;
+        }
+
+        var class_id = '';
+        <?php if(isset($edit)){ ?>                
+            class_id = $('#edit_class_id').val();
+         <?php }else{ ?> 
+            class_id = $('#add_class_id').val();
+         <?php } ?>
+
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_semester_by_class'); ?>",
+            data   : { school_id:school_id, class_id : class_id , section_id: section_id, semester_id: semester_id},               
+            async  : false,
+            success: function(response){                                                   
+                if(response)
+                {                     
+                    <?php if(isset($edit)){ ?>                
+                        $('#edit_group').html(response); 
+                    <?php }else{ ?> 
+                        $('#add_group').html(response); 
+                    <?php } ?>
+                }
+            }
+        });
+    }
 </script>

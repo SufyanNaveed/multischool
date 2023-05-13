@@ -174,7 +174,7 @@
                          <div class="col-md-3 col-sm-3 col-xs-12">
                              <div class="item form-group">
                                 <label for="section"><?php echo $this->lang->line('section'); ?></label>
-                                <select  class="form-control col-md-7 col-xs-12 quick-field" name="section" id="section" required="required">
+                                <select  class="form-control col-md-7 col-xs-12 quick-field" name="section" id="section" required="required" onchange="get_semester_by_class(this.value, '');">
                                     <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
                                 </select>
                                 <div class="help-block"><?php echo form_error('section'); ?></div>
@@ -185,10 +185,6 @@
                                 <label for="group"><?php echo $this->lang->line('semester'); ?> </label>
                                 <select  class="form-control col-md-7 col-xs-12" name="group" id="group">
                                     <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('semester'); ?>--</option>
-                                    <?php $groups = get_groups(); ?>
-                                    <?php foreach($groups as $key=>$value){ ?>
-                                        <option value="<?php echo $value['id']; ?>" <?php echo isset($post['group']) && $post['group'] == $value['id'] ?  'selected="selected"' : ''; ?>><?php echo $value['name']; ?></option>
-                                    <?php } ?>
                                 </select>
                                 <div class="help-block"><?php echo form_error('group'); ?></div>
                              </div>
@@ -646,7 +642,7 @@
          });  
      });
         
-     <?php if($post && !empty ($post)){ ?>  
+    <?php if($post && !empty ($post)){ ?>  
         get_section_by_class('<?php echo $post['class_id']; ?>', '<?php echo $post['section']; ?>'); 
     <?php } ?>
     
@@ -671,8 +667,33 @@
                     
                }
             }
-        });  
-                     
+        });      
+    }
+
+    <?php if($post && !empty ($post)){ ?>  
+        get_semester_by_class('<?php echo $post['class_id']; ?>', '<?php echo $post['section']; ?>'); 
+    <?php } ?>
+    function get_semester_by_class(section_id){       
+       
+        var school_id  school_id = "<?php echo $school->id; ?>";
+        if(!school_id){
+           toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+           return false;
+        }
+
+        var class_id = $('#add_class_id').val();
         
-   }
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_semester_by_class'); ?>",
+            data   : { school_id:school_id, class_id : class_id , section_id: section_id},               
+            async  : false,
+            success: function(response){                                                   
+                if(response)
+                {                     
+                    $('#group').html(response); 
+                }
+            }
+        });
+    }
 </script>
