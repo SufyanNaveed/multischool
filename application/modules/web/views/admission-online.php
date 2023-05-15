@@ -675,7 +675,7 @@
     <?php } ?>
     function get_semester_by_class(section_id){       
        
-        var school_id  school_id = "<?php echo $school->id; ?>";
+        var school_id = "<?php echo $school->id; ?>";
         if(!school_id){
            toastr.error('<?php echo $this->lang->line('select_school'); ?>');
            return false;
