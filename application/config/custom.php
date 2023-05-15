@@ -1474,3 +1474,16 @@ $config['my_academic']['university']['8'] = '0|0|0|0';
 $config['my_academic']['university']['9'] = '0|0|0|0';
 $config['my_academic']['university']['13'] = '0|0|0|0';
 $config['my_academic']['university']['14'] = '0|0|0|0';
+
+
+$config['my_administrator']['reference']['1'] = '1|1|1|1';
+$config['my_administrator']['reference']['2'] = '1|1|1|0';
+$config['my_administrator']['reference']['3'] = '0|0|1|0';
+$config['my_administrator']['reference']['4'] = '0|0|1|0';
+$config['my_administrator']['reference']['5'] = '0|0|1|0';
+$config['my_administrator']['reference']['6'] = '0|0|0|0';
+$config['my_administrator']['reference']['7'] = '0|0|0|0';
+$config['my_administrator']['reference']['8'] = '0|0|0|0';
+$config['my_administrator']['reference']['9'] = '0|0|0|0';
+$config['my_administrator']['reference']['13'] = '0|0|0|0';
+$config['my_administrator']['reference']['14'] = '0|0|0|0';

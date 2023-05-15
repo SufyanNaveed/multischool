@@ -903,6 +903,22 @@ if (!function_exists('get_university')) {
     }
 }
 
+if (!function_exists('get_reference')) {
+
+    function get_reference() {
+        $ci = & get_instance();
+        if($ci->session->userdata('role_id') != SUPER_ADMIN){
+            $school_id =  $ci->session->userdata('school_id');
+        }
+        $ci->db->select('*');
+        $ci->db->from('reference');
+        if($school_id){
+            $ci->db->where('school_id', $school_id);
+        }
+        return $ci->db->get()->result_array();
+    }
+}
+
 
 if (!function_exists('get_week_days')) {
 

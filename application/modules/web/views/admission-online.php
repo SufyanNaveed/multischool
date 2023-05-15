@@ -459,7 +459,16 @@
                          <div class="col-md-3 col-sm-3 col-xs-12">
                              <div class="item form-group">
                                 <label for="reference"><?php echo $this->lang->line('reference'); ?></label>
-                                <input  class="form-control col-md-7 col-xs-12"  name="reference"  id="reference" value="<?php echo isset($post['reference']) ?  $post['reference'] : ''; ?>" placeholder="<?php echo $this->lang->line('reference'); ?>"  type="text" autocomplete="off">
+                                <!-- <input  class="form-control col-md-7 col-xs-12"  name="reference"  id="reference" value="<?php echo isset($post['reference']) ?  $post['reference'] : ''; ?>" placeholder="<?php echo $this->lang->line('reference'); ?>"  type="text" autocomplete="off"> -->
+                                <select  class="form-control col-md-7 col-xs-12" name="reference" id="reference" >
+                                    <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                    <?php $reference = get_reference(); ?>
+                                    <?php foreach($reference as $key=>$value){ ?>
+                                        <option value="<?php echo $value['name']; ?>" <?php echo isset($post['reference']) && $post['reference'] == $value['name'] ?  'selected="selected"' : ''; ?>><?php echo $value['name']; ?></option>
+                                    <?php } ?>
+                                </select>
+
+                                
                                 <div class="help-block"><?php echo form_error('reference'); ?></div>
                              </div>
                          </div>

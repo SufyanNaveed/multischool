@@ -139,7 +139,10 @@
                                  <?php } ?> 
                                 <?php if(has_permission(VIEW, 'administrator', 'usercredential')){ ?>   
                                     <li><a href="<?php echo site_url('administrator/usercredential/index'); ?>"><?php echo $this->lang->line('user_credential'); ?></a></li> 
-                                 <?php } ?> 
+                                 <?php } ?>
+                                <?php if(has_permission(VIEW, 'administrator', 'reference')){ ?>   
+                                    <li><a href="<?php echo site_url('administrator/reference/index'); ?>"><?php echo 'Admission Reference'; ?></a></li> 
+                                <?php } ?> 
                                 <?php if(has_permission(VIEW, 'administrator', 'activitylog')){ ?>   
                                     <li><a href="<?php echo site_url('administrator/activitylog/index'); ?>"><?php echo $this->lang->line('activity_log'); ?></a></li>                         
                                 <?php } ?>      
