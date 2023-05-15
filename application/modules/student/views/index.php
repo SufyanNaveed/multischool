@@ -2358,7 +2358,7 @@
     });
 
     <?php if(isset($edit)){ ?>
-        get_semester_by_class('<?php echo $enrollments[0]->section_id ?>', '<?php echo $student->group; ?>'); 
+        get_semester_by_class('<?php echo $student->section_id ?>', '<?php echo $student->group; ?>'); 
     <?php }elseif($post && !empty ($post)){ ?>  
         get_semester_by_class('<?php echo $post['section']; ?>','<?php echo $post['group']; ?>'); 
     <?php } ?>
@@ -2381,7 +2381,7 @@
 
         var class_id = '';
         <?php if(isset($edit)){ ?>                
-            class_id = $('#edit_class_id').val();
+            class_id = '<?php echo $student->class_id; ?>';
          <?php }else{ ?> 
             class_id = $('#add_class_id').val();
          <?php } ?>
