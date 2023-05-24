@@ -94,6 +94,7 @@
                                            <th><?php echo $this->lang->line('invoice_number'); ?></th>
                                            <th><?php echo $this->lang->line('student'); ?></th>
                                            <th><?php echo $this->lang->line('class'); ?></th>
+                                           <th><?php echo $this->lang->line('section'); ?></th>
                                            <th><?php echo $this->lang->line('status'); ?></th>
                                            <th><?php echo $this->lang->line('net_amount'); ?></th>
                                            <th><?php echo $this->lang->line('action'); ?></th>                                            
@@ -110,6 +111,7 @@
                                                <td><?php echo $obj->custom_invoice_id; ?></td>
                                                <td><?php echo $obj->student_name; ?></td>
                                                <td><?php echo $obj->class_name; ?></td>
+                                               <td><?php echo $obj->session; ?></td>
                                                <td><?php echo get_paid_status($obj->paid_status); ?></td>
                                                <td><?php echo $obj->net_amount; ?></td>
                                                <td>

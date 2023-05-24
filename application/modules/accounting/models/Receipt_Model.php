@@ -20,9 +20,10 @@ class Receipt_Model extends MY_Model {
     public function get_due_receipt_list($school_id = null, $class_id = null, $section_id = null, $student_id = null, $academic_year_id = null){
         
         
-        $this->db->select('I.*, I.id as inv_id, E.section_id, SC.school_name, S.name AS student_name, S.present_address, S.phone, AY.session_year, C.name AS class_name');
+        $this->db->select('I.*, I.id as inv_id, E.section_id, SC.school_name, S.name AS student_name, S.present_address, S.phone, AY.session_year, C.name AS class_name, sec.name as session');
         $this->db->from('invoices AS I');        
         $this->db->join('classes AS C', 'C.id = I.class_id', 'left');
+        $this->db->join('sections AS sec', 'sec.id = I.section_id', 'left');       
         $this->db->join('students AS S', 'S.id = I.student_id', 'left');
         $this->db->join('academic_years AS AY', 'AY.id = I.academic_year_id', 'left');
         $this->db->join('schools AS SC', 'SC.id = I.school_id', 'left');
