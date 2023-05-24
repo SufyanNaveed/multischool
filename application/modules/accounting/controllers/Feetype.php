@@ -67,7 +67,7 @@ class Feetype extends MY_Controller {
     public function add() {
 
         check_permission(ADD);
-        
+        // echo '<pre>'; print_r($_POST); exit;
         if ($_POST) {
             $this->_prepare_feetype_validation();
             if ($this->form_validation->run() === TRUE) {
@@ -151,7 +151,7 @@ class Feetype extends MY_Controller {
         }
         
         if ($id) {
-            $this->data['feetype'] = $this->feetype->get_single('income_heads', array('id' => $id));
+            $this->data['feetype'] = $this->feetype->get_single_feetype($id);
 
             if (!$this->data['feetype']) {
                  redirect('accounting/feetype/index');
@@ -170,6 +170,7 @@ class Feetype extends MY_Controller {
         $this->data['filter_school_id'] = $this->data['feetype']->school_id;
         $this->data['schools'] = $this->schools;
         
+        // echo '<pre>'; print_r($this->data); exit;
         $this->data['edit'] = TRUE;       
         $this->layout->title($this->lang->line('edit').  ' | ' . SMS);
         $this->layout->view('fee_type/index', $this->data);
@@ -208,6 +209,8 @@ class Feetype extends MY_Controller {
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
         
         $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');   
+        $this->form_validation->set_rules('class_id', $this->lang->line('class_id'), 'trim|required');   
+        $this->form_validation->set_rules('section_id', $this->lang->line('section_id'), 'trim|required');   
         $this->form_validation->set_rules('head_type', $this->lang->line('fee_type'), 'trim|required');   
         $this->form_validation->set_rules('title', $this->lang->line('title'), 'trim|required|callback_title');   
         $this->form_validation->set_rules('note', $this->lang->line('note'), 'trim');   
@@ -258,7 +261,7 @@ class Feetype extends MY_Controller {
     private function _get_posted_feetype_data() {
 
         $items = array();
-        $items[] = 'school_id';
+        $items[] = 'school_id'; 
         $items[] = 'title';
         $items[] = 'head_type';
         $items[] = 'note';
@@ -316,38 +319,59 @@ class Feetype extends MY_Controller {
         
         if($this->input->post('head_type') == 'fee'){
         
-            foreach($this->input->post('class_id') as $key=>$value){
-
-                $data = array();
-                $exist = '';
-                //$amount_id = @$this->input->post('amount_id')[$key];
-                $amount_id = @$_POST['amount_id'][$key];
-
-                if($amount_id){
-                   $exist = $this->feetype->get_single('fees_amount', array('class_id'=>$key, 'id'=>$amount_id)); 
-
-                } 
-
-                //$data['fee_amount'] = $this->input->post('fee_amount')[$key];
-                $data['fee_amount'] = @$_POST['fee_amount'][$key];
+            // echo '<pre>'; print_r($_POST); exit;
+            if ($this->input->post('fee_amount_id')) {
+                $data['class_id'] = $this->input->post('class_id');                
+                $data['section_id'] = $this->input->post('section_id'); 
+                $data['fee_amount'] = $this->input->post('fee_amount');
+                $data['modified_at'] = date('Y-m-d H:i:s');
+                $data['modified_by'] = logged_in_user_id();                
+                $this->feetype->update('fees_amount', $data, array('id'=>$this->input->post('fee_amount_id')));
+            }else{
+                $data['income_head_id'] = $income_head_id;
                 $data['school_id'] = $this->input->post('school_id');
-
-                if ($this->input->post('id') && $exist) {                
-
-                    $data['modified_at'] = date('Y-m-d H:i:s');
-                    $data['modified_by'] = logged_in_user_id();                
-                    $this->feetype->update('fees_amount', $data, array('id'=>$exist->id));
-
-                } else {
-
-                    $data['income_head_id'] = $income_head_id;
-                    $data['class_id'] = $key;                
-                    $data['status'] = 1;
-                    $data['created_at'] = date('Y-m-d H:i:s');
-                    $data['created_by'] = logged_in_user_id(); 
-                    $this->feetype->insert('fees_amount', $data);
-                }
+                $data['class_id'] = $this->input->post('class_id');                
+                $data['section_id'] = $this->input->post('section_id'); 
+                $data['fee_amount'] = $this->input->post('fee_amount');              
+                $data['status'] = 1;
+                $data['created_at'] = date('Y-m-d H:i:s');
+                $data['created_by'] = logged_in_user_id(); 
+                $this->feetype->insert('fees_amount', $data);
             }
+            
+            // foreach($this->input->post('class_id') as $key=>$value){
+
+            //     $data = array();
+            //     $exist = '';
+            //     //$amount_id = @$this->input->post('amount_id')[$key];
+            //     $amount_id = @$_POST['amount_id'][$key];
+
+            //     if($amount_id){
+            //        $exist = $this->feetype->get_single('fees_amount', array('class_id'=>$key, 'id'=>$amount_id)); 
+
+            //     } 
+
+            //     //$data['fee_amount'] = $this->input->post('fee_amount')[$key];
+            //     $data['fee_amount'] = @$_POST['fee_amount'][$key];
+            //     $data['school_id'] = $this->input->post('school_id');
+
+            //     if ($this->input->post('id') && $exist) {                
+
+            //         $data['modified_at'] = date('Y-m-d H:i:s');
+            //         $data['modified_by'] = logged_in_user_id();                
+            //         $this->feetype->update('fees_amount', $data, array('id'=>$exist->id));
+
+            //     } else {
+
+            //         $data['income_head_id'] = $income_head_id;
+            //         $data['class_id'] = $this->input->post('class_id');                
+            //         $data['section_id'] = $this->input->post('section_id');               
+            //         $data['status'] = 1;
+            //         $data['created_at'] = date('Y-m-d H:i:s');
+            //         $data['created_by'] = logged_in_user_id(); 
+            //         $this->feetype->insert('fees_amount', $data);
+            //     }
+            // }
 
         }else{ 
             

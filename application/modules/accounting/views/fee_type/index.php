@@ -90,7 +90,27 @@
                             <div class="x_content"> 
                                <?php echo form_open(site_url('accounting/feetype/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
-                                 <?php $this->load->view('layout/school_list_form'); ?>
+                                <?php $this->load->view('layout/school_list_form'); ?>
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="program"><?php echo $this->lang->line('program'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12 quick-field" name="class_id" id="add_class_id" required="required" onchange="get_section_by_class(this.value, '');">
+                                            <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('program'); ?>--</option>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('class_id'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="section"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="add_section_id" required="required">
+                                               <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
+                                           </select>
+                                        <div class="help-block"><?php echo form_error('section_id'); ?></div>
+                                    </div>
+                                </div>
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="head_type"><?php echo $this->lang->line('fee_type'); ?> <span class="required">*</span></label>
@@ -127,14 +147,22 @@
                                     </div>
                                 </div>                                
                                 
-                                <div class="item form-group fn_amount_head display">
+                                <!-- <div class="item form-group fn_amount_head display">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for=""><?php echo $this->lang->line('class'); ?></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 6px;">                                       
                                         <strong>: <?php echo $this->lang->line('amount'); ?></strong>
                                     </div>
-                                </div> 
+                                </div>  -->
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="amount"><?php echo $this->lang->line('amount'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">                                      
+                                         <input type="text" class="form-control col-md-7 col-xs-12" name="fee_amount" id="fee_amount" value="" required="required" />
+                                         <div class="help-block"><?php echo form_error('amount'); ?></div>
+                                    </div>
+                                </div>
                                 
-                                <div class="fn_add_classes_block display">
+                                <!-- <div class="fn_add_classes_block display">
                                 <?php if(isset($classes) && !empty($classes)){ ?>
                                     <?php foreach($classes as $obj){ ?>
                                         <div class="item form-group">
@@ -147,7 +175,7 @@
                                        </div>
                                     <?php } ?>
                                 <?php } ?>
-                                </div>
+                                </div> -->
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="note"><?php echo $this->lang->line('note'); ?></label>
@@ -176,7 +204,27 @@
                                 
                                 <?php $this->load->view('layout/school_list_edit_form'); ?>
                                 
-                                 <div class="item form-group">
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="program"><?php echo $this->lang->line('program'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12 quick-field" name="class_id" id="edit_class_id" required="required" onchange="get_section_by_class(this.value, '');">
+                                            <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('program'); ?>--</option>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('class_id'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="section"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select  class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="edit_section_id" required="required">
+                                               <option value="">--<?php echo $this->lang->line('select').' '.$this->lang->line('section'); ?>--</option>
+                                           </select>
+                                        <div class="help-block"><?php echo form_error('section_id'); ?></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="head_type"><?php echo $this->lang->line('fee_type'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12" name="head_type" id="fee_type" onchange="show_class_amount(this.value, true);">
@@ -198,16 +246,22 @@
                                     </div>
                                 </div>
                                 
-                               
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="amount"><?php echo $this->lang->line('amount'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">                                      
+                                         <input type="text" class="form-control col-md-7 col-xs-12" name="fee_amount" id="fee_amount" value="<?php echo isset($feetype->fee_amount) ?  $feetype->fee_amount : ''; ?>" required="required" />
+                                         <div class="help-block"><?php echo form_error('amount'); ?></div>
+                                    </div>
+                                </div>
                                 
-                                <div class="item form-group fn_amount_head <?php if(isset($feetype) && $feetype->head_type != 'fee'){ echo 'display'; } ?>">
+                                <!-- <div class="item form-group fn_amount_head <?php if(isset($feetype) && $feetype->head_type != 'fee'){ echo 'display'; } ?>">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for=""><?php echo $this->lang->line('name'); ?></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 6px;">                                       
                                         <strong>: <?php echo $this->lang->line('amount'); ?></strong>
                                     </div>
-                                </div> 
+                                </div>  -->
                                
-                                <div class="fn_edit_classes_block <?php if(isset($feetype) && $feetype->head_type != 'fee'){ echo 'display'; } ?>">
+                                <!-- <div class="fn_edit_classes_block <?php if(isset($feetype) && $feetype->head_type != 'fee'){ echo 'display'; } ?>">
                                     <?php if(isset($classes) && !empty($classes)){ ?>
                                     <?php foreach($classes as $obj){ ?>
                                         <div class="item form-group">
@@ -223,7 +277,7 @@
                                     <?php } ?>
                                     <?php } ?>
                                 </div>
-                                
+                                 -->
                                 
                                 <div class="item form-group fn_instruction <?php if(isset($feetype) && $feetype->head_type != 'fee'){ echo 'display'; } ?>">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">&nbsp;</label>
@@ -250,6 +304,7 @@
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-3">
+                                        <input type="hidden" value="<?php echo isset($feetype) ? $feetype->fee_amount_id : $id; ?>" name="fee_amount_id" />
                                         <input type="hidden" value="<?php echo isset($feetype) ? $feetype->id : $id; ?>" name="id" />
                                         <a href="<?php echo site_url('accounting/feetype/index'); ?>"  class="btn btn-primary"><?php echo $this->lang->line('cancel'); ?></a>
                                         <button id="send" type="submit" class="btn btn-success"><?php echo $this->lang->line('update'); ?></button>
@@ -305,43 +360,126 @@
 
 <!-- Super admin JS -->
  <script type="text/javascript">
+
+    var edit = false;
+    
     $("document").ready(function() {
          <?php if(isset($school_id) && !empty($school_id)){ ?>
              $("#edit_school_id").trigger('change');
          <?php } ?>
     });
 
+    <?php if(isset($feetype) && !empty($feetype)){ ?>
+        edit = true; 
+    <?php } ?>
+
+
     $('.fn_school_id').on('change', function(){
       
-        var school_id = $(this).val();
-        var fee_type_id = '';
-        <?php if(isset($school_id) && !empty($school_id)){ ?>
-            fee_type_id =  '<?php echo $feetype->id; ?>';
-         <?php } ?> 
+      var school_id = $(this).val();        
+      var class_id = ''; 
+      <?php if(isset($edit) && !empty($edit)){ ?>
+              class_id =  '<?php echo $feetype->class_id; ?>';  
+       <?php }elseif($post && !empty ($post)){ ?>
+              class_id =  '<?php echo $post['class_id']; ?>';  
+       <?php } ?> 
+      
+      if(!school_id){
+         toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+         return false;
+      }
+     
+     $.ajax({       
+          type   : "POST",
+          url    : "<?php echo site_url('ajax/get_class_by_school'); ?>",
+          data   : { school_id:school_id, class_id:class_id},               
+          async  : false,
+          success: function(response){                                                   
+             if(response)
+             {  
+                 if(edit){
+                     $('#edit_class_id').html(response);   
+                 }else{
+                     $('#add_class_id').html(response);   
+                 } 
+             }
+          }
+      });
+    });
+  
+    <?php if(isset($edit)){ ?>
+        get_section_by_class('<?php echo $feetype->class_id; ?>', '<?php echo $feetype->section_id; ?>'); 
+    <?php }elseif($post && !empty ($post)){ ?>  
+        get_section_by_class('<?php echo $post['class_id']; ?>', '<?php echo $post['section_id']; ?>'); 
+    <?php } ?>
+    
+    function get_section_by_class(class_id, section_id){       
         
-        if(!school_id){
+        var school_id = '';
+        <?php if(isset($edit)){ ?>                
+            school_id = $('#edit_school_id').val();
+        <?php }else{ ?> 
+            school_id = $('#add_school_id').val();
+        <?php } ?> 
+        
+            if(!school_id){
            toastr.error('<?php echo $this->lang->line('select_school'); ?>');
            return false;
-        }       
-       
-       
-       $.ajax({       
+        }
+        
+        $.ajax({       
             type   : "POST",
-            url    : "<?php echo site_url('accounting/feetype/get_fee_head_by_school'); ?>",
-            data   : { school_id:school_id, fee_type_id:fee_type_id},               
+            url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
+            data   : { school_id:school_id, class_id : class_id , section_id: section_id},               
             async  : false,
             success: function(response){                                                   
                if(response)
-               {  
-                   if(fee_type_id){
-                       $('.fn_edit_classes_block').html(response);   
-                   }else{
-                       $('.fn_add_classes_block').html(response);   
-                   }                                    
+               {
+                    if(edit){
+                        $('#edit_section_id').html(response);
+                    }else{
+                        $('#add_section_id').html(response);
+                    }
+        
+                    
                }
             }
-        });
-    }); 
+        });  
+                     
+        
+   }
+  
+//   $('.fn_school_id').on('change', function(){
+      
+//         var school_id = $(this).val();
+//         var fee_type_id = '';
+//         <?php if(isset($school_id) && !empty($school_id)){ ?>
+//             fee_type_id =  '<?php echo $feetype->id; ?>';
+//          <?php } ?> 
+        
+//         if(!school_id){
+//            toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+//            return false;
+//         }       
+       
+       
+//        $.ajax({       
+//             type   : "POST",
+//             url    : "<?php echo site_url('accounting/feetype/get_fee_head_by_school'); ?>",
+//             data   : { school_id:school_id, fee_type_id:fee_type_id},               
+//             async  : false,
+//             success: function(response){                                                   
+//                if(response)
+//                {  
+//                    if(fee_type_id){
+//                        $('.fn_edit_classes_block').html(response);   
+//                    }else{
+//                        $('.fn_add_classes_block').html(response);   
+//                    }                                    
+//                }
+//             }
+//         });
+//     }); 
     
     
     function show_class_amount(fee_type, is_edit){

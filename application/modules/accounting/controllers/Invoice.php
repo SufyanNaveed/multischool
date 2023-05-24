@@ -299,6 +299,7 @@ class Invoice extends MY_Controller {
         
         $this->form_validation->set_rules('school_id', $this->lang->line('school'), 'trim|required');               
         $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');
+        $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required');
         $this->form_validation->set_rules('paid_status', $this->lang->line('paid_status'), 'trim|required'); 
         
         if($this->input->post('type')== 'single'){
@@ -333,6 +334,7 @@ class Invoice extends MY_Controller {
         $items = array();
         $items[] = 'school_id';
         $items[] = 'class_id';
+        $items[] = 'section_id';
         $items[] = 'student_id';
         $items[] = 'is_applicable_discount';  
         $items[] = 'month';        
@@ -403,7 +405,7 @@ class Invoice extends MY_Controller {
             }
             
                         
-            $amt = $this->__get_fee_amount($data['school_id'], $key, $data['student_id'], $data['class_id'], $income_head);
+            $amt = $this->__get_fee_amount($data['school_id'], $key, $data['student_id'], $data['class_id'],$data['section_id'], $income_head);
             $inv_detail['gross_amount'] = $amt;
             $inv_detail['discount'] = 0.00;
             $inv_detail['net_amount'] = $amt;
@@ -452,6 +454,7 @@ class Invoice extends MY_Controller {
        
         $items[] = 'school_id';
         $items[] = 'class_id';       
+        $items[] = 'section_id';       
         $items[] = 'is_applicable_discount';  
         $items[] = 'month'; 
         $items[] = 'paid_status';
@@ -521,7 +524,7 @@ class Invoice extends MY_Controller {
                     continue;
                 } 
                 
-                $amt = $this->__get_fee_amount($data['school_id'], $key, $data['student_id'], $data['class_id'], $income_head);
+                $amt = $this->__get_fee_amount($data['school_id'], $key, $data['student_id'], $data['class_id'], $data['section_id'], $income_head);
                 $inv_detail['gross_amount'] = $amt;
                 $inv_detail['discount'] = 0.00;
                 $inv_detail['net_amount'] = $amt;
@@ -673,7 +676,7 @@ class Invoice extends MY_Controller {
         
         $income_head = $this->invoice->get_single('income_heads', array('id' => $income_head_id, 'school_id'=>$school_id));
         
-        $amt = $this->__get_fee_amount($school_id, $income_head_id, $student_id, $class_id, $income_head);
+        $amt = $this->__get_fee_amount($school_id, $income_head_id, $student_id, $class_id, $section_id, $income_head);
         
         if($check_status == 'true'){
            echo $amount+$amt;
@@ -705,6 +708,7 @@ class Invoice extends MY_Controller {
                 
         $school_id      = $this->input->post('school_id');
         $class_id       = $this->input->post('class_id');       
+        $section_id       = $this->input->post('section_id');       
         $head_ids       = rtrim($this->input->post('head_ids'), ',');
         
        
@@ -713,7 +717,7 @@ class Invoice extends MY_Controller {
         
         if(!$school->academic_year_id){  echo 'ay';   die();  } 
                     
-        $students = $this->invoice->get_student_list($school_id, $school->academic_year_id, $class_id, '', 'regular'); 
+        $students = $this->invoice->get_student_list($school_id, $school->academic_year_id, $class_id, $section_id,'', 'regular'); 
        
         $student_str = $this->lang->line('no_data_found');
         
@@ -728,7 +732,7 @@ class Invoice extends MY_Controller {
                 foreach($head_ids_arr as $income_head_id){
                     
                     $income_head = $this->invoice->get_single('income_heads', array('id' => $income_head_id, 'school_id'=>$school_id));
-                    $amount += $this->__get_fee_amount($school_id, $income_head_id, $obj->id, $class_id, $income_head);                
+                    $amount += $this->__get_fee_amount($school_id, $income_head_id, $obj->id, $class_id, $section_id, $income_head);                
                 }                
                 
                 // making student string....
@@ -741,7 +745,7 @@ class Invoice extends MY_Controller {
 
     
     // common
-    private function __get_fee_amount($school_id, $income_head_id, $student_id, $class_id, $income_head){
+    private function __get_fee_amount($school_id, $income_head_id, $student_id, $class_id, $section_id, $income_head){
         
         $amt = 0.00;
                 
@@ -761,7 +765,7 @@ class Invoice extends MY_Controller {
             
         }else{
             
-            $fee = $this->invoice->get_single('fees_amount', array('school_id'=>$school_id, 'class_id' => $class_id, 'income_head_id'=>$income_head_id));
+            $fee = $this->invoice->get_single('fees_amount', array('school_id'=>$school_id, 'class_id' => $class_id, 'section_id' => $section_id, 'income_head_id'=>$income_head_id));
             if(!empty($fee)){
                 $amt += $fee->fee_amount;
             }
@@ -776,11 +780,12 @@ class Invoice extends MY_Controller {
 
         $school_id = $this->input->post('school_id');
         $class_id = $this->input->post('class_id');
+        $section_id = $this->input->post('section_id');
         $student_id = $this->input->post('student_id');
         $is_bulk = $this->input->post('is_bulk');
          
         $school = $this->invoice->get_school_by_id($school_id);
-        $students = $this->invoice->get_student_list($school_id, $school->academic_year_id, $class_id, $student_id, 'regular');
+        $students = $this->invoice->get_student_list($school_id, $school->academic_year_id, $class_id, $section_id, $student_id, 'regular');
 
         $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
         if($is_bulk){

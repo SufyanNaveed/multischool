@@ -151,13 +151,14 @@ class Invoice_Model extends MY_Model {
         return $this->db->get()->result();
     } 
     
-    public function get_student_list( $school_id, $academic_year_id, $class_id, $student_id = null, $status_type = null){
+    public function get_student_list( $school_id, $academic_year_id, $class_id, $section_id, $student_id = null, $status_type = null){
         
         $this->db->select('E.roll_no,  S.id, S.user_id, S.name, S.is_hostel_member, S.is_transport_member');
         $this->db->from('enrollments AS E');        
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
         $this->db->where('E.academic_year_id', $academic_year_id);       
         $this->db->where('E.class_id', $class_id);  
+        $this->db->where('E.section_id', $section_id);  
         $this->db->where('E.school_id', $school_id); 
         
         if($status_type){
@@ -168,8 +169,9 @@ class Invoice_Model extends MY_Model {
         }
         
         
-        return $this->db->get()->result();   
-        //echo $this->db->last_query();
+        $query =  $this->db->get();    
+        return $query->result();   
+
     }
     
     public function get_student_hostel_cost($user_id){
