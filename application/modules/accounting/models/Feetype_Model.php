@@ -47,6 +47,7 @@ class Feetype_Model extends MY_Model {
         }
         $this->db->where('school_id', $school_id);
         $this->db->where('title', $title);
+        $this->db->where('IH.head_type !=', 'income'); 
         return $this->db->get('income_heads')->num_rows();            
     }
 
