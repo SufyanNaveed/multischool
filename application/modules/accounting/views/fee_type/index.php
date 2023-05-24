@@ -52,6 +52,8 @@
                                         <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
+                                        <th><?php echo $this->lang->line('program'); ?></th>
+                                        <th><?php echo $this->lang->line('section'); ?></th>
                                         <th><?php echo $this->lang->line('title'); ?></th>
                                         <th><?php echo $this->lang->line('note'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
@@ -65,6 +67,8 @@
                                             <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
+                                            <td><?php echo $obj->program; ?></td>                                           
+                                            <td><?php echo $obj->session; ?></td>                                           
                                             <td><?php echo $obj->title; ?></td>                                           
                                             <td><?php echo $obj->note; ?></td>
                                             <td> 

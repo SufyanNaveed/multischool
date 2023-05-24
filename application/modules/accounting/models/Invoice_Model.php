@@ -53,9 +53,10 @@ class Invoice_Model extends MY_Model {
     
     public function get_invoice_list_bk($school_id = null, $due = null, $academic_year_id = null){
         
-        $this->db->select('I.*, SC.school_name, IH.title AS head, S.name AS student_name, AY.session_year, C.name AS class_name');
+        $this->db->select('I.*, SC.school_name, IH.title AS head, S.name AS student_name, AY.session_year, C.name AS class_name, sec.name as session');
         $this->db->from('invoices AS I');        
         $this->db->join('classes AS C', 'C.id = I.class_id', 'left');
+        $this->db->join('sections AS sec', 'sec.id = I.section_id', 'left');       
         $this->db->join('students AS S', 'S.id = I.student_id', 'left');
        // $this->db->join('income_heads AS IH', 'IH.id = I.income_head_id', 'left');
         $this->db->join('academic_years AS AY', 'AY.id = I.academic_year_id', 'left');
@@ -93,9 +94,10 @@ class Invoice_Model extends MY_Model {
     
     public function get_invoice_list($school_id = null, $due = null, $academic_year_id = null){
         
-        $this->db->select('I.*, SC.school_name,  S.name AS student_name, AY.session_year, C.name AS class_name');
+        $this->db->select('I.*, SC.school_name,  S.name AS student_name, AY.session_year, C.name AS class_name, sec.name as session');
         $this->db->from('invoices AS I');        
         $this->db->join('classes AS C', 'C.id = I.class_id', 'left');
+        $this->db->join('sections AS sec', 'sec.id = I.section_id', 'left');       
         $this->db->join('students AS S', 'S.id = I.student_id', 'left');
         $this->db->join('academic_years AS AY', 'AY.id = I.academic_year_id', 'left');
         $this->db->join('schools AS SC', 'SC.id = I.school_id', 'left');
