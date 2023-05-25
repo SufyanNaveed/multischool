@@ -231,7 +231,7 @@ class Feetype extends MY_Controller {
    {             
       if($this->input->post('id') == '')
       {   
-          $feetype = $this->feetype->duplicate_check($this->input->post('school_id'), $this->input->post('title')); 
+          $feetype = $this->feetype->duplicate_check($this->input->post('school_id'), $this->input->post('title'), '', $this->input->post('class_id'), $this->input->post('section_id')); 
           if($feetype){
                 $this->form_validation->set_message('title', $this->lang->line('already_exist'));         
                 return FALSE;
@@ -239,7 +239,7 @@ class Feetype extends MY_Controller {
               return TRUE;
           }          
       }else if($this->input->post('id') != ''){   
-         $feetype = $this->feetype->duplicate_check($this->input->post('school_id'), $this->input->post('title'), $this->input->post('id')); 
+         $feetype = $this->feetype->duplicate_check($this->input->post('school_id'), $this->input->post('title'), $this->input->post('id'), $this->input->post('class_id'), $this->input->post('section_id')); 
           if($feetype){
                 $this->form_validation->set_message('title', $this->lang->line('already_exist'));         
                 return FALSE;
