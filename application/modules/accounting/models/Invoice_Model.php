@@ -9,12 +9,15 @@ class Invoice_Model extends MY_Model {
         parent::__construct();
     }
 
-    public function get_fee_type($school_id){     
+    public function get_fee_type($school_id, $class_id, $section_id){     
           
         $sql = "SELECT IH.*
                 FROM income_heads AS IH
+                LEFT JOIN fees_amount AS FA ON FA.income_head_id = IH.id 
                 WHERE (IH.head_type = 'fee' OR IH.head_type = 'hostel'  OR IH.head_type = 'transport' ) 
-                AND IH.school_id = $school_id";
+                AND IH.school_id = $school_id 
+                AND FA.class_id = $class_id 
+                AND FA.section_id = $section_id";
         
         return $this->db->query($sql)->result();  
       

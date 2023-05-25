@@ -651,7 +651,9 @@ class Invoice extends MY_Controller {
     public function get_single_fee_type_by_school(){
         
         $school_id = $this->input->post('school_id');        
-        $income_heads = $this->invoice->get_fee_type($school_id);
+        $class_id = $this->input->post('class_id');        
+        $section_id = $this->input->post('section_id');        
+        $income_heads = $this->invoice->get_fee_type($school_id, $class_id, $section_id);
          
         $str = '';
         if (!empty($income_heads)) {

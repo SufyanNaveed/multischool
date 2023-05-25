@@ -532,9 +532,6 @@
                {                     
                    $('#class_id').html(response); 
                }
-               
-               get_single_fee_type_by_school(school_id);
-               get_bulk_fee_type_by_school(school_id);
             }
         });
     }); 
@@ -564,6 +561,9 @@
                {
                         $('#section_id').html(response); 
                }
+
+               get_single_fee_type_by_school(school_id);
+               get_bulk_fee_type_by_school(school_id);
             }
         });  
                      
@@ -598,11 +598,12 @@
    
   // single  
    function get_single_fee_type_by_school(school_id){
-   
+    var class_id = $('#class_id').val();
+    var section_id = $('#section_id').val();
     $.ajax({       
             type   : "POST",
             url    : "<?php echo site_url('accounting/invoice/get_single_fee_type_by_school'); ?>",
-            data   : { school_id:school_id},               
+            data   : { school_id:school_id, class_id:class_id, section_id:section_id},               
             async  : false,
             success: function(response){                                                   
                if(response)
