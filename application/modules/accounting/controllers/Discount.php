@@ -38,6 +38,7 @@ class Discount extends MY_Controller {
         check_permission(VIEW);        
         $this->data['discounts'] = $this->discount->get_discount_list($school_id); 
         
+        $this->data['school_id'] = $school_id;
         $this->data['filter_school_id'] = $school_id;
         $this->data['schools'] = $this->schools;
         
@@ -165,6 +166,8 @@ class Discount extends MY_Controller {
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
         
         $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');   
+        $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');   
+        $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required');   
         $this->form_validation->set_rules('title', $this->lang->line('title'), 'trim|required|callback_title');   
         $this->form_validation->set_rules('discount_type', $this->lang->line('discount_type'), 'trim|required');   
         $this->form_validation->set_rules('amount', $this->lang->line('amount'), 'trim|required');   
@@ -185,7 +188,7 @@ class Discount extends MY_Controller {
    {             
       if($this->input->post('id') == '')
       {   
-          $title = $this->discount->duplicate_check($this->input->post('school_id'), $this->input->post('title')); 
+          $title = $this->discount->duplicate_check($this->input->post('school_id'), $this->input->post('title'),'', $this->input->post('class_id'), $this->input->post('section_id')); 
           if($title){
                 $this->form_validation->set_message('title', $this->lang->line('already_exist'));         
                 return FALSE;
@@ -193,7 +196,7 @@ class Discount extends MY_Controller {
               return TRUE;
           }          
       }else if($this->input->post('id') != ''){   
-         $title = $this->discount->duplicate_check($this->input->post('school_id'), $this->input->post('title'), $this->input->post('id')); 
+         $title = $this->discount->duplicate_check($this->input->post('school_id'), $this->input->post('title'), $this->input->post('id'), $this->input->post('class_id'), $this->input->post('section_id')); 
           if($title){
                 $this->form_validation->set_message('title', $this->lang->line('already_exist'));         
                 return FALSE;
@@ -216,6 +219,8 @@ class Discount extends MY_Controller {
 
         $items = array();
         $items[] = 'school_id';
+        $items[] = 'class_id';
+        $items[] = 'section_id';
         $items[] = 'title';
         $items[] = 'discount_type';
         $items[] = 'amount';

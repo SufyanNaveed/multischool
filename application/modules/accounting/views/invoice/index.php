@@ -109,12 +109,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12"  name="class_id"  id="class_id" required="required" onchange="get_section_by_class(this.value, '');" >
-                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
-                                            <?php if(isset($classes) && !empty($classes)){ ?>
-                                                <?php foreach($classes as $obj ){ ?>
-                                                    <option value="<?php echo $obj->id; ?>" ><?php echo $obj->name; ?></option>
-                                                <?php } ?>                                            
-                                            <?php } ?>                                            
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                            
                                         </select>
                                         <div class="help-block"><?php echo form_error('class_id'); ?></div>
                                     </div>

@@ -11,10 +11,11 @@ class Discount_Model extends MY_Model {
      
      public function get_discount_list($school_id = null){
         
-        $this->db->select('D.*, S.school_name');
+        $this->db->select('D.*, S.school_name, C.name as class_name, sec.name as section_name');
         $this->db->from('discounts AS D');        
         $this->db->join('schools AS S', 'S.id = D.school_id', 'left');
-       
+        $this->db->join('classes AS C', 'C.id = D.class_id', 'left');
+        $this->db->join('sections AS sec', 'sec.id = D.section_id', 'left');
         if($this->session->userdata('role_id') != SUPER_ADMIN){
             $this->db->where('D.school_id', $this->session->userdata('school_id'));
         }
@@ -35,12 +36,14 @@ class Discount_Model extends MY_Model {
         return $this->db->get()->row();        
     }
     
-     function duplicate_check($school_id, $title, $id = null ){           
+     function duplicate_check($school_id, $title, $id = null, $class_id, $section_id ){           
            
         if($id){
             $this->db->where_not_in('id', $id);
         }
         $this->db->where('school_id', $school_id);
+        $this->db->where('class_id', $class_id);
+        $this->db->where('section_id', $section_id);
         $this->db->where('title', $title);
         return $this->db->get('discounts')->num_rows();            
     }

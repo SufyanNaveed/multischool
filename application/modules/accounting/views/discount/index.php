@@ -46,6 +46,8 @@
                                         <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
+                                        <th><?php echo $this->lang->line('class'); ?></th>
+                                        <th><?php echo $this->lang->line('section'); ?></th>
                                         <th><?php echo $this->lang->line('title'); ?></th>
                                         <th><?php echo $this->lang->line('discount_type'); ?></th>
                                         <th><?php echo $this->lang->line('amount'); ?></th>
@@ -61,6 +63,8 @@
                                             <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
+                                            <td><?php echo $obj->class_name; ?></td>                                            
+                                            <td><?php echo $obj->section_name; ?></td>                                            
                                             <td><?php echo $obj->title; ?></td>                                            
                                             <td><?php echo $obj->discount_type == 'flat' ? $this->lang->line('flat_amount') : $this->lang->line('percentage_amount'); ?></td>                                            
                                             <td><?php echo $obj->amount; ?></td>                                            
@@ -83,9 +87,30 @@
 
                         <div  class="tab-pane fade in <?php if(isset($add)){ echo 'active'; }?>" id="tab_add_discount">
                             <div class="x_content"> 
-                               <?php echo form_open(site_url('accounting/discount/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
+                                <?php echo form_open(site_url('accounting/discount/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
                                 <?php $this->load->view('layout/school_list_form'); ?>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="class_id"  id="class_id" required="required" onchange="get_section_by_class(this.value, '');">
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('class_id'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="section_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="section_id"  id="section_id" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('section_id'); ?></div>
+                                    </div>
+                                </div>
+
+
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title"><?php echo $this->lang->line('title'); ?> <span class="required">*</span> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -139,6 +164,26 @@
                                <?php echo form_open(site_url('accounting/discount/edit/'.$discount->id), array('name' => 'edit', 'id' => 'edit', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
                                 <?php $this->load->view('layout/school_list_edit_form'); ?>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="class_id"  id="edit_class_id" required="required" onchange="get_section_by_class(this.value, '');">
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('class_id'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="section_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="section_id"  id="edit_section_id" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('section_id'); ?></div>
+                                    </div>
+                                </div>
+                                
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title"><?php echo $this->lang->line('title'); ?> <span class="required">*</span>
                                     </label>
@@ -223,4 +268,88 @@
         }
     }  
     
+    var edit = false;
+    
+    $("document").ready(function() {
+         <?php if(isset($school_id) && !empty($school_id)){ ?>
+             $("#edit_school_id").trigger('change');
+         <?php } ?>
+    });
+
+    <?php if(isset($discount) && !empty($discount)){ ?>
+        edit = true; 
+    <?php } ?>
+
+
+    $('.fn_school_id').on('change', function(){
+      
+        var school_id = $(this).val();
+        var class_id = '';
+        
+        <?php if(isset($edit) && !empty ($edit)){ ?> 
+            class_id = '<?php echo $discount->class_id; ?>';
+        <?php } else if(isset($post) && !empty ($post)){ ?>
+            class_id = '<?php echo $post['class_id']; ?>';
+        <?php } ?>
+      
+        if(!school_id){
+            toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+            return false;
+        }
+     
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_class_by_school'); ?>",
+            data   : { school_id:school_id, class_id:class_id},               
+            async  : false,
+            success: function(response){                                                   
+                if(response) {                     
+                    <?php if(isset($edit) && !empty ($edit)){ ?> 
+                        $('#edit_class_id').html(response);
+                    <?php } else{ ?>
+                        $('#class_id').html(response);
+                    <?php } ?>                    
+                }
+            }
+        });
+    });
+
+    <?php if(isset($edit) && !empty ($edit)){ ?> 
+        get_section_by_class('<?php echo $discount->class_id; ?>', '<?php echo $discount->section_id; ?>');
+    <?php } else if(isset($post) && !empty ($post)){ ?>
+        get_section_by_class('<?php echo $post['class_id']; ?>', '<?php echo $post['section_id']; ?>');
+    <?php } ?>
+    
+    function get_section_by_class(class_id, section_id){       
+        
+        var school_id = '';
+        school_id = $('#add_school_id').val();
+        
+        if(!class_id){
+            class_id = $('#class_id').val();
+        }
+        
+        if(!school_id){
+            toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+           return false;
+        }
+        
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
+            data   : { school_id:school_id, class_id : class_id , section_id: section_id},               
+            async  : false,
+            success: function(response){                                                   
+                if(response)
+                {
+                    <?php if(isset($edit) && !empty ($edit)){ ?> 
+                        $('#edit_section_id').html(response); 
+                    <?php } else{ ?>
+                        $('#section_id').html(response); 
+                    <?php } ?>
+                    
+                } 
+            }
+        });  
+   }
 </script>
