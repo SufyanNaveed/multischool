@@ -52,16 +52,19 @@ class Feetype_Model extends MY_Model {
             
     function duplicate_check($school_id, $title,$id = null , $class_id, $section_id){           
            
+        $this->db->from('income_heads'); 
         $this->db->join('fees_amount AS FA', 'FA.income_head_id = income_heads.id', 'left'); 
         if($id){
             $this->db->where_not_in('id', $id);
         }
-        $this->db->where('school_id', $school_id); 
+        $this->db->where('income_heads.school_id', $school_id); 
+        $this->db->where('FA.school_id', $school_id); 
         $this->db->where('FA.class_id', $class_id);
         $this->db->where('FA.section_id', $section_id);
         $this->db->where('title', $title);
         $this->db->where('income_heads.head_type !=', 'income'); 
-        return $this->db->get('income_heads')->num_rows();            
+        $query = $this->db->get();
+        return $query->num_rows();            
     }
 
 }
