@@ -618,6 +618,7 @@
             
         var student_id = $('#student_id').val(); 
         var class_id = $('#class_id').val(); 
+        var section_id = $('#section_id').val(); 
         var school_id = $('.fn_school_id').val();
         var amount = $('#amount').val();
         var check_status = '';
@@ -637,7 +638,7 @@
         $.ajax({       
             type   : "POST",
             url    : "<?php echo site_url('accounting/invoice/get_single_fee_amount'); ?>",
-            data   : { school_id : school_id, income_head_id : income_head_id, class_id : class_id,  student_id:student_id, amount:amount, check_status:check_status},               
+            data   : { school_id : school_id, income_head_id : income_head_id, class_id : class_id, section_id : section_id, student_id:student_id, amount:amount, check_status:check_status},               
             async  : false,
             success: function(response){                                                   
                if(response)

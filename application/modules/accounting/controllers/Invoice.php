@@ -669,6 +669,7 @@ class Invoice extends MY_Controller {
         
         $school_id = $this->input->post('school_id'); 
         $class_id       = $this->input->post('class_id');       
+        $section_id       = $this->input->post('section_id');       
         $income_head_id = $this->input->post('income_head_id');
         $student_id = $this->input->post('student_id');
         $amount = $this->input->post('amount');
