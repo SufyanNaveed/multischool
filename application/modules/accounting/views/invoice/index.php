@@ -123,7 +123,7 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="section_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12"  name="section_id"  id="section_id" required="required" onchange="get_student_by_class_section(this.value, '');">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="section_id"  id="section_id" required="required" onchange="get_student_by_class_section(this.value, ''); get_single_fee_type_by_school(this.value, '')">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
                                         </select>
                                         <div class="help-block"><?php echo form_error('section_id'); ?></div>
@@ -301,7 +301,7 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="section_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12"  name="section_id"  id="section_id" required="required">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="section_id"  id="section_id" required="required" onchange="get_bulk_fee_type_by_school(this.value, '');">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
                                         </select>
                                         <div class="help-block"><?php echo form_error('section_id'); ?></div>
@@ -562,8 +562,8 @@
                         $('#section_id').html(response); 
                }
 
-               get_single_fee_type_by_school(school_id);
-               get_bulk_fee_type_by_school(school_id);
+            //    get_single_fee_type_by_school(section_id);
+            //    get_bulk_fee_type_by_school(section_id);
             }
         });  
                      
@@ -597,9 +597,10 @@
    
    
   // single  
-   function get_single_fee_type_by_school(school_id){
+   function get_single_fee_type_by_school(section_id){
+    
+    var school_id = $('.fn_school_id').val();
     var class_id = $('#class_id').val();
-    var section_id = $('#section_id').val();
     $.ajax({       
             type   : "POST",
             url    : "<?php echo site_url('accounting/invoice/get_single_fee_type_by_school'); ?>",
@@ -667,12 +668,13 @@
    
    
  /* Bulk invoice */ 
-    function get_bulk_fee_type_by_school(school_id){
-   
-    $.ajax({       
+    function get_bulk_fee_type_by_school(section_id){
+        var school_id = $('.fn_school_id').val();
+        var class_id = $('#class_id').val();
+        $.ajax({       
             type   : "POST",
             url    : "<?php echo site_url('accounting/invoice/get_bulk_fee_type_by_school'); ?>",
-            data   : { school_id:school_id},               
+            data   : { school_id:school_id, class_id:class_id, section_id:section_id},               
             async  : false,
             success: function(response){                                                   
                if(response)

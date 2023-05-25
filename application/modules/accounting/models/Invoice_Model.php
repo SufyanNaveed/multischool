@@ -17,8 +17,7 @@ class Invoice_Model extends MY_Model {
                 WHERE (IH.head_type = 'fee' OR IH.head_type = 'hostel'  OR IH.head_type = 'transport' ) 
                 AND IH.school_id = $school_id 
                 AND FA.class_id = $class_id 
-                AND FA.section_id = $section_id";
-        
+                AND FA.section_id = $section_id"; 
         return $this->db->query($sql)->result();  
       
     }
