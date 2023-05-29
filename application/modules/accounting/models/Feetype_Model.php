@@ -55,7 +55,7 @@ class Feetype_Model extends MY_Model {
         $this->db->from('income_heads'); 
         $this->db->join('fees_amount AS FA', 'FA.income_head_id = income_heads.id', 'left'); 
         if($id){
-            $this->db->where_not_in('id', $id);
+            $this->db->where_not_in('income_heads.id', $id);
         }
         $this->db->where('income_heads.school_id', $school_id); 
         $this->db->where('FA.school_id', $school_id); 
