@@ -627,22 +627,22 @@
                     <?php } ?>    
                     
                                         
-                    <li><a><i class="fa fa-bullhorn"></i> <?php echo 'Finance'; ?> <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li class=""><a href="#">Chart of Account</a></li>
-                            <li class=""><a href="#">Income</a></li>
-                            <li class=""><a href="#">Expense</a></li>
-                            <li class=""><a href="#">Opening Balance</a></li>
-                            <li class=""><a href="#">Bank Payment</a></li>
-                            <li class=""><a href="#">Bank Receive</a></li>                    
-                            <li class=""><a href="#">Cash Adjustment</a></li>
-                            <li class=""><a href="#">Cash Payment</a></li>
-                            <li class=""><a href="#">Cash Receipt</a></li> 
-                            <li class=""><a href="#">Journal Voucher</a></li>
-                        </ul>
+                    <?php if(has_permission(VIEW, 'accounts', 'account')  ||  
+                        has_permission(VIEW, 'accounts', 'levels') ){ ?>   
+                        <li><a><i class="fa fa-bullhorn"></i> <?php echo 'Finance'; ?> <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li class=""><a href="<?php echo site_url('accounts/levels/index'); ?>">Levels</a></li>
+                                <li class=""><a href="<?php echo site_url('accounts/account/index'); ?>">Chart of Account</a></li>
+                                <li class=""><a href="<?php echo site_url('accounts/account/balanceSheet'); ?>">Opening Balance</a></li>
+                                <li class=""><a href="<?php echo site_url('accounts/account/bankPayment'); ?>">Bank Payment</a></li>
+                                <li class=""><a href="<?php echo site_url('accounts/account/bankRecieve'); ?>">Bank Receive</a></li>
+                                <li class=""><a href="<?php echo site_url('accounts/account/cashPayment'); ?>">Cash Payment</a></li>
+                                <li class=""><a href="<?php echo site_url('accounts/account/cashRecipt'); ?>">Cash Receipt</a></li> 
+                                <li class=""><a href="#">Journal Voucher</a></li>
+                            </ul>
                     </li> 
                     
-                    <?php if(has_permission(VIEW, 'accounting', 'discount') || 
+                    <?php } if(has_permission(VIEW, 'accounting', 'discount') || 
                             has_permission(VIEW, 'accounting', 'feetype') || 
                             has_permission(VIEW, 'accounting', 'invoice') || 
                             has_permission(VIEW, 'accounting', 'duefeeemail')  || 
