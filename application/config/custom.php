@@ -1487,3 +1487,28 @@ $config['my_administrator']['reference']['8'] = '0|0|0|0';
 $config['my_administrator']['reference']['9'] = '0|0|0|0';
 $config['my_administrator']['reference']['13'] = '0|0|0|0';
 $config['my_administrator']['reference']['14'] = '0|0|0|0';
+
+
+$config['my_accounts']['account']['1'] = '1|1|1|1';
+$config['my_accounts']['account']['2'] = '1|1|1|0';
+$config['my_accounts']['account']['3'] = '0|0|1|0';
+$config['my_accounts']['account']['4'] = '0|0|1|0';
+$config['my_accounts']['account']['5'] = '0|0|1|0'; 
+$config['my_accounts']['account']['6'] = '0|0|0|0'; 
+$config['my_accounts']['account']['7'] = '0|0|0|0'; 
+$config['my_accounts']['account']['8'] = '0|0|0|0'; 
+$config['my_accounts']['account']['9'] = '0|0|0|0'; 
+$config['my_accounts']['account']['13'] = '0|0|0|0'; 
+$config['my_accounts']['account']['14'] = '0|0|0|0'; 
+
+$config['my_accounts']['levels']['1'] = '1|1|1|1';
+$config['my_accounts']['levels']['2'] = '1|1|1|0';
+$config['my_accounts']['levels']['3'] = '0|0|1|0';
+$config['my_accounts']['levels']['4'] = '0|0|1|0';
+$config['my_accounts']['levels']['5'] = '0|0|1|0'; 
+$config['my_accounts']['levels']['6'] = '0|0|0|0'; 
+$config['my_accounts']['levels']['7'] = '0|0|0|0'; 
+$config['my_accounts']['levels']['8'] = '0|0|0|0'; 
+$config['my_accounts']['levels']['9'] = '0|0|0|0'; 
+$config['my_accounts']['levels']['13'] = '0|0|0|0'; 
+$config['my_accounts']['levels']['14'] = '0|0|0|0'; 
