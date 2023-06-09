@@ -2,7 +2,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h3 class="head-title"><i class="fa fa-slideshare"></i><small> <?php echo 'Opening Balance'; ?></small></h3>
+                <h3 class="head-title"><i class="fa fa-slideshare"></i><small> <?php echo 'Journal Voucher'; ?></small></h3>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>                    
                 </ul>
