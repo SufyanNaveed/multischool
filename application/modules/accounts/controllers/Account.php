@@ -81,7 +81,7 @@ class Account extends MY_Controller {
     public function bankPayment($school_id = null) {
         $this->output->delete_cache();
         check_permission(VIEW);
-        $this->data['account'] = $this->account->get_account_list($school_id);  
+        $this->data['accounts'] = $this->account->get_account_list($school_id);  
         $this->data['levels'] = $this->levels->get_levels_list($school_id);  
         
         $condition = array();
@@ -93,7 +93,8 @@ class Account extends MY_Controller {
         
         $this->data['filter_school_id'] = $school_id;
         $this->data['schools'] = $this->schools;
-        
+        $this->data['voucher_no']  = $this->account->Spayment();
+       // echo '<pre>'; print_r($this->data['accounts']); exit;
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_account'). ' | ' . SMS);
         $this->layout->view('account/bankPayment', $this->data);            
@@ -101,10 +102,32 @@ class Account extends MY_Controller {
     }
     
 
+    public function create_bank_payment(){
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
+        // echo '<pre>'; print_r($_POST); exit;
+        $this->form_validation->set_rules('txtCode', 'txtCode'  ,'max_length[100]');
+        $this->form_validation->set_rules('paytype', 'paytype'  ,'required|max_length[2]');
+        $this->form_validation->set_rules('txtCode', 'code'  ,'required|max_length[30]');
+        $this->form_validation->set_rules('txtAmount', 'amount'  ,'required|max_length[30]');
+        if ($this->form_validation->run()) { 
+            if ($this->account->bank_payment_insert()) { 
+                $array = array('status' => 'success', 'error' => '', 'message' => $this->lang->line('success_message'));
+            }else{
+                $array = array('status' => 'error', 'error' => '', 'message' => $this->lang->line('error_message'));
+            }
+        }else{
+            $array = array('status' => 'exception', 'error' => '', 'message' => validation_errors());
+        }
+        $this->data['list'] = TRUE;
+        $this->layout->title($this->lang->line('manage_account'). ' | ' . SMS);
+        redirect('accounts/account/bankPayment');
+    }
+
     public function bankRecieve($school_id = null) {
         $this->output->delete_cache();
         check_permission(VIEW);
-        $this->data['account'] = $this->account->get_account_list($school_id);  
+        $this->data['accounts'] = $this->account->get_account_list($school_id);  
         $this->data['levels'] = $this->levels->get_levels_list($school_id);  
         
         $condition = array();
@@ -116,6 +139,7 @@ class Account extends MY_Controller {
         
         $this->data['filter_school_id'] = $school_id;
         $this->data['schools'] = $this->schools;
+        $this->data['voucher_no']  = $this->account->Creceive();
         
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_account'). ' | ' . SMS);
@@ -123,10 +147,29 @@ class Account extends MY_Controller {
        
     }
 
+    public function create_bank_recieve(){
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
+        $this->form_validation->set_rules('txtCode', 'txtCode'  ,'max_length[100]');
+        $this->form_validation->set_rules('paytype', 'paytype'  ,'required|max_length[2]');
+        $this->form_validation->set_rules('txtCode', 'code'  ,'required|max_length[30]');
+        $this->form_validation->set_rules('txtAmount', 'amount'  ,'required|max_length[30]');
+        if ($this->form_validation->run()) { 
+            if ($this->account->bank_recieve_insert()) { 
+                $array = array('status' => 'success', 'error' => '', 'message' => $this->lang->line('success_message'));
+            }else{
+                $array = array('status' => 'error', 'error' => '', 'message' => $this->lang->line('error_message'));
+            }
+        }else{
+            $array = array('status' => 'exception', 'error' => '', 'message' => validation_errors());
+        }
+        redirect('accounts/account/'.$_POST['txtpage']);
+    }
+    
     public function cashPayment($school_id = null) {
         $this->output->delete_cache();
         check_permission(VIEW);
-        $this->data['account'] = $this->account->get_account_list($school_id);  
+        $this->data['accounts'] = $this->account->get_account_list($school_id);  
         $this->data['levels'] = $this->levels->get_levels_list($school_id);  
         
         $condition = array();
@@ -138,6 +181,7 @@ class Account extends MY_Controller {
         
         $this->data['filter_school_id'] = $school_id;
         $this->data['schools'] = $this->schools;
+        $this->data['voucher_no']  = $this->account->CPayment();
         
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_account'). ' | ' . SMS);
@@ -148,7 +192,7 @@ class Account extends MY_Controller {
     public function cashRecipt($school_id = null) {
         $this->output->delete_cache();
         check_permission(VIEW);
-        $this->data['account'] = $this->account->get_account_list($school_id);  
+        $this->data['accounts'] = $this->account->get_account_list($school_id);  
         $this->data['levels'] = $this->levels->get_levels_list($school_id);  
         
         $condition = array();
@@ -160,10 +204,36 @@ class Account extends MY_Controller {
         
         $this->data['filter_school_id'] = $school_id;
         $this->data['schools'] = $this->schools;
+        $this->data['voucher_no']  = $this->account->Creceipt();
         
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_account'). ' | ' . SMS);
         $this->layout->view('account/cashRecipt', $this->data);            
+       
+    }
+    
+    public function journalVoucher($school_id = null) {
+        $this->output->delete_cache();
+        check_permission(VIEW);
+        //echo $this->session->userdata('school_id'); exit;
+        
+        $condition = array();
+        $condition['status'] = 1;        
+        if($this->session->userdata('role_id') != SUPER_ADMIN){            
+            $condition['school_id'] = $this->session->userdata('school_id');        
+            $this->data['account'] = $this->account->get_list('account', $condition, '','', '', 'id', 'ASC');
+        }   
+        
+        $this->data['filter_school_id'] = $school_id;
+        $this->data['schools'] = $this->schools;
+        $this->data['voucher_no']  = $this->account->Creceipt();
+        $school_id = $this->data['schools'][0]->id;
+        $this->data['transactionslist'] = $this->account->get_all_transaction($school_id);  
+        $this->data['levels'] = $this->levels->get_levels_list($school_id);  
+        
+        $this->data['list'] = TRUE;
+        $this->layout->title($this->lang->line('manage_account'). ' | ' . SMS);
+        $this->layout->view('account/journalVoucher', $this->data);            
        
     }
      /*****************Function add**********************************

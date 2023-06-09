@@ -638,7 +638,7 @@
                                 <li class=""><a href="<?php echo site_url('accounts/account/bankRecieve'); ?>">Bank Receive</a></li>
                                 <li class=""><a href="<?php echo site_url('accounts/account/cashPayment'); ?>">Cash Payment</a></li>
                                 <li class=""><a href="<?php echo site_url('accounts/account/cashRecipt'); ?>">Cash Receipt</a></li> 
-                                <li class=""><a href="#">Journal Voucher</a></li>
+                                <li class=""><a href="<?php echo site_url('accounts/account/journalVoucher'); ?>">Journal Voucher</a></li>
                             </ul>
                     </li> 
                     
