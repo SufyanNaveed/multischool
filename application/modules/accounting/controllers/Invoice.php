@@ -300,7 +300,7 @@ class Invoice extends MY_Controller {
         $this->form_validation->set_rules('school_id', $this->lang->line('school'), 'trim|required');               
         $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');
         $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required');
-        $this->form_validation->set_rules('paid_status', $this->lang->line('paid_status'), 'trim|required'); 
+        // $this->form_validation->set_rules('paid_status', $this->lang->line('paid_status'), 'trim|required'); 
         
         if($this->input->post('type')== 'single'){
             $this->form_validation->set_rules('student_id', $this->lang->line('student'), 'trim|required'); 
@@ -310,11 +310,11 @@ class Invoice extends MY_Controller {
         
         $this->form_validation->set_rules('is_applicable_discount', $this->lang->line('is_applicable_discount'), 'trim|required');   
         $this->form_validation->set_rules('month', $this->lang->line('month'), 'trim|required');   
-        $this->form_validation->set_rules('paid_status', $this->lang->line('paid_status'), 'trim|required');   
+        // $this->form_validation->set_rules('paid_status', $this->lang->line('paid_status'), 'trim|required');   
         
-        if($this->input->post('paid_status')== 'paid'){
-           $this->form_validation->set_rules('payment_method', $this->lang->line('payment_method'), 'trim|required');   
-        }
+        // if($this->input->post('paid_status')== 'paid'){
+        //    $this->form_validation->set_rules('payment_method', $this->lang->line('payment_method'), 'trim|required');   
+        // }
         
     }
 
@@ -614,7 +614,7 @@ class Invoice extends MY_Controller {
      * ********************************************************** */
     private function _save_transaction($data){
         
-        if($data['paid_status'] == 'paid'){
+        // if($data['paid_status'] == 'paid'){
         
             $txn = array();
             $txn['school_id'] = $data['school_id'];  
@@ -640,7 +640,7 @@ class Invoice extends MY_Controller {
                 $txn['created_by'] = $data['created_by'];
                 $this->invoice->insert('transactions', $txn);
             }        
-        }
+        // }
     }
     
     

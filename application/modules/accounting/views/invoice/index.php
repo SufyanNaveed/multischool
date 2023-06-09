@@ -187,9 +187,9 @@
                                 </div>
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="paid_status"><?php echo $this->lang->line('paid_status'); ?> <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="paid_status"><?php echo $this->lang->line('paid_status'); ?> <span class="">(optional)</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12" name="paid_status" id="paid_status" required="required"  onchange="check_paid_status(this.value);">
+                                        <select  class="form-control col-md-7 col-xs-12" name="paid_status" id="paid_status"  onchange="check_paid_status(this.value);">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                             <option value="paid"><?php echo $this->lang->line('paid'); ?></option>                                           
                                             <option value="unpaid"><?php echo $this->lang->line('unpaid'); ?></option>                                           
@@ -201,7 +201,7 @@
                                 <!-- For cheque Start-->
                                 <div class="display fn_paid_status" style="<?php if(isset($post) && $post['paid_status'] == 'paid'){ echo 'display:block;';} ?>">
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="payment_method"><?php echo $this->lang->line('payment_method'); ?> <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="payment_method"><?php echo $this->lang->line('payment_method'); ?> <span class="">(optional)</span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select  class="form-control col-md-7 col-xs-12"  name="payment_method"  id="payment_method" onchange="check_payment_method(this.value);">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
@@ -371,7 +371,7 @@
                                 <!-- For cheque Start-->
                                 <div class="display fn_paid_status" style="<?php if(isset($post) && $post['paid_status'] == 'paid'){ echo 'display:block;';} ?>">
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="payment_method"><?php echo $this->lang->line('payment_method'); ?> <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="payment_method"><?php echo $this->lang->line('payment_method'); ?> <span class="">(optional)</span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select  class="form-control col-md-7 col-xs-12"  name="payment_method"  id="payment_method" onchange="check_payment_method(this.value);">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
