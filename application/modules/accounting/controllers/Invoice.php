@@ -87,6 +87,7 @@ class Invoice extends MY_Controller {
       
         $this->layout->title($this->lang->line('view') . ' | ' . SMS);
         $this->layout->view('invoice/view', $this->data);            
+        // $this->layout->view('invoice/view_backup', $this->data);            
        
     }
     
