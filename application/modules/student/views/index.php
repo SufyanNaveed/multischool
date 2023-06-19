@@ -335,7 +335,14 @@
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                              <label for="admission_reference"><?php echo $this->lang->line('admission_reference'); ?> </label>
-                                             <input  class="form-control col-md-7 col-xs-12"  name="admission_reference"  id="admission_reference" value="<?php echo isset($post['admission_reference']) ?  $post['admission_reference'] : ''; ?>" placeholder="<?php echo $this->lang->line('admission_reference'); ?>" type="text" autocomplete="off">
+                                             <!-- <input  class="form-control col-md-7 col-xs-12"  name="admission_reference"  id="admission_reference" value="<?php echo isset($post['admission_reference']) ?  $post['admission_reference'] : ''; ?>" placeholder="<?php echo $this->lang->line('admission_reference'); ?>" type="text" autocomplete="off"> -->
+                                            <select class="form-control col-md-7 col-xs-12" name="admission_reference" id="admission_reference">
+                                                <option value="">Select Reference</option>
+                                                <?php $reference = get_reference(); ?>
+                                                <?php foreach($reference as $key=>$value){ ?>
+                                                    <option value="<?php echo $value['name']; ?>" <?php echo isset($post['admission_reference']) && $post['admission_reference'] == $value['name'] ?  'selected="selected"' : ''; ?>><?php echo $value['name']; ?></option>
+                                                <?php } ?>
+                                            </select>
                                              <div class="help-block"><?php echo form_error('admission_reference'); ?></div>
                                          </div>
                                      </div>                                     
@@ -1152,7 +1159,14 @@
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
                                              <label for="admission_reference"><?php echo $this->lang->line('admission_reference'); ?> </label>
-                                             <input  class="form-control col-md-7 col-xs-12"  name="admission_reference"  id="admission_reference" value="<?php echo isset($student->admission_reference) ?  $student->admission_reference : ''; ?>" placeholder="<?php echo $this->lang->line('admission_reference'); ?>" type="text" autocomplete="off">
+                                             <!-- <input  class="form-control col-md-7 col-xs-12"  name="admission_reference"  id="admission_reference" value="<?php echo isset($student->admission_reference) ?  $student->admission_reference : ''; ?>" placeholder="<?php echo $this->lang->line('admission_reference'); ?>" type="text" autocomplete="off"> -->
+                                             <select class="form-control col-md-7 col-xs-12" name="admission_reference" id="admission_reference">
+                                                <option value="">Select Reference</option>
+                                                <?php $reference = get_reference(); ?>
+                                                <?php foreach($reference as $key=>$value){ ?>
+                                                    <option value="<?php echo $value['name']; ?>" <?php echo isset($student->admission_reference) && $student->admission_reference == $value['name'] ?  'selected="selected"' : ''; ?>><?php echo $value['name']; ?></option>
+                                                <?php } ?>
+                                            </select>
                                              <div class="help-block"><?php echo form_error('admission_reference'); ?></div>
                                          </div>
                                      </div>                                    
