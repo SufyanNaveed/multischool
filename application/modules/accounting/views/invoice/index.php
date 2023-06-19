@@ -197,6 +197,14 @@
                                         <div class="help-block"><?php echo form_error('paid_status'); ?></div>
                                     </div>
                                 </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last_date"><?php echo 'Last Payment Date'; ?> <span class="">(optional)</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="last_payment_date"  id="last_payment_date" value="<?php echo isset($post['last_payment_date']) ?  $post['last_payment_date'] : ''; ?>" type="date" autocomplete="off">
+                                        <div class="help-block"><?php echo form_error('last_payment_date'); ?></div>
+                                    </div>
+                                </div>
                                 
                                 <!-- For cheque Start-->
                                 <div class="display fn_paid_status" style="<?php if(isset($post) && $post['paid_status'] == 'paid'){ echo 'display:block;';} ?>">
@@ -368,6 +376,14 @@
                                     </div>
                                 </div>
                                 
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last_date"><?php echo 'Last Payment Date'; ?> <span class="">(optional)</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="last_payment_date"  id="last_payment_date" value="<?php echo isset($post['last_payment_date']) ?  $post['last_payment_date'] : ''; ?>" type="date" autocomplete="off">
+                                        <div class="help-block"><?php echo form_error('last_payment_date'); ?></div>
+                                    </div>
+                                </div>
+
                                 <!-- For cheque Start-->
                                 <div class="display fn_paid_status" style="<?php if(isset($post) && $post['paid_status'] == 'paid'){ echo 'display:block;';} ?>">
                                     <div class="item form-group">

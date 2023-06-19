@@ -83,8 +83,8 @@ class Invoice extends MY_Controller {
         
               
         $school_id = $this->data['invoice']->school_id;
-        $this->data['school']   = $this->invoice->get_school_by_id($school_id);
-      
+        $this->data['school']   = $this->invoice->get_school_by_id($school_id); 
+        
         $this->layout->title($this->lang->line('view') . ' | ' . SMS);
         $this->layout->view('invoice/view', $this->data);            
         // $this->layout->view('invoice/view_backup', $this->data);            
@@ -339,6 +339,7 @@ class Invoice extends MY_Controller {
         $items[] = 'student_id';
         $items[] = 'is_applicable_discount';  
         $items[] = 'month';        
+        $items[] = 'last_payment_date';        
         $items[] = 'paid_status';        
         $items[] = 'note';
         
@@ -459,6 +460,7 @@ class Invoice extends MY_Controller {
         $items[] = 'is_applicable_discount';  
         $items[] = 'month'; 
         $items[] = 'paid_status';
+        $items[] = 'last_payment_date'; 
         $items[] = 'note';
         
         $data = elements($items, $_POST);         

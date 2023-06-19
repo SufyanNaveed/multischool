@@ -31,10 +31,10 @@
     }
     .mycontent-left {
         border-right: 2px dashed #333;
-        height: 700px;
+        height: 100%;
         margin-left:-5px;
         position: absolute;
-        top:5px;
+        top:5px; 
     }
     .main_div{
         border: solid 2px black; padding: 0px !important; color:black; margin-right: 6px;
@@ -173,7 +173,7 @@
         }
         .mycontent-left {
             border-right: 2px dashed #333;
-            height: 620px;
+            height: 100%;
             margin-left:-6px;
             position: absolute;
             top:5px;
@@ -243,660 +243,150 @@
             
             <div class="x_content">
                 <section class="content invoice profile_img example example-dashed">
-                    <div class="col-md-3 col-sm-3 main_div">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-3 title_padding">
-                                <span class="heading_style title_div"><?php echo $this->global_setting->brand_name; ?> </span>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-9 text-left">
-                                <span class="heading_style full_brand_name" >Johar Institude of Professional Studies</span>
-                            </div>
-                        </div>                         
-                        <hr /> 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12"> 
-                                <span class="transact_font"><strong>Transaction to be processed through Alfalah transact</strong></span>
-                            </div>
-                        </div>
-                        <hr /> 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 "> 
-                                <span class="bank_name"><strong>Bank Alfalah</strong></span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-6 invoice-header" style="border-right: 2px solid black;"> 
-                                <span class="company_code_brand"><strong>Company Code</strong></span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 invoice-header"> 
-                                <span class="company_code_brand"><strong>JIPS</strong></span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-6 detail_div"> 
-                                <span class="col-md-6 col-sm-6 text-left bill_title" ><strong>Bill No.</strong></span> 
-                                <span class="col-md-6 col-sm-6 bill_no">12345678</span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left bill_title"><strong>Date:</strong></span> 
-                                <span class="col-md-8 col-sm-8 date_div">10.04.2023</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 name_text"> 
-                                <span class="name_font"><strong>Name:</strong></span>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-9 text-left"> 
-                                <span class="name_font">Nazia</span>
-                            </div>
-
-                        </div> 
-                        <div class="row roll_bottom">
-                            <div class="line"></div>
-                            <div class="line"></div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 " style="padding: 0px !important;"> 
-                                <span class="col-md-6 col-sm-6 text-left heading_font">Roll No:</span> 
-                                <span class="col-md-6 col-sm-6 text-center roll_text"><strong>100-SPS-21</strong></span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left heading_font prog_title">Prog:</span> 
-                                <span class="col-md-8 col-sm-8 text-center prog_text">Pharm-D</span>
-                            </div>
-                        </div>
-
-                        <div class="row school_top"> 
-                            <div class="col-md-6 col-sm-6 col-xs-6 " style="padding: 0px !important;"> 
-                                <span class="col-md-6 col-sm-6 text-left heading_font">School:&nbsp;</span> 
-                                <span class="col-md-6 col-sm-6 text-center roll_text">IPS-SPS</span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left heading_font prog_title">Session:</span> 
-                                <span class="col-md-8 col-sm-8 text-center prog_text">2021-26</span>
-                            </div>
-                        </div> 
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-12 col-sm-12 install_div">
-                                Fee for the 2nd installment of 2nd year(Final installment)
-                            </span>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-7 col-sm-7 col-xs-7 table_heading_font" style="border-right: 2px solid black;">Particulars</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_heading_font">Amount</span>
-                        </div>
-                        <hr />
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Admission Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Previous Dues</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Tuition Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Transport fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>ID Card Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Reg. Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Collection Fund</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Magazine</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Subtotal</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Other</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Total</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font_date" style="padding: 0px; border-right: 1px solid black;"><i><strong>Last Date of payment:</strong></i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font_date" style="border-bottom: 1px solid black;"><i><strong>18.06.2023</strong></i></span>
-                        </div>
-                        <div class="row line_new_last">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font" style="border-bottom: 1px solid black;">0</span>
-                        </div>
-                        <div class="row line_new_last">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <hr />
-
-                        <div class="row" style="font-size:10px;">
-                            <span class="col-md-12 col-sm-12 col-xs-12">
-                                <span>Mode of Payment: <span style="font-weight:800">Cash</span></span><br>
-                                <span>All fees are not refundable and can be changed without any prior notice </span><br><br>
-                                <div style="text-align: left; direction: rtl;font-size:10.2px;">
-                                    I/We agree to be bound by the Terms & Conditions applicable to the 
-                                    Cash/Local Cheque Deposit/Local Clearing currently prevalent
-                                    at Bank Alfalah Limited. A copy of the prevailing Terms and
-                                    Condition may be obtained at any Bank Alfalah Branch.
+                    <?php for($i=1; $i<5; $i++){ ?>
+                        <div class="col-md-3 col-sm-3 main_div">
+                            <?php if($i != 1){ ?> <div class="mycontent-left"></div> <?php } ?>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-3 title_padding">
+                                    <span class="heading_style title_div"><?php echo $this->global_setting->brand_name; ?> </span>
                                 </div>
-                            </span> 
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-12 col-sm-12 col-xs-12" style="font-size: 13px;letter-spacing: 0.3rem;font-family: Arial, Helvetica, sans-serif;margin-top: 6px;">
-                                <strong>HEAD OFFICE COPY</strong>
-                            </span> 
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-3 col-sm-3 main_div">
-                        <div class="mycontent-left"></div>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-3 title_padding">
-                                <span class="heading_style title_div"><?php echo $this->global_setting->brand_name; ?> </span>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-9 text-left">
-                                <span class="heading_style full_brand_name" >Johar Institude of Professional Studies</span>
-                            </div>
-                        </div>                         
-                        <hr /> 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12"> 
-                                <span class="transact_font"><strong>Transaction to be processed through Alfalah transact</strong></span>
-                            </div>
-                        </div>
-                        <hr /> 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 "> 
-                                <span class="bank_name"><strong>Bank Alfalah</strong></span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-6 invoice-header" style="border-right: 2px solid black;"> 
-                                <span class="company_code_brand"><strong>Company Code</strong></span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 invoice-header"> 
-                                <span class="company_code_brand"><strong>JIPS</strong></span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-6 detail_div"> 
-                                <span class="col-md-6 col-sm-6 text-left bill_title" ><strong>Bill No.</strong></span> 
-                                <span class="col-md-6 col-sm-6 bill_no">12345678</span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left bill_title"><strong>Date:</strong></span> 
-                                <span class="col-md-8 col-sm-8 date_div">10.04.2023</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 name_text"> 
-                                <span class="name_font"><strong>Name:</strong></span>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-9 text-left"> 
-                                <span class="name_font">Nazia</span>
-                            </div>
-
-                        </div> 
-                        <div class="row roll_bottom">
-                            <div class="line"></div>
-                            <div class="line"></div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 " style="padding: 0px !important;"> 
-                                <span class="col-md-6 col-sm-6 text-left heading_font">Roll No:</span> 
-                                <span class="col-md-6 col-sm-6 text-center roll_text"><strong>100-SPS-21</strong></span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left heading_font prog_title">Prog:</span> 
-                                <span class="col-md-8 col-sm-8 text-center prog_text">Pharm-D</span>
-                            </div>
-                        </div>
-
-                        <div class="row school_top"> 
-                            <div class="col-md-6 col-sm-6 col-xs-6 " style="padding: 0px !important;"> 
-                                <span class="col-md-6 col-sm-6 text-left heading_font">School:&nbsp;</span> 
-                                <span class="col-md-6 col-sm-6 text-center roll_text">IPS-SPS</span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left heading_font prog_title">Session:</span> 
-                                <span class="col-md-8 col-sm-8 text-center prog_text">2021-26</span>
-                            </div>
-                        </div> 
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-12 col-sm-12 install_div">
-                                Fee for the 2nd installment of 2nd year(Final installment)
-                            </span>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-7 col-sm-7 col-xs-7 table_heading_font" style="border-right: 2px solid black;">Particulars</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_heading_font">Amount</span>
-                        </div>
-                        <hr />
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Admission Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Previous Dues</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Tuition Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Transport fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>ID Card Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Reg. Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Collection Fund</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Magazine</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Subtotal</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Other</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Total</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font_date" style="padding: 0px; border-right: 1px solid black;"><i><strong>Last Date of payment:</strong></i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font_date" style="border-bottom: 1px solid black;"><i><strong>18.06.2023</strong></i></span>
-                        </div>
-                        <div class="row line_new_last">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font" style="border-bottom: 1px solid black;">0</span>
-                        </div>
-                        <div class="row line_new_last">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <hr />
-
-                        <div class="row" style="font-size:10px;">
-                            <span class="col-md-12 col-sm-12 col-xs-12">
-                                <span>Mode of Payment: <span style="font-weight:800">Cash</span></span><br>
-                                <span>All fees are not refundable and can be changed without any prior notice </span><br><br>
-                                <div style="text-align: left; direction: rtl;font-size:10.2px;">
-                                    I/We agree to be bound by the Terms & Conditions applicable to the 
-                                    Cash/Local Cheque Deposit/Local Clearing currently prevalent
-                                    at Bank Alfalah Limited. A copy of the prevailing Terms and
-                                    Condition may be obtained at any Bank Alfalah Branch.
+                                <div class="col-md-9 col-sm-9 col-xs-9 text-left">
+                                    <span class="heading_style full_brand_name" >Johar Institude of Professional Studies</span>
                                 </div>
-                            </span> 
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-12 col-sm-12 col-xs-12" style="font-size: 13px;letter-spacing: 0.3rem;font-family: Arial, Helvetica, sans-serif;margin-top: 6px;">
-                                <strong>HEAD OFFICE COPY</strong>
-                            </span> 
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-3 main_div">
-                        <div class="mycontent-left"></div>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-3 title_padding">
-                                <span class="heading_style title_div"><?php echo $this->global_setting->brand_name; ?> </span>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-9 text-left">
-                                <span class="heading_style full_brand_name" >Johar Institude of Professional Studies</span>
-                            </div>
-                        </div>                         
-                        <hr /> 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12"> 
-                                <span class="transact_font"><strong>Transaction to be processed through Alfalah transact</strong></span>
-                            </div>
-                        </div>
-                        <hr /> 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 "> 
-                                <span class="bank_name"><strong>Bank Alfalah</strong></span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-6 invoice-header" style="border-right: 2px solid black;"> 
-                                <span class="company_code_brand"><strong>Company Code</strong></span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 invoice-header"> 
-                                <span class="company_code_brand"><strong>JIPS</strong></span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-6 detail_div"> 
-                                <span class="col-md-6 col-sm-6 text-left bill_title" ><strong>Bill No.</strong></span> 
-                                <span class="col-md-6 col-sm-6 bill_no">12345678</span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left bill_title"><strong>Date:</strong></span> 
-                                <span class="col-md-8 col-sm-8 date_div">10.04.2023</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 name_text"> 
-                                <span class="name_font"><strong>Name:</strong></span>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-9 text-left"> 
-                                <span class="name_font">Nazia</span>
-                            </div>
-
-                        </div> 
-                        <div class="row roll_bottom">
-                            <div class="line"></div>
-                            <div class="line"></div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 " style="padding: 0px !important;"> 
-                                <span class="col-md-6 col-sm-6 text-left heading_font">Roll No:</span> 
-                                <span class="col-md-6 col-sm-6 text-center roll_text"><strong>100-SPS-21</strong></span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left heading_font prog_title">Prog:</span> 
-                                <span class="col-md-8 col-sm-8 text-center prog_text">Pharm-D</span>
-                            </div>
-                        </div>
-
-                        <div class="row school_top"> 
-                            <div class="col-md-6 col-sm-6 col-xs-6 " style="padding: 0px !important;"> 
-                                <span class="col-md-6 col-sm-6 text-left heading_font">School:&nbsp;</span> 
-                                <span class="col-md-6 col-sm-6 text-center roll_text">IPS-SPS</span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left heading_font prog_title">Session:</span> 
-                                <span class="col-md-8 col-sm-8 text-center prog_text">2021-26</span>
-                            </div>
-                        </div> 
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-12 col-sm-12 install_div">
-                                Fee for the 2nd installment of 2nd year(Final installment)
-                            </span>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-7 col-sm-7 col-xs-7 table_heading_font" style="border-right: 2px solid black;">Particulars</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_heading_font">Amount</span>
-                        </div>
-                        <hr />
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Admission Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Previous Dues</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Tuition Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Transport fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>ID Card Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Reg. Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Collection Fund</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Magazine</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Subtotal</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Other</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Total</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font_date" style="padding: 0px; border-right: 1px solid black;"><i><strong>Last Date of payment:</strong></i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font_date" style="border-bottom: 1px solid black;"><i><strong>18.06.2023</strong></i></span>
-                        </div>
-                        <div class="row line_new_last">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font" style="border-bottom: 1px solid black;">0</span>
-                        </div>
-                        <div class="row line_new_last">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <hr />
-
-                        <div class="row" style="font-size:10px;">
-                            <span class="col-md-12 col-sm-12 col-xs-12">
-                                <span>Mode of Payment: <span style="font-weight:800">Cash</span></span><br>
-                                <span>All fees are not refundable and can be changed without any prior notice </span><br><br>
-                                <div style="text-align: left; direction: rtl;font-size:10.2px;">
-                                    I/We agree to be bound by the Terms & Conditions applicable to the 
-                                    Cash/Local Cheque Deposit/Local Clearing currently prevalent
-                                    at Bank Alfalah Limited. A copy of the prevailing Terms and
-                                    Condition may be obtained at any Bank Alfalah Branch.
+                            </div>                         
+                            <hr /> 
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12"> 
+                                    <span class="transact_font"><strong>Transaction to be processed through Alfalah transact</strong></span>
                                 </div>
-                            </span> 
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-12 col-sm-12 col-xs-12" style="font-size: 13px;letter-spacing: 0.3rem;font-family: Arial, Helvetica, sans-serif;margin-top: 6px;">
-                                <strong>HEAD OFFICE COPY</strong>
-                            </span> 
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-3 main_div">
-                        <div class="mycontent-left"></div>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-3 title_padding">
-                                <span class="heading_style title_div"><?php echo $this->global_setting->brand_name; ?> </span>
                             </div>
-                            <div class="col-md-9 col-sm-9 col-xs-9 text-left">
-                                <span class="heading_style full_brand_name" >Johar Institude of Professional Studies</span>
-                            </div>
-                        </div>                         
-                        <hr /> 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12"> 
-                                <span class="transact_font"><strong>Transaction to be processed through Alfalah transact</strong></span>
-                            </div>
-                        </div>
-                        <hr /> 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 "> 
-                                <span class="bank_name"><strong>Bank Alfalah</strong></span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-6 invoice-header" style="border-right: 2px solid black;"> 
-                                <span class="company_code_brand"><strong>Company Code</strong></span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 invoice-header"> 
-                                <span class="company_code_brand"><strong>JIPS</strong></span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-6 detail_div"> 
-                                <span class="col-md-6 col-sm-6 text-left bill_title" ><strong>Bill No.</strong></span> 
-                                <span class="col-md-6 col-sm-6 bill_no">12345678</span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left bill_title"><strong>Date:</strong></span> 
-                                <span class="col-md-8 col-sm-8 date_div">10.04.2023</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 name_text"> 
-                                <span class="name_font"><strong>Name:</strong></span>
-                            </div>
-                            <div class="col-md-9 col-sm-9 col-xs-9 text-left"> 
-                                <span class="name_font">Nazia</span>
-                            </div>
-
-                        </div> 
-                        <div class="row roll_bottom">
-                            <div class="line"></div>
-                            <div class="line"></div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 " style="padding: 0px !important;"> 
-                                <span class="col-md-6 col-sm-6 text-left heading_font">Roll No:</span> 
-                                <span class="col-md-6 col-sm-6 text-center roll_text"><strong>100-SPS-21</strong></span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left heading_font prog_title">Prog:</span> 
-                                <span class="col-md-8 col-sm-8 text-center prog_text">Pharm-D</span>
-                            </div>
-                        </div>
-
-                        <div class="row school_top"> 
-                            <div class="col-md-6 col-sm-6 col-xs-6 " style="padding: 0px !important;"> 
-                                <span class="col-md-6 col-sm-6 text-left heading_font">School:&nbsp;</span> 
-                                <span class="col-md-6 col-sm-6 text-center roll_text">IPS-SPS</span>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
-                                <span class="col-md-3 col-sm-3 text-left heading_font prog_title">Session:</span> 
-                                <span class="col-md-8 col-sm-8 text-center prog_text">2021-26</span>
-                            </div>
-                        </div> 
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-12 col-sm-12 install_div">
-                                Fee for the 2nd installment of 2nd year(Final installment)
-                            </span>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-7 col-sm-7 col-xs-7 table_heading_font" style="border-right: 2px solid black;">Particulars</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_heading_font">Amount</span>
-                        </div>
-                        <hr />
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Admission Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Previous Dues</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Tuition Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Transport fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>ID Card Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Reg. Fee</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Collection Fund</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Magazine</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Subtotal</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Other</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Total</i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">125000</span>
-                        </div>
-                        <div class="row line_new">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font_date" style="padding: 0px; border-right: 1px solid black;"><i><strong>Last Date of payment:</strong></i></span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font_date" style="border-bottom: 1px solid black;"><i><strong>18.06.2023</strong></i></span>
-                        </div>
-                        <div class="row line_new_last">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font" style="border-bottom: 1px solid black;">0</span>
-                        </div>
-                        <div class="row line_new_last">
-                            <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
-                            <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                        </div>
-                        <hr />
-
-                        <div class="row" style="font-size:10px;">
-                            <span class="col-md-12 col-sm-12 col-xs-12">
-                                <span>Mode of Payment: <span style="font-weight:800">Cash</span></span><br>
-                                <span>All fees are not refundable and can be changed without any prior notice </span><br><br>
-                                <div style="text-align: left; direction: rtl;font-size:10.2px;">
-                                    I/We agree to be bound by the Terms & Conditions applicable to the 
-                                    Cash/Local Cheque Deposit/Local Clearing currently prevalent
-                                    at Bank Alfalah Limited. A copy of the prevailing Terms and
-                                    Condition may be obtained at any Bank Alfalah Branch.
+                            <hr /> 
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 "> 
+                                    <span class="bank_name"><strong>Bank Alfalah</strong></span>
                                 </div>
-                            </span> 
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 invoice-header" style="border-right: 2px solid black;"> 
+                                    <span class="company_code_brand"><strong><?php echo $school->school_code; ?></strong></span>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 invoice-header"> 
+                                    <span class="company_code_brand"><strong><?php echo $this->global_setting->brand_name; ?></strong></span>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 detail_div"> 
+                                    <span class="col-md-6 col-sm-6 text-left bill_title" ><strong>Bill No.</strong></span> 
+                                    <span class="col-md-6 col-sm-6 bill_no"><?php echo $invoice->custom_invoice_id; ?></span>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
+                                    <span class="col-md-3 col-sm-3 text-left bill_title"><strong>Date:</strong></span> 
+                                    <span class="col-md-8 col-sm-8 date_div"><?php echo date('d.m.Y'); ?></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 name_text"> 
+                                    <span class="name_font"><strong>Name:</strong></span>
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-9 text-left"> 
+                                    <span class="name_font"><?php echo $invoice->name; ?></span>
+                                </div>
+
+                            </div> 
+                            <div class="row roll_bottom">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 " style="padding: 0px !important;"> 
+                                    <span class="col-md-6 col-sm-6 text-left heading_font">Roll No:</span> 
+                                    <span class="col-md-6 col-sm-6 text-center roll_text"><strong><?php echo $invoice->roll_no; ?></strong></span>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
+                                    <span class="col-md-3 col-sm-3 text-left heading_font prog_title">Prog:</span> 
+                                    <span class="col-md-8 col-sm-8 text-center prog_text"><?php echo $invoice->class_name; ?></span>
+                                </div>
+                            </div>
+
+                            <div class="row school_top"> 
+                                <div class="col-md-6 col-sm-6 col-xs-6 " style="padding: 0px !important;"> 
+                                    <span class="col-md-6 col-sm-6 text-left heading_font">School:&nbsp;</span> 
+                                    <span class="col-md-6 col-sm-6 text-center roll_text"><?php echo $this->global_setting->brand_name.'-'.$school->school_code; ?></span>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 0px !important;"> 
+                                    <span class="col-md-3 col-sm-3 text-left heading_font prog_title">Session:</span> 
+                                    <span class="col-md-8 col-sm-8 text-center prog_text"><?php echo $invoice->session; ?></span>
+                                </div>
+                            </div> 
+                            <hr />
+                            <div class="row">
+                                <span class="col-md-12 col-sm-12 install_div">
+                                    Fee for the 2nd installment of 2nd year(Final installment)
+                                </span>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <span class="col-md-7 col-sm-7 col-xs-7 table_heading_font" style="border-right: 2px solid black;">Particulars</span>
+                                <span class="col-md-5 col-sm-5 col-xs-5 table_heading_font">Amount</span>
+                            </div>
+                            <hr />
+                            <?php $total_amount = 0;
+                            if(isset($invoice_items) && !empty($invoice_items)){  
+                                foreach($invoice_items as $item){ ?>
+                                <div class="row line_new">
+                                    <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">
+                                        <i><?php echo $item->title; ?></i>
+                                    </span>
+                                    <span class="col-md-5 col-sm-5 col-xs-5 table_text_font"><?php echo round($item->net_amount, 2); ?></span>
+                                </div>
+                            <?php $total_amount += $item->net_amount; } } ?>
+                            
+                            <div class="row line_new">
+                                <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Total</i></span>
+                                <span class="col-md-5 col-sm-5 col-xs-5 table_text_font"><?php echo $total_amount; ?></span>
+                            </div>
+                            <div class="row line_new">
+                                <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font_date" style="padding: 0px; border-right: 1px solid black;"><i><strong>Last Date of payment:</strong></i></span>
+                                <span class="col-md-5 col-sm-5 col-xs-5 table_text_font_date" style="border-bottom: 1px solid black;"><i><strong><?php echo date('d.m.Y',strtotime($invoice->last_payment_date)); ?></strong></i></span>
+                            </div>
+                            <div class="row line_new_last">
+                                <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
+                                <span class="col-md-5 col-sm-5 col-xs-5 table_text_font" style="border-bottom: 1px solid black;">0</span>
+                            </div>
+                            <div class="row line_new_last">
+                                <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
+                                <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
+                            </div>
+                            <hr />
+
+                            <div class="row" style="font-size:10px;">
+                                <span class="col-md-12 col-sm-12 col-xs-12">
+                                    <span>Mode of Payment: <span style="font-weight:800">Cash</span></span><br>
+                                    <span>All fees are not refundable and can be changed without any prior notice </span><br><br>
+                                    <div style="text-align: left; direction: rtl;font-size:10.2px;">
+                                        I/We agree to be bound by the Terms & Conditions applicable to the 
+                                        Cash/Local Cheque Deposit/Local Clearing currently prevalent
+                                        at Bank Alfalah Limited. A copy of the prevailing Terms and
+                                        Condition may be obtained at any Bank Alfalah Branch.
+                                    </div>
+                                </span> 
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <span class="col-md-12 col-sm-12 col-xs-12" style="font-size: 13px;letter-spacing: 0.3rem;font-family: Arial, Helvetica, sans-serif;margin-top: 6px;">
+                                    <?php if($i == 1){ ?> 
+                                        <strong>HEAD OFFICE COPY</strong>
+                                    <?php } if($i == 2){ ?> 
+                                        <strong>OFFICE COPY</strong>
+                                    <?php } if($i == 3){ ?> 
+                                        <strong>STUDENT COPY</strong>
+                                    <?php } if($i == 4){ ?> 
+                                        <strong>BANK COPY</strong>
+                                    <?php } ?>
+                                </span> 
+                            </div>
                         </div>
-                        <hr />
-                        <div class="row">
-                            <span class="col-md-12 col-sm-12 col-xs-12" style="font-size: 13px;letter-spacing: 0.3rem;font-family: Arial, Helvetica, sans-serif;margin-top: 6px;">
-                                <strong>HEAD OFFICE COPY</strong>
-                            </span> 
-                        </div>
-                    </div>
+                    <?php } ?>
                 </section>
             </div> 
              

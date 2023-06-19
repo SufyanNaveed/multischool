@@ -137,10 +137,12 @@ class Invoice_Model extends MY_Model {
     
     public function get_single_invoice($id){
         
-        $this->db->select('I.*, I.discount AS inv_discount, I.id AS inv_id , S.*, AY.session_year, C.name AS class_name');
+        $this->db->select('I.*, I.discount AS inv_discount, I.id AS inv_id , S.*, AY.session_year, C.name AS class_name, E.roll_no, sec.name as session');
         $this->db->from('invoices AS I');        
         $this->db->join('classes AS C', 'C.id = I.class_id', 'left');
+        $this->db->join('sections AS sec', 'sec.id = I.section_id', 'left');
         $this->db->join('students AS S', 'S.id = I.student_id', 'left');
+        $this->db->join('enrollments AS E', 'S.id = E.student_id', 'left');
         $this->db->join('academic_years AS AY', 'AY.id = I.academic_year_id', 'left');
         $this->db->where('I.id', $id);       
        
