@@ -50,7 +50,6 @@ class Invoice extends MY_Controller {
         $this->data['invoices'] = $this->invoice->get_invoice_list($school_id); 
         $this->data['filter_school_id'] = $school_id;
         $this->data['schools'] = $this->schools;
-         
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_invoice'). ' | ' . SMS);
         $this->layout->view('invoice/index', $this->data);            
@@ -79,7 +78,14 @@ class Invoice extends MY_Controller {
         $txn_amount                = $this->payment->get_invoice_amount($id);        
         $this->data['paid_amount'] = $txn_amount->paid_amount;
         $this->data['invoice'] = $this->invoice->get_single_invoice($id);
-        $this->data['invoice_items'] = $this->invoice->get_invoice_item($id);
+        $this->data['invoice_items'] = $this->invoice->get_invoice_item_installment($id);
+        if(count($this->data['invoice_items']) == 0){
+
+            $this->data['invoice_items'] = $this->invoice->get_invoice_item($id);
+            // echo '<pre>'; print_r($this->invoice->get_invoice_item($id)); exit;
+
+        }
+        // echo '<pre>'; print_r($this->data['invoice_items']); exit;
         
               
         $school_id = $this->data['invoice']->school_id;
@@ -429,7 +435,26 @@ class Invoice extends MY_Controller {
             $inv_detail['modified_at'] = date('Y-m-d H:i:s');
             $inv_detail['modified_by'] = logged_in_user_id();
             $this->invoice->insert('invoice_detail', $inv_detail);
+
+
+            $inv_installment_detail = array();
             
+            $installment_amount =  $inv_detail['net_amount'] / $this->input->post('is_applicable_installments');
+            
+            $inv_installment_detail['invoice_id'] = $invoice_id;
+            $inv_installment_detail['student_id'] = $data['student_id'];
+            $inv_installment_detail['no_of_installments'] = $this->input->post('is_applicable_installments');
+            $inv_installment_detail['installment_no'] = $this->input->post('fee_of_installment');
+            $inv_installment_detail['gross_installment_amount'] = $inv_detail['net_amount'];
+            $inv_installment_detail['installment_amount'] = $installment_amount;
+            $inv_installment_detail['status'] = 1;
+            $inv_installment_detail['created_at'] = date('Y-m-d H:i:s');
+            $inv_installment_detail['created_by'] = logged_in_user_id();   
+            $inv_installment_detail['modified_at'] = date('Y-m-d H:i:s');
+            $inv_installment_detail['modified_by'] = logged_in_user_id();
+            $inv_installment_detail['income_head_id'] = $key;
+            $this->invoice->insert('invoice_installment_detail', $inv_installment_detail);
+
         }
         
          // save transction table data
@@ -549,6 +574,25 @@ class Invoice extends MY_Controller {
                 $inv_detail['modified_at'] = date('Y-m-d H:i:s');
                 $inv_detail['modified_by'] = logged_in_user_id();
                 $this->invoice->insert('invoice_detail', $inv_detail);
+
+
+                $inv_installment_detail = array();
+            
+                $installment_amount =  $inv_detail['net_amount'] / $this->input->post('is_applicable_installments'); 
+                $inv_installment_detail['invoice_id'] = $invoice_id;
+                $inv_installment_detail['student_id'] = $student_id;;
+                $inv_installment_detail['no_of_installments'] = $this->input->post('is_applicable_installments');
+                $inv_installment_detail['installment_no'] = $this->input->post('fee_of_installment');
+                $inv_installment_detail['gross_installment_amount'] = $inv_detail['net_amount'];
+                $inv_installment_detail['installment_amount'] = $installment_amount;
+                $inv_installment_detail['status'] = 1;
+                $inv_installment_detail['created_at'] = date('Y-m-d H:i:s');
+                $inv_installment_detail['created_by'] = logged_in_user_id();   
+                $inv_installment_detail['modified_at'] = date('Y-m-d H:i:s');
+                $inv_installment_detail['modified_by'] = logged_in_user_id();
+                $inv_installment_detail['income_head_id'] = $key;
+
+                $this->invoice->insert('invoice_installment_detail', $inv_installment_detail);
             }
         
            
@@ -690,6 +734,24 @@ class Invoice extends MY_Controller {
             echo $amount-$amt;
         } 
     }
+
+    // single discount
+    public function get_single_discount_fee_amount(){
+        
+        $school_id      = $this->input->post('school_id'); 
+        $class_id       = $this->input->post('class_id');       
+        $section_id     = $this->input->post('section_id'); 
+        $student_id     = $this->input->post('student_id');  
+        
+        $student_detail = $this->invoice->get_single('students', array('id' => $student_id,'school_id' =>$school_id));
+        $discount_detail = $this->invoice->get_single('discounts', array('id' => $student_detail->discount_id,'school_id' => $school_id,'class_id' => $class_id,'section_id' => $section_id));
+        //echo '<pre>'; print_r($discount_detail); exit;
+        if($discount_detail){
+           echo $discount_detail->amount;
+        }else{
+            echo 0;
+        } 
+    }
     
     
     // bulk
@@ -744,7 +806,9 @@ class Invoice extends MY_Controller {
                 }                
                 
                 // making student string....
-                $student_str .= '<div class="multi-check"><input type="checkbox" name="students['.$obj->id.']" value="'.$amount.'" /> '.$obj->name.' ['.$school->currency_symbol.$amount.']</div>';
+                $student_str .= '<div class="multi-check"><input type="checkbox" name="students['.$obj->id.']" value="'.$amount.'" /> '.$obj->name.' ['.$school->currency_symbol.$amount.']
+                <span style="display:none;" class="bulk_discount_amt">['.$school->currency_symbol.round($obj->discount_amount).']</span>
+                </div>';
             }
         }
         

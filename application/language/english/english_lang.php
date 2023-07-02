@@ -312,6 +312,7 @@ $lang['manage_teacher'] = "Manage Teacher";
 $lang['manage_class'] = "Manage Program";
 $lang['manage_category'] = "Manage Category";
 $lang['manage_account'] = "Manage Accounts";
+$lang['manage_banks'] = "Manage Banks";
 $lang['account'] = "Account";
 $lang['manage_levels'] = "Manage Levels";
 $lang['manage_semester'] = "Manage Semester";

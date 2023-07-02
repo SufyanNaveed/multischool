@@ -1511,4 +1511,17 @@ $config['my_accounts']['levels']['7'] = '0|0|0|0';
 $config['my_accounts']['levels']['8'] = '0|0|0|0'; 
 $config['my_accounts']['levels']['9'] = '0|0|0|0'; 
 $config['my_accounts']['levels']['13'] = '0|0|0|0'; 
-$config['my_accounts']['levels']['14'] = '0|0|0|0'; 
+$config['my_accounts']['levels']['14'] = '0|0|0|0';
+
+
+$config['my_accounts']['banks']['1'] = '1|1|1|1';
+$config['my_accounts']['banks']['2'] = '1|1|1|0';
+$config['my_accounts']['banks']['3'] = '0|0|1|0';
+$config['my_accounts']['banks']['4'] = '0|0|1|0';
+$config['my_accounts']['banks']['5'] = '0|0|1|0'; 
+$config['my_accounts']['banks']['6'] = '0|0|0|0'; 
+$config['my_accounts']['banks']['7'] = '0|0|0|0'; 
+$config['my_accounts']['banks']['8'] = '0|0|0|0'; 
+$config['my_accounts']['banks']['9'] = '0|0|0|0'; 
+$config['my_accounts']['banks']['13'] = '0|0|0|0'; 
+$config['my_accounts']['banks']['14'] = '0|0|0|0';

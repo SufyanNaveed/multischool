@@ -50,6 +50,7 @@
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
                                         <th><?php echo $this->lang->line('levels').' '.$this->lang->line('name'); ?></th>
+                                        <th><?php echo 'Bank Name'; ?></th>
                                         <th><?php echo $this->lang->line('account').' '.$this->lang->line('name'); ?></th>
                                         <th><?php echo $this->lang->line('account').' no'; ?></th>
                                         <th><?php echo $this->lang->line('note'); ?></th>
@@ -76,6 +77,7 @@
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
                                             <td><?php echo $obj->level_name; ?></td>
+                                            <td><?php echo $obj->bank_name; ?></td>
                                             <td><?php echo $obj->name; ?></td>
                                             <td><?php echo $obj->account_no; ?></td>
                                             <td><?php echo $obj->note; ?></td>                                           
@@ -114,6 +116,20 @@
                                     </div>
                                 </div>
                                 
+                                <div class="account form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bank_id"><?php echo 'Bank'; ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12 fn_bank_id" name="bank_id" id="add_bank_id" required="required">
+                                            <option value="">--<?php echo 'Select Bank'; ?>--</option>
+                                            <?php $get_banks = get_banks(); ?>
+                                            <?php foreach($get_banks as $obj){ ?>
+                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($post['bank_id']) && $post['bank_id'] == $obj->id ?  'selected="selected"' : ''; ?> ><?php echo $obj->bank_name; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('bank_id'); ?></div>
+                                    </div>
+                                </div>
+
                                 <div class="account form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('account'); ?> <?php echo $this->lang->line('code'); ?> <span class="required">*</span>
                                     </label>
@@ -186,6 +202,20 @@
                                             <?php } ?>
                                         </select>
                                         <div class="help-block"><?php echo form_error('level_id'); ?></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="account form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bank_id"><?php echo 'Bank'; ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12 fn_bank_id" name="bank_id" id="edit_bank_id" required="required">
+                                            <option value="">--<?php echo 'Select Bank'; ?>--</option>
+                                            <?php $get_banks = get_banks(); ?>
+                                            <?php foreach($get_banks as $obj){ ?>
+                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($account->bank_id) && $account->bank_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->bank_name; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('bank_id'); ?></div>
                                     </div>
                                 </div>
                                 

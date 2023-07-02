@@ -418,6 +418,7 @@ class Account extends MY_Controller {
         $accounts = array();
         $accounts[] = 'school_id';
         $accounts[] = 'level_id';
+        $accounts[] = 'bank_id';
         $accounts[] = 'name';
         $accounts[] = 'account_no';
         $accounts[] = 'account_type';

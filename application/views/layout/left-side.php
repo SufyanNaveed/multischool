@@ -631,6 +631,7 @@
                         has_permission(VIEW, 'accounts', 'levels') ){ ?>   
                         <li><a><i class="fa fa-bullhorn"></i> <?php echo 'Finance'; ?> <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
+                                <li class=""><a href="<?php echo site_url('accounts/banks/index'); ?>">Banks</a></li>
                                 <li class=""><a href="<?php echo site_url('accounts/levels/index'); ?>">Levels</a></li>
                                 <li class=""><a href="<?php echo site_url('accounts/account/index'); ?>">Chart of Account</a></li>
                                 <li class=""><a href="<?php echo site_url('accounts/account/balanceSheet'); ?>">Opening Balance</a></li>

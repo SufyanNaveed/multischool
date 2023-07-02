@@ -321,7 +321,11 @@
                             <hr />
                             <div class="row">
                                 <span class="col-md-12 col-sm-12 install_div">
-                                    Fee for the 2nd installment of 2nd year(Final installment)
+                                    <?php if($invoice_items && isset($invoice_items[0]->installment_no)){ ?>
+                                        Fee for the <?php echo $invoice_items[0]->installment_no; ?> installment of <?php echo $invoice->semester_name; ?>
+                                    <?php } else{ ?>
+                                        Fee for the <?php echo $invoice->semester_name; ?> (Full Fee)
+                                    <?php } ?>
                                 </span>
                             </div>
                             <hr />
@@ -337,41 +341,41 @@
                                     <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">
                                         <i><?php echo $item->title; ?></i>
                                     </span>
-                                    <span class="col-md-5 col-sm-5 col-xs-5 table_text_font"><?php echo round($item->net_amount, 2); ?></span>
+                                    <span class="col-md-5 col-sm-5 col-xs-5 table_text_font"><?php echo round($item->net_amount); ?></span>
                                 </div>
-                            <?php $total_amount += $item->net_amount; } } ?>
+                                <?php $total_amount += $item->net_amount; } } ?>
                             
-                            <div class="row line_new">
-                                <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Total</i></span>
-                                <span class="col-md-5 col-sm-5 col-xs-5 table_text_font"><?php echo $total_amount; ?></span>
-                            </div>
-                            <div class="row line_new">
-                                <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font_date" style="padding: 0px; border-right: 1px solid black;"><i><strong>Last Date of payment:</strong></i></span>
-                                <span class="col-md-5 col-sm-5 col-xs-5 table_text_font_date" style="border-bottom: 1px solid black;"><i><strong><?php echo date('d.m.Y',strtotime($invoice->last_payment_date)); ?></strong></i></span>
-                            </div>
-                            <div class="row line_new_last">
-                                <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
-                                <span class="col-md-5 col-sm-5 col-xs-5 table_text_font" style="border-bottom: 1px solid black;">0</span>
-                            </div>
-                            <div class="row line_new_last">
-                                <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
-                                <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
-                            </div>
-                            <hr />
+                                <div class="row line_new">
+                                    <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;"><i>Total</i></span>
+                                    <span class="col-md-5 col-sm-5 col-xs-5 table_text_font"><?php echo round($total_amount); ?></span>
+                                </div>
+                                <div class="row line_new">
+                                    <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font_date" style="padding: 0px; border-right: 1px solid black;"><i><strong>Last Date of payment:</strong></i></span>
+                                    <span class="col-md-5 col-sm-5 col-xs-5 table_text_font_date" style="border-bottom: 1px solid black;"><i><strong><?php echo date('d.m.Y',strtotime($invoice->last_payment_date)); ?></strong></i></span>
+                                </div>
+                                <div class="row line_new_last">
+                                    <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
+                                    <span class="col-md-5 col-sm-5 col-xs-5 table_text_font" style="border-bottom: 1px solid black;">0</span>
+                                </div>
+                                <div class="row line_new_last">
+                                    <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">0</span>
+                                    <span class="col-md-5 col-sm-5 col-xs-5 table_text_font">0</span>
+                                </div>
+                                <hr />
 
-                            <div class="row" style="font-size:10px;">
-                                <span class="col-md-12 col-sm-12 col-xs-12">
-                                    <span>Mode of Payment: <span style="font-weight:800">Cash</span></span><br>
-                                    <span>All fees are not refundable and can be changed without any prior notice </span><br><br>
-                                    <div style="text-align: left; direction: rtl;font-size:10.2px;">
-                                        I/We agree to be bound by the Terms & Conditions applicable to the 
-                                        Cash/Local Cheque Deposit/Local Clearing currently prevalent
-                                        at Bank Alfalah Limited. A copy of the prevailing Terms and
-                                        Condition may be obtained at any Bank Alfalah Branch.
-                                    </div>
-                                </span> 
-                            </div>
-                            <hr />
+                                <div class="row" style="font-size:10px;">
+                                    <span class="col-md-12 col-sm-12 col-xs-12">
+                                        <span>Mode of Payment: <span style="font-weight:800">Cash</span></span><br>
+                                        <span>All fees are not refundable and can be changed without any prior notice </span><br><br>
+                                        <div style="text-align: left; direction: rtl;font-size:10.2px;">
+                                            I/We agree to be bound by the Terms & Conditions applicable to the 
+                                            Cash/Local Cheque Deposit/Local Clearing currently prevalent
+                                            at Bank Alfalah Limited. A copy of the prevailing Terms and
+                                            Condition may be obtained at any Bank Alfalah Branch.
+                                        </div>
+                                    </span> 
+                                </div>
+                                <hr />
                             <div class="row">
                                 <span class="col-md-12 col-sm-12 col-xs-12" style="font-size: 13px;letter-spacing: 0.3rem;font-family: Arial, Helvetica, sans-serif;margin-top: 6px;">
                                     <?php if($i == 1){ ?> 

@@ -24,6 +24,7 @@
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
                                         <!-- <th><?php echo $this->lang->line('levels').' '.$this->lang->line('name'); ?></th> -->
+                                        <th><?php echo 'Bank Name'; ?></th>
                                         <th><?php echo $this->lang->line('account').' '.$this->lang->line('name'); ?></th>
                                         <th><?php echo $this->lang->line('account').' no'; ?></th>
                                         <th><?php echo $this->lang->line('balance'); ?></th>
@@ -51,6 +52,7 @@
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
                                             <!-- <td><?php echo $obj->level_name; ?></td> -->
+                                            <td><?php echo $obj->bank_name; ?></td>
                                             <td><?php echo $obj->name; ?></td>
                                             <td><?php echo $obj->account_no; ?></td>
                                             <td><?php echo $obj->balance; ?></td>

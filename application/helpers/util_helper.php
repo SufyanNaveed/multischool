@@ -919,6 +919,22 @@ if (!function_exists('get_reference')) {
     }
 }
 
+if (!function_exists('get_banks')) {
+
+    function get_banks() {
+        $ci = & get_instance();
+        if($ci->session->userdata('role_id') != SUPER_ADMIN){
+            $school_id =  $ci->session->userdata('school_id');
+        }
+        $ci->db->select('*');
+        $ci->db->from('banks');
+        if($school_id){
+            $ci->db->where('school_id', $school_id);
+        }
+        return $ci->db->get()->result();
+    }
+}
+
 
 if (!function_exists('get_week_days')) {
 

@@ -57,6 +57,9 @@
                                         <th><?php echo $this->lang->line('gross_amount'); ?></th>
                                         <th><?php echo $this->lang->line('discount'); ?></th>
                                         <th><?php echo $this->lang->line('net_amount'); ?></th>
+                                        <th><?php echo 'Total installments'; ?></th>
+                                        <th><?php echo 'Installment'; ?></th>
+                                        <th><?php echo 'Installment Amount'; ?></th>
                                         <th><?php echo $this->lang->line('status'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
@@ -76,6 +79,9 @@
                                             <td><?php echo $obj->gross_amount; ?></td>
                                             <td><?php echo $obj->discount; ?></td>
                                             <td><?php echo $obj->net_amount; ?></td>
+                                            <td><?php echo $obj->no_of_installments; ?></td>
+                                            <td><?php echo $obj->installment_no; ?></td>
+                                            <td><?php echo round($obj->installment_amount, 2); ?></td>
                                             <td><?php echo get_paid_status($obj->paid_status); ?></td>
                                             <td>
                                                 <?php if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
@@ -177,13 +183,43 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount"><?php echo $this->lang->line('is_applicable_discount'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount" required="required">
+                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount" required="required" onchange="get_discount_into_fee(this.value, '')">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                             <option value="1"><?php echo $this->lang->line('yes'); ?></option>                                           
                                             <option value="0"><?php echo $this->lang->line('no'); ?></option>                                           
                                         </select>
                                         <div class="help-block"><?php echo form_error('is_applicable_discount'); ?></div>
                                     </div>
+                                    <label class="col-md-3 col-sm-3 col-xs-12" id="applied_discount"></label>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_installments"><?php echo 'How many installments create?'; ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_installments" id="is_applicable_installments" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
+                                            <option value="1"><?php echo '1'; ?></option>                                           
+                                            <option value="2"><?php echo '2'; ?></option>                                             
+                                            <option value="3"><?php echo '3'; ?></option>                                             
+                                            <option value="4"><?php echo '4'; ?></option>                                             
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('is_applicable_discount'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fee_of_installment"><?php echo 'Fee of installment?'; ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="fee_of_installment" id="fee_of_installment" required="required" onchange="calculate_installment_fee(this.value, '')">
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
+                                            <option value="1st"><?php echo '1st'; ?></option>                                           
+                                            <option value="2nd"><?php echo '2nd'; ?></option>                                             
+                                            <option value="3rd"><?php echo '3rd'; ?></option>                                             
+                                            <option value="4th"><?php echo '4th'; ?></option>                                             
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('is_applicable_discount'); ?></div>
+                                    </div>
+                                    <label class="col-md-3 col-sm-3 col-xs-12" id="installment_fee"></label>
                                 </div>
                                 
                                 <div class="item form-group">
@@ -346,7 +382,7 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount?"><?php echo $this->lang->line('is_applicable_discount'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount" required="required">
+                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount" required="required" onchange="discount_display(this.value)">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                             <option value="1"><?php echo $this->lang->line('yes'); ?></option>                                           
                                             <option value="0"><?php echo $this->lang->line('no'); ?></option>                                           
@@ -363,6 +399,36 @@
                                         <div class="help-block"><?php echo form_error('month'); ?></div>
                                     </div>
                                 </div> 
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_installments"><?php echo 'How many installments create?'; ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_installments" id="is_applicable_installments" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
+                                            <option value="1"><?php echo '1'; ?></option>                                           
+                                            <option value="2"><?php echo '2'; ?></option>                                             
+                                            <option value="3"><?php echo '3'; ?></option>                                             
+                                            <option value="4"><?php echo '4'; ?></option>                                             
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('is_applicable_discount'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fee_of_installment"><?php echo 'Fee of installment?'; ?> <span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="fee_of_installment" id="fee_of_installment" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
+                                            <option value="1st"><?php echo '1st'; ?></option>                                           
+                                            <option value="2nd"><?php echo '2nd'; ?></option>                                             
+                                            <option value="3rd"><?php echo '3rd'; ?></option>                                             
+                                            <option value="4th"><?php echo '4th'; ?></option>                                             
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('is_applicable_discount'); ?></div>
+                                    </div>
+                                    <!-- <label class="col-md-3 col-sm-3 col-xs-12" id="installment_fee"></label> -->
+                                </div>
+                                
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="paid_status"><?php echo $this->lang->line('paid_status'); ?> <span class="required">*</span></label>
@@ -661,6 +727,52 @@
             }
         });  
    }
+
+    function get_discount_into_fee(val){            
+        var school_id = $('.fn_school_id').val(); 
+        var student_id = $('#student_id').val(); 
+        var class_id = $('#class_id').val(); 
+        var section_id = $('#section_id').val(); 
+        
+        if(!student_id){            
+            toastr.error('<?php echo $this->lang->line('select_student'); ?>');
+            $('#is_applicable_discount').prop('checked', false);
+            return false;
+        }
+                
+        if(val == 1){
+            $.ajax({       
+                type   : "POST",
+                url    : "<?php echo site_url('accounting/invoice/get_single_discount_fee_amount'); ?>",
+                data   : { school_id : school_id, class_id : class_id, section_id : section_id, student_id:student_id },               
+                async  : false,
+                success: function(response){                                                   
+                if(response)
+                {  
+                    $('#applied_discount').html('Applied discount: <span id="discount_val">' + response + '</span> PKR');                     
+                }
+                }
+            });  
+        }
+    }
+
+    function calculate_installment_fee(val){
+        var fee = $('#amount').val(); 
+        var discount = $('#discount_val').text(); 
+        var installments = $('#is_applicable_installments').val();
+        
+        var installment_fee = ((parseInt(fee) - parseInt(discount)) / parseInt(installments));
+        
+         $('#installment_fee').html('Fee of '+ val + ' installment is: <span id="installment_amount">' + installment_fee.toFixed(0) + '</span> PKR' );
+        
+        
+    }
+    
+    function discount_display(val){
+        if(val != 0){
+            $('.bulk_discount_amt').show();
+        }
+    }
    
    
    
