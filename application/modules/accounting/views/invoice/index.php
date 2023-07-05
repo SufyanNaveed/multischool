@@ -779,14 +779,15 @@
         
     }
     
-    function discount_display(discount_id){
+    function discount_display(){
         var sList = "";
+        var discount_id = $('#is_applicable_discount').val();       
         $('.fn_bulk_fee_item input[type=checkbox]').each(function () {
             var sThisVal = (this.checked ? "1" : "0");
             if(sThisVal == "1"){
 
                 sList = $(this).attr("itemid");
-                get_bulk_fee_amount(sList, 8);
+                get_bulk_fee_amount(sList, discount_id);
 
             }
         });
