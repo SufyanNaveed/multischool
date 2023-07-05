@@ -184,9 +184,12 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount"><?php echo $this->lang->line('is_applicable_discount'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount" required="required" onchange="get_discount_into_fee(this.value, '')">
-                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
-                                            <option value="1"><?php echo $this->lang->line('yes'); ?></option>                                           
-                                            <option value="0"><?php echo $this->lang->line('no'); ?></option>                                           
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            <?php foreach($discounts as $obj){ ?>                                                    
+                                                <option value="<?php echo $obj->id; ?>"  data-discount_val="<?php echo $obj->amount; ?>"><?php echo $obj->title; ?></option>                                                   
+                                            <?php } ?>                                                                                    
+                                            <!-- <option value="1"><?php echo $this->lang->line('yes'); ?></option>                                           
+                                            <option value="0"><?php echo $this->lang->line('no'); ?></option> -->
                                         </select>
                                         <div class="help-block"><?php echo form_error('is_applicable_discount'); ?></div>
                                     </div>
@@ -383,9 +386,12 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount?"><?php echo $this->lang->line('is_applicable_discount'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount" required="required" onchange="discount_display(this.value)">
-                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
-                                            <option value="1"><?php echo $this->lang->line('yes'); ?></option>                                           
-                                            <option value="0"><?php echo $this->lang->line('no'); ?></option>                                           
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            <?php foreach($discounts as $obj){ ?>                                                    
+                                                <option value="<?php echo $obj->id; ?>" data-discount_val="<?php echo $obj->amount; ?>"><?php echo $obj->title; ?></option>                                                   
+                                            <?php } ?>                                                                                     
+                                            <!-- <option value="1"><?php echo $this->lang->line('yes'); ?></option>                                           
+                                            <option value="0"><?php echo $this->lang->line('no'); ?></option>                                            -->
                                         </select>
                                         <div class="help-block"><?php echo form_error('is_applicable_discount'); ?></div>
                                     </div>
@@ -730,30 +736,35 @@
 
     function get_discount_into_fee(val){            
         var school_id = $('.fn_school_id').val(); 
-        var student_id = $('#student_id').val(); 
-        var class_id = $('#class_id').val(); 
-        var section_id = $('#section_id').val(); 
-        
-        if(!student_id){            
-            toastr.error('<?php echo $this->lang->line('select_student'); ?>');
-            $('#is_applicable_discount').prop('checked', false);
+        // var student_id = $('#student_id').val(); 
+        // var class_id = $('#class_id').val(); 
+        // var section_id = $('#section_id').val(); 
+        var response = $('option:selected', '#is_applicable_discount').attr('data-discount_val');
+        if(!school_id){            
+            toastr.error('<?php echo $this->lang->line('select_school'); ?>');
             return false;
         }
+
+        // if(!student_id){            
+        //     toastr.error('<?php echo $this->lang->line('select_student'); ?>');
+        //     $('#is_applicable_discount').prop('checked', false);
+        //     return false;
+        // }
                 
-        if(val == 1){
-            $.ajax({       
-                type   : "POST",
-                url    : "<?php echo site_url('accounting/invoice/get_single_discount_fee_amount'); ?>",
-                data   : { school_id : school_id, class_id : class_id, section_id : section_id, student_id:student_id },               
-                async  : false,
-                success: function(response){                                                   
-                if(response)
-                {  
+        // if(val == 1){
+        //     $.ajax({       
+        //         type   : "POST",
+        //         url    : "<?php echo site_url('accounting/invoice/get_single_discount_fee_amount'); ?>",
+        //         data   : { school_id : school_id, class_id : class_id, section_id : section_id, student_id:student_id },               
+        //         async  : false,
+        //         success: function(response){                                                   
+        //         if(response)
+        //         {  
                     $('#applied_discount').html('Applied discount: <span id="discount_val">' + response + '</span> PKR');                     
-                }
-                }
-            });  
-        }
+        //         }
+        //         }
+        //     });  
+        // }
     }
 
     function calculate_installment_fee(val){
@@ -768,10 +779,19 @@
         
     }
     
-    function discount_display(val){
-        if(val != 0){
-            $('.bulk_discount_amt').show();
-        }
+    function discount_display(discount_id){
+        var sList = "";
+        $('.fn_bulk_fee_item input[type=checkbox]').each(function () {
+            var sThisVal = (this.checked ? "1" : "0");
+            if(sThisVal == "1"){
+
+                sList = $(this).attr("itemid");
+                get_bulk_fee_amount(sList, 8);
+
+            }
+        });
+        console.log (sList);
+        $('.bulk_discount_amt').show();
     }
    
    
@@ -808,7 +828,7 @@
         });   
    }
    
-    function get_bulk_fee_amount(income_head_id){
+    function get_bulk_fee_amount(income_head_id, discount_id = null){
             
         var school_id = $('.fn_school_id').val();
         var class_id = $('#class_id').val(); 
@@ -827,18 +847,20 @@
             check_status = false;
         }  
         
-        var head_ids = [];     
-        $("input[name^='income_head_id']").each(function() {  
-            if($(this).is(':checked')){
-                head_ids += $(this).attr('itemid')+',';
-             }
-        });
+        // if(discount_id != null){
+            var head_ids = [];     
+            $("input[name^='income_head_id']").each(function() {  
+                if($(this).is(':checked')){
+                    head_ids += $(this).attr('itemid')+',';
+                }
+            });
+        // }
        
                 
         $.ajax({       
             type   : "POST",
             url    : "<?php echo site_url('accounting/invoice/get_bulk_fee_amount'); ?>",
-            data   : { school_id:school_id, class_id:class_id, section_id: section_id, head_ids:head_ids},               
+            data   : { school_id:school_id, class_id:class_id, section_id: section_id, head_ids:head_ids, discount_id: discount_id},               
             async  : false,
             success: function(response){                                                   
                if(response == 'ay')

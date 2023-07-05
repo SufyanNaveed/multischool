@@ -154,7 +154,7 @@ class Invoice extends MY_Controller {
         }
 
         $condition = array();
-        $condition['status'] = 1;        
+        $condition['status'] = 1;                 
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
             $condition['school_id'] = $this->session->userdata('school_id');
             $this->data['classes'] = $this->invoice->get_list('classes', $condition, '','', '', 'id', 'ASC');
@@ -165,6 +165,7 @@ class Invoice extends MY_Controller {
         $this->data['invoices'] = $this->invoice->get_invoice_list($school_id); 
         $this->data['filter_school_id'] = $school_id;
         $this->data['schools'] = $this->schools;  
+        $this->data['discounts'] = $this->invoice->get_list('discounts', $condition, '','', '', 'id', 'ASC');
         
         $this->data['single'] = TRUE;
         $this->layout->title($this->lang->line('create_invoice'). ' | ' . SMS);
@@ -218,6 +219,7 @@ class Invoice extends MY_Controller {
         $this->data['invoices'] = $this->invoice->get_invoice_list($school_id); 
         $this->data['filter_school_id'] = $school_id;
         $this->data['schools'] = $this->schools;    
+        $this->data['discounts'] = $this->invoice->get_list('discounts', $condition, '','', '', 'id', 'ASC');
         
         $this->data['bulk'] = TRUE;
         $this->layout->title($this->lang->line('create_invoice'). ' | ' . SMS);
@@ -355,10 +357,10 @@ class Invoice extends MY_Controller {
         $data['gross_amount'] = $this->input->post('amount');
         $data['net_amount']   = $this->input->post('amount');
         $data['invoice_type'] = 'invoice';
-        
         if($data['is_applicable_discount']){
             
-            $discount = $this->invoice->get_student_discount($data['student_id']);
+            // $discount = $this->invoice->get_student_discount($data['student_id']);
+            $discount = $this->invoice->get_discount_by_id($data['is_applicable_discount']);
             if(!empty($discount) && $discount->discount_type == 'percentage'){
                 
                 $data['discount']   = ($discount->amount/100)*$data['gross_amount'];
@@ -512,7 +514,8 @@ class Invoice extends MY_Controller {
 
             if($data['is_applicable_discount']){
 
-                $discount = $this->invoice->get_student_discount($data['student_id']);
+                // $discount = $this->invoice->get_student_discount($data['student_id']);
+                $discount = $this->invoice->get_discount_by_id($data['is_applicable_discount']);
                 if(!empty($discount) && $discount->discount_type == 'percentage'){
                 
                     $data['discount']   = ($discount->amount/100)*$data['gross_amount'];
@@ -779,7 +782,8 @@ class Invoice extends MY_Controller {
         $school_id      = $this->input->post('school_id');
         $class_id       = $this->input->post('class_id');       
         $section_id       = $this->input->post('section_id');       
-        $head_ids       = rtrim($this->input->post('head_ids'), ',');
+        $head_ids       = rtrim($this->input->post('head_ids'), ','); 
+        $discount_id       = $this->input->post('discount_id');
         
        
         
@@ -790,14 +794,15 @@ class Invoice extends MY_Controller {
         $students = $this->invoice->get_student_list($school_id, $school->academic_year_id, $class_id, $section_id,'', 'regular'); 
        
         $student_str = $this->lang->line('no_data_found');
-        
+        $discount = $this->invoice->get_discount_by_id($discount_id); 
+                
         if(!empty($students) && $head_ids != ''){            
             
             $student_str = '';
             $head_ids_arr = explode(',', $head_ids);
              
             foreach($students as $obj){                
-               
+                
                 $amount = 0.00;
                 foreach($head_ids_arr as $income_head_id){
                     
@@ -807,7 +812,7 @@ class Invoice extends MY_Controller {
                 
                 // making student string....
                 $student_str .= '<div class="multi-check"><input type="checkbox" name="students['.$obj->id.']" value="'.$amount.'" /> '.$obj->name.' ['.$school->currency_symbol.$amount.']
-                <span style="display:none;" class="bulk_discount_amt">['.$school->currency_symbol.round($obj->discount_amount).']</span>
+                <span class="bulk_discount_amt">[Dis: '.$school->currency_symbol.round($discount->amount).']</span>
                 </div>';
             }
         }

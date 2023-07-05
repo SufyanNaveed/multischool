@@ -52,6 +52,14 @@ class Invoice_Model extends MY_Model {
         $this->db->where('S.id', $student_id);         
         return $this->db->get()->row();
     }
+
+    public function get_discount_by_id($discount_id){
+        
+        $this->db->select('D.*');
+        $this->db->from('discounts AS D'); 
+        $this->db->where('D.id', $discount_id);         
+        return $this->db->get()->row();
+    }
     
     public function get_invoice_list_bk($school_id = null, $due = null, $academic_year_id = null){
         
@@ -174,10 +182,9 @@ class Invoice_Model extends MY_Model {
     
     public function get_student_list( $school_id, $academic_year_id, $class_id, $section_id, $student_id = null, $status_type = null){
         
-        $this->db->select('E.roll_no,  S.id, S.user_id, S.name, S.is_hostel_member, S.is_transport_member, D.amount as discount_amount');
+        $this->db->select('E.roll_no,  S.id, S.user_id, S.name, S.is_hostel_member, S.is_transport_member');
         $this->db->from('enrollments AS E');        
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
-        $this->db->join('discounts AS D', 'D.id = S.discount_id', 'left');
         $this->db->where('E.academic_year_id', $academic_year_id);       
         $this->db->where('E.class_id', $class_id);  
         $this->db->where('E.section_id', $section_id);  
