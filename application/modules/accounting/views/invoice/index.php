@@ -181,12 +181,12 @@
                                 </div> 
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount"><?php echo $this->lang->line('is_applicable_discount'); ?> <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount"><?php echo $this->lang->line('is_applicable_discount'); ?></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount" required="required" onchange="get_discount_into_fee(this.value, '')">
+                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount" onchange="get_discount_into_fee(this.value, '')">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                             <?php foreach($discounts as $obj){ ?>                                                    
-                                                <option value="<?php echo $obj->id; ?>"  data-discount_val="<?php echo $obj->amount; ?>"><?php echo $obj->title; ?></option>                                                   
+                                                <option value="<?php echo $obj->id; ?>"  data-discount_val="<?php echo $obj->amount; ?>" data-discount_type="<?php echo $obj->discount_type; ?>"><?php echo $obj->title; ?></option>                                                   
                                             <?php } ?>                                                                                    
                                             <!-- <option value="1"><?php echo $this->lang->line('yes'); ?></option>                                           
                                             <option value="0"><?php echo $this->lang->line('no'); ?></option> -->
@@ -231,7 +231,7 @@
                                         <select  class="form-control col-md-7 col-xs-12" name="paid_status" id="paid_status"  onchange="check_paid_status(this.value);">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                             <option value="paid"><?php echo $this->lang->line('paid'); ?></option>                                           
-                                            <option value="unpaid"><?php echo $this->lang->line('unpaid'); ?></option>                                           
+                                            <option value="unpaid" selected><?php echo $this->lang->line('unpaid'); ?></option>                                           
                                         </select>
                                         <div class="help-block"><?php echo form_error('paid_status'); ?></div>
                                     </div>
@@ -383,9 +383,9 @@
                                 </div>
                                                                                          
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount?"><?php echo $this->lang->line('is_applicable_discount'); ?> <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount?"><?php echo $this->lang->line('is_applicable_discount'); ?> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount" required="required" onchange="discount_display(this.value)">
+                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount"  onchange="discount_display(this.value)">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                             <?php foreach($discounts as $obj){ ?>                                                    
                                                 <option value="<?php echo $obj->id; ?>" data-discount_val="<?php echo $obj->amount; ?>"><?php echo $obj->title; ?></option>                                                   
@@ -437,12 +437,12 @@
                                 
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="paid_status"><?php echo $this->lang->line('paid_status'); ?> <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="paid_status"><?php echo $this->lang->line('paid_status'); ?></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12" name="paid_status" id="paid_status" required="required"  onchange="check_paid_status(this.value);">
+                                        <select  class="form-control col-md-7 col-xs-12" name="paid_status" id="paid_status" onchange="check_paid_status(this.value);">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                             <option value="paid"><?php echo $this->lang->line('paid'); ?></option>                                           
-                                            <option value="unpaid"><?php echo $this->lang->line('unpaid'); ?></option>                                           
+                                            <option value="unpaid" selected><?php echo $this->lang->line('unpaid'); ?></option>                                           
                                         </select>
                                         <div class="help-block"><?php echo form_error('paid_status'); ?></div>
                                     </div>
@@ -740,11 +740,23 @@
         // var class_id = $('#class_id').val(); 
         // var section_id = $('#section_id').val(); 
         var response = $('option:selected', '#is_applicable_discount').attr('data-discount_val');
+        var discount_type = $('option:selected', '#is_applicable_discount').attr('data-discount_type');
+        var amount = $('#amount').val();
         if(!school_id){            
             toastr.error('<?php echo $this->lang->line('select_school'); ?>');
             return false;
         }
+        if(discount_type == "flat"){ 
+            $('#applied_discount').html('Applied discount: <span id="discount_val">' + response + '</span> PKR'); 
+        }else{
+            var net_amount   = (response/100)* amount;
+            // var net_amount = $data['gross_amount'] - percentage;
 
+            $('#applied_discount').html('Applied discount: <span id="discount_val">' + net_amount + '</span> PKR - (' +  response + '%)');
+        }                   
+        
+        
+        
         // if(!student_id){            
         //     toastr.error('<?php echo $this->lang->line('select_student'); ?>');
         //     $('#is_applicable_discount').prop('checked', false);
@@ -760,7 +772,6 @@
         //         success: function(response){                                                   
         //         if(response)
         //         {  
-                    $('#applied_discount').html('Applied discount: <span id="discount_val">' + response + '</span> PKR');                     
         //         }
         //         }
         //     });  
@@ -791,7 +802,7 @@
 
             }
         });
-        console.log (sList);
+        // console.log (sList);
         $('.bulk_discount_amt').show();
     }
    

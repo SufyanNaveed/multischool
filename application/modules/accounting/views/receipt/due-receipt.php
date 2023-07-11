@@ -115,7 +115,8 @@
                                                <td><?php echo get_paid_status($obj->paid_status); ?></td>
                                                <td><?php echo $obj->net_amount; ?></td>
                                                <td>
-                                                  <a  onclick="get_due_receipt_modal(<?php echo $obj->school_id; ?>,<?php echo $obj->inv_id; ?>,<?php echo $obj->class_id; ?>,<?php echo $obj->section_id; ?>,<?php echo $obj->student_id; ?>);"  data-toggle="modal" data-target=".bs-receipt-modal-lg"  class="btn btn-success btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
+                                                <a href="<?php echo site_url('accounting/invoice/view/'.$obj->id); ?>" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
+                                                  <!-- <a  onclick="get_due_receipt_modal(<?php echo $obj->school_id; ?>,<?php echo $obj->inv_id; ?>,<?php echo $obj->class_id; ?>,<?php echo $obj->section_id; ?>,<?php echo $obj->student_id; ?>);"  data-toggle="modal" data-target=".bs-receipt-modal-lg"  class="btn btn-success btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a> -->
                                                </td>
                                            </tr>
                                            <?php } ?>

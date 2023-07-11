@@ -317,7 +317,7 @@ class Invoice extends MY_Controller {
                        
         }
         
-        $this->form_validation->set_rules('is_applicable_discount', $this->lang->line('is_applicable_discount'), 'trim|required');   
+        // $this->form_validation->set_rules('is_applicable_discount', $this->lang->line('is_applicable_discount'), 'trim|required');   
         $this->form_validation->set_rules('month', $this->lang->line('month'), 'trim|required');   
         // $this->form_validation->set_rules('paid_status', $this->lang->line('paid_status'), 'trim|required');   
         
@@ -801,7 +801,8 @@ class Invoice extends MY_Controller {
             $student_str = '';
             $head_ids_arr = explode(',', $head_ids);
              
-            foreach($students as $obj){                
+            foreach($students as $obj){
+
                 
                 $amount = 0.00;
                 foreach($head_ids_arr as $income_head_id){
@@ -810,9 +811,15 @@ class Invoice extends MY_Controller {
                     $amount += $this->__get_fee_amount($school_id, $income_head_id, $obj->id, $class_id, $section_id, $income_head);                
                 }                
                 
+                $discount_amount = 0;
+                if($discount->discount_type == 'flat'){
+                    $discount_amount = $discount->amount;
+                }else{
+                    $discount_amount = ($discount->amount/100)* $amount;
+                }
                 // making student string....
                 $student_str .= '<div class="multi-check"><input type="checkbox" name="students['.$obj->id.']" value="'.$amount.'" /> '.$obj->name.' ['.$school->currency_symbol.$amount.']
-                <span class="bulk_discount_amt">[Dis: '.$school->currency_symbol.round($discount->amount).']</span>
+                <span class="bulk_discount_amt">[Dis: '.$school->currency_symbol.round($discount_amount).']</span>
                 </div>';
             }
         }
