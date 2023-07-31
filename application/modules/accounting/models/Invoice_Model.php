@@ -221,6 +221,19 @@ class Invoice_Model extends MY_Model {
         return $this->db->get()->row();
     }
 
+    public function get_Installments_already_created($student_id) { 
+
+        $this->db->select('*');
+        $this->db->from('invoice_installment_detail AS IID'); 
+        $this->db->where('IID.student_id', $student_id);
+        $this->db->order_by('id', 'DESC');
+        $res = $this->db->get()->row_array();
+        // echo '<pre>'; print_r($res); exit;
+        return $res;
+
+    }
+    
+
     
 
     

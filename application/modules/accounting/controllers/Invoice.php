@@ -755,6 +755,18 @@ class Invoice extends MY_Controller {
             echo 0;
         } 
     }
+
+    public function Installments_already_created(){
+        
+        $school_id      = $this->input->post('school_id'); 
+        $class_id       = $this->input->post('class_id');       
+        $section_id     = $this->input->post('section_id'); 
+        $student_id     = $this->input->post('student_id');  
+        
+        $installment_detail = $this->invoice->get_Installments_already_created($student_id);
+        
+        echo json_encode($installment_detail);
+    }
     
     
     // bulk

@@ -136,7 +136,7 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="student_id"><?php echo $this->lang->line('student'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12"  name="student_id"  id="student_id" required="required" onchange="reset_form_data();">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="student_id"  id="student_id" required="required" onchange="reset_form_data(); Installments_already_created(this.value, '')">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                      
                                         </select>
                                         <div class="help-block"><?php echo form_error('student_id'); ?></div>
@@ -196,7 +196,7 @@
                                     <label class="col-md-3 col-sm-3 col-xs-12" id="applied_discount"></label>
                                 </div>
 
-                                <div class="item form-group">
+                                <div class="item form-group" id="is_applicable_installments_main">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_installments"><?php echo 'How many installments create?'; ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12" name="is_applicable_installments" id="is_applicable_installments" required="required">
@@ -788,6 +788,68 @@
          $('#installment_fee').html('Fee of '+ val + ' installment is: <span id="installment_amount">' + installment_fee.toFixed(0) + '</span> PKR' );
         
         
+    }
+
+    function Installments_already_created(val){
+        var student_id = $('#student_id').val(); 
+        var class_id = $('#class_id').val(); 
+        var section_id = $('#section_id').val(); 
+        var school_id = $('.fn_school_id').val();
+
+        if(val > 1){
+            $.ajax({       
+                type   : "POST",
+                url    : "<?php echo site_url('accounting/invoice/Installments_already_created'); ?>",
+                data   : { school_id : school_id, class_id : class_id, section_id : section_id, student_id:student_id },               
+                async  : false,
+                success: function(response){                                                   
+                    if(response)
+                    {  
+                        var data = JSON.parse(response);
+                        if(data.no_of_installments){
+                            $('#is_applicable_installments_main').hide();
+                            $('#is_applicable_installments').val(data.no_of_installments);
+                        }
+
+                        if(data.installment_no){
+                            if(data.installment_no == '1st'){
+                                $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
+                                $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"});
+                            }else if(data.installment_no == '2nd'){
+                                $("#fee_of_installment option[value='1st']").attr('disabled','true');
+                                $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"}); 
+                                $("#fee_of_installment option[value=" + data.installment_no + "]").css({"background-color": "black", "color": "white"}); 
+                                $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
+                            }
+                            else if(data.installment_no == '3rd'){
+                                $("#fee_of_installment option[value='1st']").attr('disabled','true');
+                                $("#fee_of_installment option[value='2nd']").attr('disabled','true');
+                                $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
+                                $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"}); 
+                                $("#fee_of_installment option[value='2nd']").css({"background-color": "black", "color": "white"}); 
+                                $("#fee_of_installment option[value='3rd']").css({"background-color": "black", "color": "white"}); 
+
+                            }else if(data.installment_no == '4th'){
+                                $("#fee_of_installment option[value='1st']").attr('disabled','true');
+                                $("#fee_of_installment option[value='2nd']").attr('disabled','true');
+                                $("#fee_of_installment option[value='3rd']").attr('disabled','true');
+                                $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
+
+                                $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"}); 
+                                $("#fee_of_installment option[value='2nd']").css({"background-color": "black", "color": "white"}); 
+                                $("#fee_of_installment option[value='3rd']").css({"background-color": "black", "color": "white"}); 
+                                $("#fee_of_installment option[value='4th']").css({"background-color": "black", "color": "white"}); 
+                            }
+                        }
+
+
+                        console.log(data);
+                        console.log(data.id);
+
+                    } 
+                }
+            });  
+        }
     }
     
     function discount_display(){
