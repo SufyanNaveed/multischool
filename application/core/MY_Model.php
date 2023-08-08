@@ -58,6 +58,23 @@ class MY_Model extends CI_Model {
         return $this->db->get_where($table_name, $index_array)->result();
     }
 
+    public function get_list_array($table_name, $index_array, $columns = null, $limit = null, $offset = 0, $order_field = null, $order_type = null) {
+
+        if ($columns)
+            $this->db->select($columns);
+
+        if ($limit)
+            $this->db->limit($limit, $offset);
+
+        if ($order_type) {
+            $this->db->order_by($order_field, $order_type);
+        } else {
+            $this->db->order_by('id', 'DESC');
+        }
+
+        return $this->db->get_where($table_name, $index_array)->result_array();
+    }
+
     // get data list by index order
 
     function get_list_order($table_name, $index_array, $order_array, $limit = null) {

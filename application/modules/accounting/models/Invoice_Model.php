@@ -97,9 +97,9 @@ class Invoice_Model extends MY_Model {
         if($this->session->userdata('role_id') == SUPER_ADMIN && $school_id){
             $this->db->where('I.school_id', $school_id);
         }
-            
-       $this->db->order_by('I.id', 'DESC');  
-       return $this->db->get()->result();        
+     
+        $this->db->order_by('I.id', 'DESC');  
+        return $this->db->get()->result();        
     }
     
     public function get_invoice_list($school_id = null, $due = null, $academic_year_id = null){
@@ -107,8 +107,8 @@ class Invoice_Model extends MY_Model {
         $this->db->select('I.*, SC.school_name,  S.name AS student_name, AY.session_year, C.name AS class_name, sec.name as session, 
             
             (SELECT SUM(installment_amount) as installment_amount FROM invoice_installment_detail IID WHERE IID.invoice_id = I.id ) AS installment_amount,
-            (SELECT Distinct(no_of_installments) as no_of_installments FROM invoice_installment_detail IID WHERE IID.invoice_id = I.id ) AS no_of_installments,
-            (SELECT Distinct(installment_no) as installment_no FROM invoice_installment_detail IID WHERE IID.invoice_id = I.id ) AS installment_no'
+            (SELECT Distinct(no_of_installments) as no_of_installments FROM invoice_installment_detail IID WHERE IID.invoice_id = I.id) AS no_of_installments,
+            (SELECT Distinct(installment_no) as installment_no FROM invoice_installment_detail IID WHERE IID.invoice_id = I.id Order By created_at desc LIMIT 1) AS installment_no'
         );
         $this->db->from('invoices AS I');        
         $this->db->join('classes AS C', 'C.id = I.class_id', 'left');
@@ -140,10 +140,10 @@ class Invoice_Model extends MY_Model {
         if($this->session->userdata('role_id') == SUPER_ADMIN && $school_id){
             $this->db->where('I.school_id', $school_id);
         }
-        $this->db->where('SC.status', 1);     
+        $this->db->where('I.status', 1);     
         $this->db->order_by('I.id', 'DESC');  
-        //$this->db->get(); 
-        //echo '<pre>'; print_r($this->db->last_query()); exit;
+        // $this->db->get(); 
+        // echo '<pre>'; print_r($this->db->last_query()); exit;
 
        return $this->db->get()->result();        
     }
@@ -223,14 +223,42 @@ class Invoice_Model extends MY_Model {
 
     public function get_Installments_already_created($student_id) { 
 
-        $this->db->select('*');
-        $this->db->from('invoice_installment_detail AS IID'); 
+        $this->db->select('IID.*,d.title,d.discount_type,d.amount,st.discount_id');
+        $this->db->from('invoice_installment_detail AS IID');
+        $this->db->join('students AS st', 'st.id = IID.student_id', 'left');
+        $this->db->join('discounts AS d', 'd.id = st.discount_id', 'left'); 
         $this->db->where('IID.student_id', $student_id);
         $this->db->order_by('id', 'DESC');
         $res = $this->db->get()->row_array();
         // echo '<pre>'; print_r($res); exit;
         return $res;
+    }
 
+    public function get_discount_already_created($student_id) { 
+
+        $this->db->select('d.title,d.discount_type,d.amount,IID.discount_id');
+        $this->db->from('students AS IID'); 
+        $this->db->join('discounts AS d', 'd.id = IID.discount_id', 'left'); 
+        $this->db->where('IID.id', $student_id);
+        $res = $this->db->get()->row_array();
+        // echo '<pre>'; print_r($this->db->last_query()); exit;
+        return $res;
+    }
+
+    public function get_previous_invoices($student_id) { 
+
+        $this->db->select('*,
+            (SELECT SUM(installment_amount)
+            FROM invoice_installment_detail
+            WHERE IN.id = invoice_installment_detail.invoice_id) as invoice_amount
+        ');
+        $this->db->from('invoices AS IN');  
+        $this->db->where('IN.student_id', $student_id);
+        $this->db->where('IN.paid_status !=', 'paid');
+        $this->db->order_by('id', 'DESC');
+        $res = $this->db->get()->row_array();
+        // echo '<pre>'; print_r($this->db->last_query()); exit;
+        return $res;
     }
     
 

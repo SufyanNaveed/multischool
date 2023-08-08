@@ -52,8 +52,10 @@ class Payment extends My_Controller {
         $due_amount      = $invoice->net_amount - $invoice->paid_amount;
         $this->data['due_amount'] = $due_amount;
         $this->data['invoice_id'] = $invoice_id;
+        $this->data['invoice_detail'] = $invoice;
         $this->data['school_id'] = $invoice->school_id;
         
+        // echo '<pre>'; print_r($this->data); exit;
         $this->data['list'] = TRUE;
         $this->layout->title( $this->lang->line('payment'). ' | ' . SMS);
         $this->layout->view('payment/index', $this->data); 
@@ -207,12 +209,12 @@ class Payment extends My_Controller {
         $invoice         = $this->payment->get_invoice_amount($invoice_id);       
         $due_amount      = $invoice->net_amount - $invoice->paid_amount;
         
-        if ($this->input->post('amount') > $due_amount) {
-            $this->form_validation->set_message("amount", $this->lang->line('input_valid_amount'));
-            return FALSE;
-        }else{
+        // if ($this->input->post('amount') > $due_amount) {
+        //     $this->form_validation->set_message("amount", $this->lang->line('input_valid_amount'));
+        //     return FALSE;
+        // }else{
             return TRUE;
-        }
+        // }
         
     }
   

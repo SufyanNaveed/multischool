@@ -31,7 +31,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="amount"><?php echo $this->lang->line('amount'); ?> <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input  class="form-control col-md-7 col-xs-12"  name="amount"  id="amount" value="<?php echo $due_amount; ?>" placeholder="<?php echo $this->lang->line('amount'); ?>" required="required" type="number" step="any">
+                                    <input  class="form-control col-md-7 col-xs-12"  name="amount"  id="amount" value="<?php echo $invoice_detail ? round($invoice_detail->invoice_amount) : $due_amount; ?>" placeholder="<?php echo $this->lang->line('amount'); ?>" required="required" type="number" step="any">
                                     <div class="help-block"><?php echo form_error('amount'); ?></div>
                                 </div>
                             </div>                               
@@ -166,7 +166,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bank_receipt"><?php echo $this->lang->line('bank_receipt'); ?> <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input  class="form-control col-md-7 col-xs-12"  name="bank_receipt"  id="bank_receipt" value="" placeholder="<?php echo $this->lang->line('bank_receipt'); ?>"  type="text" autocomplete="off">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="bank_receipt"  id="bank_receipt" value="<?php echo $invoice_detail ? $invoice_detail->custom_invoice_id : ''; ?>" placeholder="<?php echo $this->lang->line('bank_receipt'); ?>"  type="text" autocomplete="off">
                                         <div class="help-block"><?php echo form_error('bank_receipt'); ?></div>
                                     </div>
                                 </div>                           

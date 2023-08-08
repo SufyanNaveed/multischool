@@ -183,7 +183,7 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount"><?php echo $this->lang->line('is_applicable_discount'); ?></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount" onchange="get_discount_into_fee(this.value, '')">
+                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount_single" onchange="get_discount_into_fee(this.value, '')" disabled="true">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                             <?php foreach($discounts as $obj){ ?>                                                    
                                                 <option value="<?php echo $obj->id; ?>"  data-discount_val="<?php echo $obj->amount; ?>" data-discount_type="<?php echo $obj->discount_type; ?>"><?php echo $obj->title; ?></option>                                                   
@@ -195,6 +195,8 @@
                                     </div>
                                     <label class="col-md-3 col-sm-3 col-xs-12" id="applied_discount"></label>
                                 </div>
+                                <input name="is_applicable_discount"  id="is_applicable_discount" type="hidden" value="">
+
 
                                 <div class="item form-group" id="is_applicable_installments_main">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_installments"><?php echo 'How many installments create?'; ?> <span class="required">*</span></label>
@@ -224,7 +226,7 @@
                                     </div>
                                     <label class="col-md-3 col-sm-3 col-xs-12" id="installment_fee"></label>
                                 </div>
-                                
+                                <div class="previous_invoices"></div>
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="paid_status"><?php echo $this->lang->line('paid_status'); ?> <span class="">(optional)</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -385,7 +387,7 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount?"><?php echo $this->lang->line('is_applicable_discount'); ?> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount"  onchange="discount_display(this.value)">
+                                        <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount_bulk"  onchange="discount_display(this.value)">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                             <?php foreach($discounts as $obj){ ?>                                                    
                                                 <option value="<?php echo $obj->id; ?>" data-discount_val="<?php echo $obj->amount; ?>"><?php echo $obj->title; ?></option>                                                   
@@ -423,7 +425,7 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fee_of_installment"><?php echo 'Fee of installment?'; ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12" name="fee_of_installment" id="fee_of_installment" required="required">
+                                        <select  class="form-control col-md-7 col-xs-12" name="fee_of_installment" id="fee_of_installment_bulk" required="required">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                             <option value="1st"><?php echo '1st'; ?></option>                                           
                                             <option value="2nd"><?php echo '2nd'; ?></option>                                             
@@ -739,8 +741,8 @@
         // var student_id = $('#student_id').val(); 
         // var class_id = $('#class_id').val(); 
         // var section_id = $('#section_id').val(); 
-        var response = $('option:selected', '#is_applicable_discount').attr('data-discount_val');
-        var discount_type = $('option:selected', '#is_applicable_discount').attr('data-discount_type');
+        var response = $('#is_applicable_discount').attr('data-discount_val');
+        var discount_type = $('#is_applicable_discount').attr('data-discount_type');
         var amount = $('#amount').val();
         if(!school_id){            
             toastr.error('<?php echo $this->lang->line('select_school'); ?>');
@@ -782,13 +784,49 @@
         var fee = $('#amount').val(); 
         var discount = $('#discount_val').text(); 
         var installments = $('#is_applicable_installments').val();
-        
         var installment_fee = ((parseInt(fee) - parseInt(discount)) / parseInt(installments));
+        $('#installment_fee').html('Fee of '+ val + ' installment is: <span id="installment_amount">' + installment_fee.toFixed(0) + '</span> PKR' );
         
-         $('#installment_fee').html('Fee of '+ val + ' installment is: <span id="installment_amount">' + installment_fee.toFixed(0) + '</span> PKR' );
-        
-        
+        var school_id = $('.fn_school_id').val(); 
+        var student_id = $('#student_id').val(); 
+        var class_id = $('#class_id').val(); 
+        var section_id = $('#section_id').val(); 
+
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('accounting/invoice/get_previous_invoices'); ?>",
+            data   : { school_id : school_id, class_id : class_id, section_id : section_id, student_id:student_id },               
+            async  : false,
+            success: function(response){                                                   
+                if(response) {
+                    console.log(response); 
+                    var data = JSON.parse(response);
+                    var invoice_amount = (data.invoice_amount);
+                    if(invoice_amount){
+                        var html= '<div class="item form-group">'+
+                                    '<label class="control-label col-md-3 col-sm-3 col-xs-12" for="previous_amount">Is add Previous Invoice?</label>'+
+                                    '<div class="col-md-3 col-sm-3 col-xs-12"><input onclick="calculate_previous_amount()" type="checkbox" name="previous_amount" id="previous_amount" class="fn_previous_amount" value="1">&nbsp;&nbsp; Add Previous Invoice'+
+                                    '<input type="hidden" name="previous_invoice_amount" id="previous_invoice_amount"  value="'+Math.round(invoice_amount)+'">'+
+                                    '<input type="hidden" name="previous_invoice_id" id="previous_invoice_id"  value="'+data.id+'"></div>'+
+                                    '<label class="col-md-3 col-sm-3 col-xs-12">Previous Invoice Amount: <span id="previous_installment_amount">'+ Math.round(invoice_amount) +'</span> PKR</label>'+
+                                    '<label class="col-md-3 col-sm-3 col-xs-12" id="current_installment_amount"></label>'+
+                                '</div>';
+                        $('.previous_invoices').empty().html(html);
+                    }
+                }
+            }
+        });
     }
+
+    function calculate_previous_amount(){
+        var previous_amount = $('#previous_installment_amount').text(); 
+        var installment_amount = $('#installment_amount').text(); 
+        
+        var current_invoice_amount = (parseInt(previous_amount) + parseInt(installment_amount));
+        $('#current_installment_amount').html('Total invoice amount is: <span id="current_installment_amount">' + Math.round(current_invoice_amount) + '</span> PKR' );
+    }
+
+
 
     function Installments_already_created(val){
         var student_id = $('#student_id').val(); 
@@ -810,7 +848,8 @@
                             $('#is_applicable_installments_main').hide();
                             $('#is_applicable_installments').val(data.no_of_installments);
                         }
-
+                        console.log(data.installment_no);
+                        $("#fee_of_installment option").removeAttr('disabled');
                         if(data.installment_no){
                             if(data.installment_no == '1st'){
                                 $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
@@ -841,6 +880,18 @@
                                 $("#fee_of_installment option[value='4th']").css({"background-color": "black", "color": "white"}); 
                             }
                         }
+
+                        if(data.discount_id){
+                            $('#is_applicable_discount').val(data.discount_id);
+                            $('#is_applicable_discount_single').val(data.discount_id);
+                            $('#is_applicable_discount').attr('data-discount_val',data.amount);
+                            $('#is_applicable_discount').attr('data-discount_type',data.discount_type);
+                            get_discount_into_fee(data.discount_id, '');
+
+                        }
+
+
+
 
 
                         console.log(data);

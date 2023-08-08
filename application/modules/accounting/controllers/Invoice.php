@@ -79,13 +79,9 @@ class Invoice extends MY_Controller {
         $this->data['paid_amount'] = $txn_amount->paid_amount;
         $this->data['invoice'] = $this->invoice->get_single_invoice($id);
         $this->data['invoice_items'] = $this->invoice->get_invoice_item_installment($id);
-        if(count($this->data['invoice_items']) == 0){
-
-            $this->data['invoice_items'] = $this->invoice->get_invoice_item($id);
-            // echo '<pre>'; print_r($this->invoice->get_invoice_item($id)); exit;
-
-        }
-        // echo '<pre>'; print_r($this->data['invoice_items']); exit;
+        if(count($this->data['invoice_items']) == 0){ 
+            $this->data['invoice_items'] = $this->invoice->get_invoice_item($id);  
+        } 
         
               
         $school_id = $this->data['invoice']->school_id;
@@ -132,7 +128,7 @@ class Invoice extends MY_Controller {
     public function add($school_id = null) {
 
         check_permission(ADD);
-        
+        // echo '<pre>'; print_r($_POST);exit;
         if ($_POST) {
             $this->_prepare_invoice_validation();
             if ($this->form_validation->run() === TRUE) {
@@ -393,10 +389,29 @@ class Invoice extends MY_Controller {
         $data['modified_at'] = date('Y-m-d H:i:s');
         $data['modified_by'] = logged_in_user_id();
                 
-         
+        $data['paid_status'] = $data['paid_status'] ? $data['paid_status'] : 'unpaid'; 
         // save invoice data
-         $invoice_id = $this->invoice->insert('invoices', $data);
-         $student = $this->invoice->get_single('students', array('id' => $data['student_id']));
+        $invoice_id = $this->invoice->insert('invoices', $data);
+        
+        if(isset($_POST['previous_amount']) && $_POST['previous_amount'] == 1) {
+            $array_update = array('status' => 0);
+            $this->invoice->update('invoices', $array_update, array('id'=>$this->input->post('previous_invoice_id')));
+
+            $last_invoices_details = $this->invoice->get_list_array('invoice_detail', array('invoice_id' => $_POST['previous_invoice_id']),'id');
+            $last_invoices_details = array_column($last_invoices_details, 'id');
+            $scnd_array_update = array('invoice_id' => $invoice_id, 'updated_last_invoice' => 1);
+            $this->db->where_in('id', $last_invoices_details);
+            $this->db->update('invoice_detail', $scnd_array_update);
+            
+            $last_invoices_installment_details = $this->invoice->get_single('invoice_installment_detail', array('invoice_id' => $_POST['previous_invoice_id']), 'id');
+            $last_invoices_installment_details = array_column($last_invoices_installment_details, 'id'); 
+            $thrd_array_update = array('invoice_id' => $invoice_id, 'updated_last_invoice' => 1);
+            $this->db->where_in('id', $last_invoices_installment_details);
+            $this->db->update('invoice_installment_detail', $thrd_array_update);
+        }
+
+
+        $student = $this->invoice->get_single('students', array('id' => $data['student_id']));
          
         // save invoice detail data
         foreach ($this->input->post('income_head_id') as $key=>$value){
@@ -531,6 +546,7 @@ class Invoice extends MY_Controller {
 
             $data['custom_invoice_id'] = $this->invoice->get_custom_id('invoices', 'INV');
             
+            $data['paid_status'] = $_POST['paid_status']? $_POST['paid_status'] : 'unpaid';
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['created_by'] = logged_in_user_id();
             $data['modified_at'] = date('Y-m-d H:i:s');
@@ -764,8 +780,24 @@ class Invoice extends MY_Controller {
         $student_id     = $this->input->post('student_id');  
         
         $installment_detail = $this->invoice->get_Installments_already_created($student_id);
+        if($installment_detail){
+            echo json_encode($installment_detail);
+        }else{
+            $installment_detail = $this->invoice->get_discount_already_created($student_id);
+            echo json_encode($installment_detail);
+
+        }
+    }
+
+    public function get_previous_invoices(){        
+        $school_id      = $this->input->post('school_id'); 
+        $class_id       = $this->input->post('class_id');       
+        $section_id     = $this->input->post('section_id'); 
+        $student_id     = $this->input->post('student_id');  
         
-        echo json_encode($installment_detail);
+        $previous_invoices = $this->invoice->get_previous_invoices($student_id);
+        
+        echo json_encode($previous_invoices);
     }
     
     

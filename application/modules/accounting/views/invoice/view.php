@@ -339,7 +339,7 @@
                                 foreach($invoice_items as $item){ ?>
                                 <div class="row line_new">
                                     <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">
-                                        <i><?php echo $item->title; ?></i>
+                                        <i><?php echo $item->updated_last_invoice > 0 ? 'Previous ' .$item->title : $item->title; ?></i>
                                     </span>
                                     <span class="col-md-5 col-sm-5 col-xs-5 table_text_font"><?php echo round($item->net_amount); ?></span>
                                 </div>
