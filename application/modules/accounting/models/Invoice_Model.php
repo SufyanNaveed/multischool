@@ -107,7 +107,7 @@ class Invoice_Model extends MY_Model {
         $this->db->select('I.*, SC.school_name,  S.name AS student_name, AY.session_year, C.name AS class_name, sec.name as session, 
             
             (SELECT SUM(installment_amount) as installment_amount FROM invoice_installment_detail IID WHERE IID.invoice_id = I.id ) AS installment_amount,
-            (SELECT Distinct(no_of_installments) as no_of_installments FROM invoice_installment_detail IID WHERE IID.invoice_id = I.id) AS no_of_installments,
+            (SELECT Distinct(no_of_installments) as no_of_installments FROM invoice_installment_detail IID WHERE IID.invoice_id = I.id Order By created_at desc LIMIT 1) AS no_of_installments,
             (SELECT Distinct(installment_no) as installment_no FROM invoice_installment_detail IID WHERE IID.invoice_id = I.id Order By created_at desc LIMIT 1) AS installment_no'
         );
         $this->db->from('invoices AS I');        
