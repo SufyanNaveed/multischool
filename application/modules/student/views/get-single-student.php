@@ -441,7 +441,12 @@
                             <td><?php echo $obj->gross_amount; ?></td>
                             <td><?php echo $obj->discount; ?></td>
                             <td><?php echo $obj->net_amount; ?></td>
-                            <td><?php echo get_paid_status($obj->paid_status); ?></td>
+                            <td><?php 
+                                    if($obj->paid_status == 'unpaid' && $obj->status == 0){
+                                        echo 'Unpaid Merged in next installment';
+                                    }else{
+                                        echo get_paid_status($obj->paid_status);
+                                } ?></td>
                             <td>
                                 <?php if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
                                     <a target="_blank" href="<?php echo site_url('accounting/invoice/view/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>

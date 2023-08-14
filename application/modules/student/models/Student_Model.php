@@ -110,7 +110,7 @@ class Student_Model extends MY_Model {
         $this->db->where('I.school_id', $school_id);
         $this->db->where('I.paid_status !=', 'paid');
         $this->db->where('SC.status', 1);     
-        $this->db->order_by('I.id', 'DESC');  
+        $this->db->order_by('I.id', 'asc');  
         return $this->db->get()->result();      
    
 }
