@@ -781,10 +781,11 @@
     }
 
     function calculate_installment_fee(val){
+        var installment_fee = 0;
         var fee = $('#amount').val(); 
         var discount = $('#discount_val').text(); 
         var installments = $('#is_applicable_installments').val();
-        var installment_fee = ((parseInt(fee) - parseInt(discount)) / parseInt(installments));
+        installment_fee = discount ? ((parseInt(fee) - parseInt(discount)) / parseInt(installments)) : (parseInt(fee) / parseInt(installments));
         $('#installment_fee').html('Fee of '+ val + ' installment is: <span id="installment_amount">' + installment_fee.toFixed(0) + '</span> PKR' );
         
         var school_id = $('.fn_school_id').val(); 
@@ -804,7 +805,7 @@
                     var invoice_amount = (data.invoice_amount);
                     if(invoice_amount){
                         var html= '<div class="item form-group">'+
-                                    '<label class="control-label col-md-3 col-sm-3 col-xs-12" for="previous_amount">Is add Previous Invoice?</label>'+
+                                    '<label class="control-label col-md-3 col-sm-3 col-xs-12" for="previous_amount">Add the previous unpaid installment?</label>'+
                                     '<div class="col-md-3 col-sm-3 col-xs-12"><input onclick="calculate_previous_amount()" type="checkbox" name="previous_amount" id="previous_amount" class="fn_previous_amount" value="1">&nbsp;&nbsp; Add Previous Invoice'+
                                     '<input type="hidden" name="previous_invoice_amount" id="previous_invoice_amount"  value="'+Math.round(invoice_amount)+'">'+
                                     '<input type="hidden" name="previous_invoice_id" id="previous_invoice_id"  value="'+data.id+'"></div>'+
@@ -881,18 +882,16 @@
                             }
                         }
 
-                        if(data.discount_id){
+                        if(data.discount_id > 0){
                             $('#is_applicable_discount').val(data.discount_id);
                             $('#is_applicable_discount_single').val(data.discount_id);
                             $('#is_applicable_discount').attr('data-discount_val',data.amount);
                             $('#is_applicable_discount').attr('data-discount_type',data.discount_type);
                             get_discount_into_fee(data.discount_id, '');
 
-                        }
-
-
-
-
+                        }else{
+                            $('#applied_discount').empty().html('Discount not found. Please select from addmission form.');
+                        } 
 
                         console.log(data);
                         console.log(data.id);

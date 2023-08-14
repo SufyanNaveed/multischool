@@ -393,21 +393,22 @@ class Invoice extends MY_Controller {
         // save invoice data
         $invoice_id = $this->invoice->insert('invoices', $data);
         
-        if(isset($_POST['previous_amount']) && $_POST['previous_amount'] == 1) {
-            $array_update = array('status' => 0);
-            $this->invoice->update('invoices', $array_update, array('id'=>$this->input->post('previous_invoice_id')));
+        if(isset($_POST['previous_amount']) && $_POST['previous_amount'] == 1) { 
 
             $last_invoices_details = $this->invoice->get_list_array('invoice_detail', array('invoice_id' => $_POST['previous_invoice_id']),'id');
             $last_invoices_details = array_column($last_invoices_details, 'id');
-            $scnd_array_update = array('invoice_id' => $invoice_id, 'updated_last_invoice' => 1);
+            $scnd_array_update = array('invoice_id' => $invoice_id, 'updated_last_invoice' => 1); 
             $this->db->where_in('id', $last_invoices_details);
             $this->db->update('invoice_detail', $scnd_array_update);
             
-            $last_invoices_installment_details = $this->invoice->get_single('invoice_installment_detail', array('invoice_id' => $_POST['previous_invoice_id']), 'id');
+            $last_invoices_installment_details = $this->invoice->get_list_array('invoice_installment_detail', array('invoice_id' => $_POST['previous_invoice_id']), 'id');
             $last_invoices_installment_details = array_column($last_invoices_installment_details, 'id'); 
             $thrd_array_update = array('invoice_id' => $invoice_id, 'updated_last_invoice' => 1);
             $this->db->where_in('id', $last_invoices_installment_details);
             $this->db->update('invoice_installment_detail', $thrd_array_update);
+
+            $array_update = array('status' => 0);
+            $this->invoice->update('invoices', $array_update, array('id'=>$this->input->post('previous_invoice_id')));
         }
 
 
@@ -655,6 +656,7 @@ class Invoice extends MY_Controller {
         if ($this->invoice->delete('invoices', array('id' => $id))) {  
             
             $this->invoice->delete('invoice_detail', array('invoice_id' => $id));
+            $this->invoice->delete('invoice_installment_detail', array('invoice_id' => $id));
             $this->invoice->delete('transactions', array('invoice_id' => $id));
             
             create_log('Has been deleted a invoice : '. $invoice->net_amount);
