@@ -447,15 +447,17 @@
                                     }else{
                                         echo get_paid_status($obj->paid_status);
                                 } ?></td>
-                            <td>
-                                <?php if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
-                                    <a target="_blank" href="<?php echo site_url('accounting/invoice/view/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
-                                <?php } ?>
-                                <?php if(has_permission(DELETE, 'accounting', 'invoice')){ ?>
-                                    <?php if($obj->paid_status == 'unpaid'){ ?>
-                                        <a target="_blank" href="<?php echo site_url('accounting/invoice/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
+                            <td><?php
+                                if($obj->status == 1){
+                                    if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
+                                        <a target="_blank" href="<?php echo site_url('accounting/invoice/view/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
                                     <?php } ?>
-                                <?php } ?>
+                                    <?php if(has_permission(DELETE, 'accounting', 'invoice')){ ?>
+                                        <?php if($obj->paid_status == 'unpaid'){ ?>
+                                            <a target="_blank" href="<?php echo site_url('accounting/invoice/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
+                                        <?php } ?>
+                                    <?php } }?>
+                                
                             </td>
                         </tr>
                         <?php } ?>
