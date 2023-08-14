@@ -60,13 +60,26 @@
 
                             <!-- For cheque Start-->
                             <div class="display fn_cheque" style="<?php if(isset($post) && $post['payment_method'] == 'cheque'){ echo 'display:block;';} ?>">
-                            <div class="item form-group">
+                            <!-- <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bank_name"><?php echo $this->lang->line('bank_name'); ?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input  class="form-control col-md-7 col-xs-12"  name="bank_name"  id="bank_name" value="" placeholder="<?php echo $this->lang->line('bank_name'); ?>"  type="text" autocomplete="off">
                                     <div class="help-block"><?php echo form_error('bank_name'); ?></div>
                                 </div>
-                            </div> 
+                            </div>  -->
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bank_name"><?php echo $this->lang->line('bank_name'); ?> </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select  class="form-control col-md-7 col-xs-12" name="bank_name" id="bank_name">
+                                        <option value="">--<?php echo 'Select Bank'; ?>--</option>
+                                        <?php $get_banks = get_banks(); ?>
+                                        <?php foreach($get_banks as $obj){ ?>
+                                            <option value="<?php echo $obj->bank_name; ?>"><?php echo $obj->bank_name; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <div class="help-block"><?php echo form_error('bank_id'); ?></div>
+                                </div>
+                            </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cheque_no"><?php echo $this->lang->line('cheque_number'); ?> <span class="required">*</span>
                                 </label>
