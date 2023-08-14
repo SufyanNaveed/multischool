@@ -322,7 +322,7 @@
                             <div class="row">
                                 <span class="col-md-12 col-sm-12 install_div">
                                     <?php if($invoice_items && isset($invoice_items[0]->installment_no)){ ?>
-                                        Fee for the <?php echo $invoice_items[0]->installment_no; ?> installment of <?php echo $invoice->semester_name; ?>
+                                        Fee for the <?php echo $invoice_items[count($invoice_items)-1]->installment_no; ?> installment of <?php echo $invoice->class_name;//$invoice->semester_name; ?>
                                     <?php } else{ ?>
                                         Fee for the <?php echo $invoice->semester_name; ?> (Full Fee)
                                     <?php } ?>
@@ -339,7 +339,7 @@
                                 foreach($invoice_items as $item){ ?>
                                 <div class="row line_new">
                                     <span class="col-md-7 col-sm-7 col-xs-7 text-left table_text_font" style="padding: 0px; border-right: 1px solid black;">
-                                        <i><?php echo $item->updated_last_invoice > 0 ? 'Previous ' .$item->title : $item->title; ?></i>
+                                        <i><?php echo $item->updated_last_invoice > 0 ? $item->installment_no. ' installment ' .$item->title : $item->title; ?></i>
                                     </span>
                                     <span class="col-md-5 col-sm-5 col-xs-5 table_text_font"><?php echo round($item->net_amount); ?></span>
                                 </div>
