@@ -426,6 +426,7 @@
                         <th><?php echo $this->lang->line('gross_amount'); ?></th>
                         <th><?php echo $this->lang->line('discount'); ?></th>
                         <th><?php echo $this->lang->line('net_amount'); ?></th>
+                        <th><?php echo 'Installment'; ?></th>
                         <th><?php echo $this->lang->line('payment_status'); ?></th>
                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                     </tr>
@@ -441,6 +442,7 @@
                             <td><?php echo $obj->gross_amount; ?></td>
                             <td><?php echo $obj->discount; ?></td>
                             <td><?php echo $obj->net_amount; ?></td>
+                            <td><?php echo $obj->installment_no? $obj->installment_no : 'Merged'; ?></td>
                             <td><?php 
                                     if($obj->paid_status == 'unpaid' && $obj->status == 0){
                                         echo 'Unpaid Merged in next installment';

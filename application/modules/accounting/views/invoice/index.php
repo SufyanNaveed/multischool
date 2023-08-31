@@ -43,9 +43,11 @@
                     <div class="tab-content">
                         <div  class="tab-pane fade in <?php if(isset($list)){ echo 'active'; }?>" id="tab_invoice_list" >
                             <div class="x_content">
+                            <button style="margin-bottom: 10px" class="btn btn-danger delete_all" data-url="<?php echo base_url('accounting/invoice/delete_all_invoices')?>">Delete All Selected</button>
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
+                                    <th width="50px"><input type="checkbox" id="master"></th>
                                         <th><?php echo $this->lang->line('sl_no'); ?></th>
                                         <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                             <th><?php echo $this->lang->line('school'); ?></th>
@@ -68,6 +70,7 @@
                                     <?php $count = 1; if(isset($invoices) && !empty($invoices)){ ?>
                                         <?php foreach($invoices as $obj){ ?>
                                         <tr>
+                                            <td><input type="checkbox" class="sub_chk" data-id="<?php echo $obj->id; ?>"></td>
                                             <td><?php echo $count++; ?></td>
                                             <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
                                                 <td><?php echo $obj->school_name; ?></td>
@@ -217,10 +220,10 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12" name="fee_of_installment" id="fee_of_installment" required="required" onchange="calculate_installment_fee(this.value, '')">
                                             <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
-                                            <option value="1st"><?php echo '1st'; ?></option>                                           
-                                            <option value="2nd"><?php echo '2nd'; ?></option>                                             
-                                            <option value="3rd"><?php echo '3rd'; ?></option>                                             
-                                            <option value="4th"><?php echo '4th'; ?></option>                                             
+                                            <option value="1st" disabled="disabled" style="background-color: #626262;color: white;"><?php echo '1st'; ?></option>                                           
+                                            <option value="2nd" disabled="disabled" style="background-color: #626262;color: white;"><?php echo '2nd'; ?></option>                                             
+                                            <option value="3rd" disabled="disabled" style="background-color: #626262;color: white;"><?php echo '3rd'; ?></option>                                             
+                                            <option value="4th" disabled="disabled" style="background-color: #626262;color: white;"><?php echo '4th'; ?></option>                                             
                                         </select>
                                         <div class="help-block"><?php echo form_error('is_applicable_discount'); ?></div>
                                     </div>
@@ -384,7 +387,7 @@
                                     </div>
                                 </div>
                                                                                          
-                                <div class="item form-group">
+                                <!-- <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_applicable_discount?"><?php echo $this->lang->line('is_applicable_discount'); ?> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select  class="form-control col-md-7 col-xs-12" name="is_applicable_discount" id="is_applicable_discount_bulk"  onchange="discount_display(this.value)">
@@ -393,11 +396,11 @@
                                                 <option value="<?php echo $obj->id; ?>" data-discount_val="<?php echo $obj->amount; ?>"><?php echo $obj->title; ?></option>                                                   
                                             <?php } ?>                                                                                     
                                             <!-- <option value="1"><?php echo $this->lang->line('yes'); ?></option>                                           
-                                            <option value="0"><?php echo $this->lang->line('no'); ?></option>                                            -->
+                                            <option value="0"><?php echo $this->lang->line('no'); ?></option>                                          
                                         </select>
                                         <div class="help-block"><?php echo form_error('is_applicable_discount'); ?></div>
                                     </div>
-                                </div>
+                                </div> -->
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="payment_month"><?php echo $this->lang->line('month'); ?> <span class="required">*</span>
@@ -850,37 +853,58 @@
                             $('#is_applicable_installments').val(data.no_of_installments);
                         }
                         console.log(data.installment_no);
-                        $("#fee_of_installment option").removeAttr('disabled');
-                        if(data.installment_no){
-                            if(data.installment_no == '1st'){
-                                $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
-                                $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"});
-                            }else if(data.installment_no == '2nd'){
-                                $("#fee_of_installment option[value='1st']").attr('disabled','true');
-                                $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"}); 
-                                $("#fee_of_installment option[value=" + data.installment_no + "]").css({"background-color": "black", "color": "white"}); 
-                                $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
-                            }
-                            else if(data.installment_no == '3rd'){
-                                $("#fee_of_installment option[value='1st']").attr('disabled','true');
-                                $("#fee_of_installment option[value='2nd']").attr('disabled','true');
-                                $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
-                                $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"}); 
-                                $("#fee_of_installment option[value='2nd']").css({"background-color": "black", "color": "white"}); 
-                                $("#fee_of_installment option[value='3rd']").css({"background-color": "black", "color": "white"}); 
+                        // $("#fee_of_installment option").removeAttr('disabled');
+                        // if(data.installment_no){
+                            // if(data.installment_no == '1st'){
+                            //     $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
+                            //     $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"});
+                            // }else if(data.installment_no == '2nd'){
+                            //     $("#fee_of_installment option[value='1st']").attr('disabled','true');
+                            //     $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"}); 
+                            //     $("#fee_of_installment option[value=" + data.installment_no + "]").css({"background-color": "black", "color": "white"}); 
+                            //     $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
+                            // }
+                            // else if(data.installment_no == '3rd'){
+                            //     $("#fee_of_installment option[value='1st']").attr('disabled','true');
+                            //     $("#fee_of_installment option[value='2nd']").attr('disabled','true');
+                            //     $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
+                            //     $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"}); 
+                            //     $("#fee_of_installment option[value='2nd']").css({"background-color": "black", "color": "white"}); 
+                            //     $("#fee_of_installment option[value='3rd']").css({"background-color": "black", "color": "white"}); 
 
-                            }else if(data.installment_no == '4th'){
-                                $("#fee_of_installment option[value='1st']").attr('disabled','true');
-                                $("#fee_of_installment option[value='2nd']").attr('disabled','true');
-                                $("#fee_of_installment option[value='3rd']").attr('disabled','true');
-                                $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
+                            // }else if(data.installment_no == '4th'){
+                            //     $("#fee_of_installment option[value='1st']").attr('disabled','true');
+                            //     $("#fee_of_installment option[value='2nd']").attr('disabled','true');
+                            //     $("#fee_of_installment option[value='3rd']").attr('disabled','true');
+                            //     $("#fee_of_installment option[value=" + data.installment_no + "]").attr('disabled','true');
 
-                                $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"}); 
-                                $("#fee_of_installment option[value='2nd']").css({"background-color": "black", "color": "white"}); 
-                                $("#fee_of_installment option[value='3rd']").css({"background-color": "black", "color": "white"}); 
-                                $("#fee_of_installment option[value='4th']").css({"background-color": "black", "color": "white"}); 
+                            //     $("#fee_of_installment option[value='1st']").css({"background-color": "black", "color": "white"}); 
+                            //     $("#fee_of_installment option[value='2nd']").css({"background-color": "black", "color": "white"}); 
+                            //     $("#fee_of_installment option[value='3rd']").css({"background-color": "black", "color": "white"}); 
+                            //     $("#fee_of_installment option[value='4th']").css({"background-color": "black", "color": "white"}); 
+                            // }
+
+                            if(data.installment_no){
+                                var next_installment = '';
+                                if(data.installment_no == '1st'){
+                                    next_installment = '2nd';
+                                }else if(data.installment_no == '2nd'){
+                                    next_installment = '3rd';
+                                } else if(data.installment_no == '3rd'){
+                                    next_installment = '4th';
+                                }
+                                $("#fee_of_installment option[value='"+ next_installment +"']").removeAttr('disabled');
+                                $("#fee_of_installment option[value='"+ next_installment + "']").css({"background-color": "white", "color": "black"});
+
+                                $("#fee_of_installment option[value='"+ data.installment_no + "']").attr('disabled','true'); 
+                                $("#fee_of_installment option[value='"+ data.installment_no + "']").css({"background-color": "black", "color": "white"});
+                            }else{
+                                $("#fee_of_installment option[value='1st']").removeAttr('disabled');
+                                $("#fee_of_installment option[value='1st']").css({"background-color": "white", "color": "black"});
+
                             }
-                        }
+
+                        // }
 
                         if(data.discount_id > 0){
                             $('#is_applicable_discount').val(data.discount_id);
@@ -1039,4 +1063,105 @@
         }
     }  
     
+
+    $(document).ready(function () {
+
+
+$('#master').on('click', function(e) {
+ if($(this).is(':checked',true))  
+ {
+    $(".sub_chk").prop('checked', true);  
+ } else {  
+    $(".sub_chk").prop('checked',false);  
+ }  
+});
+
+
+$('.delete_all').on('click', function(e) {
+
+
+    var allVals = [];  
+    $(".sub_chk:checked").each(function() {  
+        allVals.push($(this).attr('data-id'));
+    });  
+
+
+    if(allVals.length <=0)  
+    {  
+        alert("Please select row.");  
+    }  else {  
+
+
+        var check = confirm("Are you sure you want to delete this row?");  
+        if(check == true){  
+
+
+            var join_selected_values = allVals.join(","); 
+
+
+            $.ajax({
+                url: $(this).data('url'),
+                type: 'POST',
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: 'ids='+join_selected_values,
+                success: function (data) {
+                    // if (data['success']) {
+                        $(".sub_chk:checked").each(function() {  
+                            $(this).parents("tr").remove();
+                        });
+                        // alert(data['success']);
+
+                        location.reload();
+                    // }
+                    // } else if (data['error']) {
+                    //     alert(data['error']);
+                    // } else {
+                    //     alert('Whoops Something went wrong!!');
+                    // }
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                }
+            });
+
+
+          $.each(allVals, function( index, value ) {
+              $('table tr').filter("[data-row-id='" + value + "']").remove();
+          });
+        }  
+    }  
+});
+
+ 
+
+
+$(document).on('confirm', function (e) {
+    var ele = e.target;
+    e.preventDefault();
+
+
+    $.ajax({
+        url: ele.href,
+        type: 'DELETE',
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        success: function (data) {
+            if (data['success']) {
+                $("#" + data['tr']).slideUp("slow");
+                alert(data['success']);
+            } else if (data['error']) {
+                alert(data['error']);
+            } else {
+                alert('Whoops Something went wrong!!');
+            }
+        },
+        error: function (data) {
+            alert(data.responseText);
+        }
+    });
+
+
+    return false;
+});
+});
+
 </script>

@@ -666,7 +666,32 @@ class Invoice extends MY_Controller {
             error($this->lang->line('delete_failed'));
         }
         
-        redirect('accounting/invoice/index/'.$invoice->school_id);
+        redirect('accounting/invoice/index/');
+    }
+
+    public function delete_all_invoices() {
+        check_permission(DELETE);
+        // if(!is_numeric($ids)){
+        //     error($this->lang->line('unexpected_error'));
+        //      redirect('accounting/invoice/index');
+        // } 
+          
+        $this->db->where_in('id', explode(',',$_POST['ids']));
+        if($this->db->delete('invoices')){
+
+         
+            $this->db->where_in('invoice_id', explode(',',$_POST['ids']));
+            $this->db->delete('invoice_detail');
+
+            $this->db->where_in('invoice_id', explode(',',$_POST['ids']));
+            $this->db->delete('invoice_installment_detail'); 
+             
+            echo true;
+        } else {
+            error($this->lang->line('delete_failed'));
+        }
+        
+        // redirect('accounting/invoice/index/');
     }
     
     
@@ -815,7 +840,8 @@ class Invoice extends MY_Controller {
         if (!empty($income_heads)) {
             foreach ($income_heads as $obj) { 
                 
-                $str .= '<input onclick="get_bulk_fee_amount('.$obj->id.')" type="checkbox" itemid="'.$obj->id.'" name="income_head_id['.$obj->id.']" id="income_head_id_'.$obj->id.'" class="fn_income_head_id" value="'.$obj->head_type.'">&nbsp;'.$obj->title.'<br/>';
+                $str .= '<input onclick="get_bulk_fee_amount('.$obj->id.')" type="checkbox" itemid="'.$obj->id.'" name="income_head_id['.$obj->id.']" 
+                id="income_head_id_'.$obj->id.'" class="fn_income_head_id" value="'.$obj->head_type.'">&nbsp;'.$obj->title.'<br/>';
             }
         }
 
@@ -858,12 +884,17 @@ class Invoice extends MY_Controller {
                 }                
                 
                 $discount_amount = 0;
-                if($discount->discount_type == 'flat'){
-                    $discount_amount = $discount->amount;
-                }else{
-                    $discount_amount = ($discount->amount/100)* $amount;
+                $discount = $this->invoice->get_discount_already_created($obj->id);
+                if($discount){
+                    if($discount['discount_type'] == 'flat'){
+                        $discount_amount = $discount['amount'];
+                    }else{
+                        $discount_amount = ($discount['amount']/100)* $amount;
+                    }
                 }
                 // making student string....
+
+                // echo '<pre>'; print_r($discount_amount); exit;
                 $student_str .= '<div class="multi-check"><input type="checkbox" name="students['.$obj->id.']" value="'.$amount.'" /> '.$obj->name.' ['.$school->currency_symbol.$amount.']
                 <span class="bulk_discount_amt">[Dis: '.$school->currency_symbol.round($discount_amount).']</span>
                 </div>';

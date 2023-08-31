@@ -98,18 +98,23 @@ class Student_Model extends MY_Model {
     
     public function get_invoice_list($school_id, $student_id){
 
-        $this->db->select('I.*, SC.school_name,  S.name AS student_name, AY.session_year, C.name AS class_name');
+        $this->db->select('I.*, SC.school_name,  S.name AS student_name, AY.session_year, C.name AS class_name,
+        
+        (select installment_no from invoice_installment_detail AS IID
+        where IID.invoice_id = I.id 
+        order by IID.id desc limit 1) as installment_no ');
         $this->db->from('invoices AS I');        
         $this->db->join('classes AS C', 'C.id = I.class_id', 'left');
         $this->db->join('students AS S', 'S.id = I.student_id', 'left');
         $this->db->join('academic_years AS AY', 'AY.id = I.academic_year_id', 'left');
         $this->db->join('schools AS SC', 'SC.id = I.school_id', 'left');
+        // $this->db->join('invoice_installment_detail AS IID', 'IID.invoice_id = I.id', 'left');
         
         $this->db->where('I.invoice_type !=', 'income');         
         $this->db->where('I.student_id', $student_id);   
         $this->db->where('I.school_id', $school_id);
         $this->db->where('I.paid_status !=', 'paid');
-        $this->db->where('SC.status', 1);     
+        $this->db->where('SC.status', 1);          
         $this->db->order_by('I.id', 'asc');  
         return $this->db->get()->result();      
    
