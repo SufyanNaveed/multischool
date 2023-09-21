@@ -176,7 +176,10 @@
                                                             <option value="regular" <?php echo $obj->status_type == 'regular' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('regular'); ?></option>
                                                             <option value="drop" <?php echo $obj->status_type == 'drop' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('drop'); ?></option>
                                                             <option value="transfer" <?php echo $obj->status_type == 'transfer' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('transfer'); ?></option>
-                                                            <option value="passed" <?php echo $obj->status_type == 'passed' ?  'selected="selected"' : ''; ?>><?php echo $this->lang->line('passed'); ?></option>
+                                                            <option value="promote" <?php echo $obj->status_type == 'promote' ?  'selected="selected"' : ''; ?>><?php echo 'Promote'; ?></option>
+                                                            <option value="demote" <?php echo $obj->status_type == 'demote' ?  'selected="selected"' : ''; ?>><?php echo 'Demote'; ?></option>
+                                                            <option value="conditional_promote" <?php echo $obj->status_type == 'conditional_promote' ?  'selected="selected"' : ''; ?>><?php echo 'Conditional Promote'; ?></option>
+                                                            <option value="pass_out" <?php echo $obj->status_type == 'pass_out' ?  'selected="selected"' : ''; ?>><?php echo 'Pass out'; ?></option>
                                                         </select>
                                                     <?php } ?>    
                                                 </td>
