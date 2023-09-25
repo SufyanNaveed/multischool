@@ -56,6 +56,7 @@
                                         <th><?php echo $this->lang->line('hourly_rate'); ?></th>
                                         <th><?php echo $this->lang->line('gross_salary'); ?></th>
                                         <th><?php echo $this->lang->line('net_salary'); ?></th>
+                                        <th><?php echo $this->lang->line('tax_deduction'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
                                 </thead>
@@ -72,6 +73,7 @@
                                             <td><?php echo $obj->hourly_rate; ?></td>
                                             <td><?php echo $obj->gross_salary; ?></td>
                                             <td><?php echo $obj->net_salary; ?></td>
+                                            <td><?php echo $obj->tax_deduction; ?></td>
                                             <td>
                                                 <?php if(has_permission(EDIT, 'payroll', 'grade')){ ?>
                                                     <a href="<?php echo site_url('payroll/grade/edit/'.$obj->id); ?>" class="btn btn-success btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
