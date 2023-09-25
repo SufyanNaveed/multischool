@@ -83,6 +83,7 @@
                             <th><?php echo $this->lang->line('email'); ?></th>
                             <th><?php echo $this->lang->line('phone'); ?></th>
                             <th><?php echo $this->lang->line('roll_no'); ?></th>
+                            <th><?php echo $this->lang->line('teacher_name'); ?></th>  
                             <th><input type="checkbox" value="P" name="present" id="fn_present" class="fn_all_attendnce"/> <?php echo $this->lang->line('present_all'); ?></th>                                            
                             <th><input type="checkbox" value="L" name="late" id="fn_late"  class="fn_all_attendnce"/> <?php echo $this->lang->line('late_all'); ?></th>                                            
                             <th><input type="checkbox" value="A" name="absent" id="fn_absent"  class="fn_all_attendnce"/> <?php echo $this->lang->line('absent_all'); ?></th>                                            
@@ -108,6 +109,7 @@
                                     <td><?php echo $obj->email; ?></td>
                                     <td><?php echo $obj->phone; ?></td>
                                     <td><?php echo $obj->roll_no; ?></td>
+                                    <td><?php echo $obj->teacher_name; ?></td>  
                                     <td><input type="radio" value="P" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" class="present fn_single_attendnce" <?php if($attendance == 'P'){ echo 'checked="checked"'; } ?> /></td>
                                     <td><input type="radio" value="L" itemid="<?php echo $obj->id; ?>"  name="student_<?php echo $obj->id; ?>" class="late fn_single_attendnce" <?php if($attendance == 'L'){ echo 'checked="checked"'; } ?>/></td>
                                     <td><input type="radio" value="A" itemid="<?php echo $obj->id; ?>" name="student_<?php echo $obj->id; ?>" class="absent fn_single_attendnce" <?php if($attendance == 'A'){ echo 'checked="checked"'; } ?>/></td>

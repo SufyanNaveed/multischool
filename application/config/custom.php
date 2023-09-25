@@ -73,7 +73,8 @@ $config['my_administrator']['password']['3'] = '0|0|0|0';
 $config['my_administrator']['backup']['3'] = '0|0|0|0';
 $config['my_administrator']['user']['3'] = '0|0|0|0';
 $config['my_hrm']['designation']['3'] = '0|0|0|0';
-$config['my_hrm']['employee']['3'] = '0|0|0|0';
+$config['my_hrm']['employee']['3'] = '0|0|0|0'; 
+
 $config['my_teacher']['teacher']['3'] = '0|0|1|0';
 $config['my_academic']['classes']['3'] = '0|0|1|0';
 $config['my_academic']['section']['3'] = '0|0|1|0';
@@ -1525,3 +1526,16 @@ $config['my_accounts']['banks']['8'] = '0|0|0|0';
 $config['my_accounts']['banks']['9'] = '0|0|0|0'; 
 $config['my_accounts']['banks']['13'] = '0|0|0|0'; 
 $config['my_accounts']['banks']['14'] = '0|0|0|0';
+
+
+$config['my_hrm']['department']['1'] = '1|1|1|1';
+$config['my_hrm']['department']['2'] = '1|1|1|0';
+$config['my_hrm']['department']['3'] = '0|0|1|0';
+$config['my_hrm']['department']['4'] = '0|0|1|0';
+$config['my_hrm']['department']['5'] = '0|0|1|0'; 
+$config['my_hrm']['department']['6'] = '0|0|0|0'; 
+$config['my_hrm']['department']['7'] = '0|0|0|0'; 
+$config['my_hrm']['department']['8'] = '0|0|0|0'; 
+$config['my_hrm']['department']['9'] = '0|0|0|0'; 
+$config['my_hrm']['department']['13'] = '0|0|0|0'; 
+$config['my_hrm']['department']['14'] = '0|0|0|0';

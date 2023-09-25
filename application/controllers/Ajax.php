@@ -423,6 +423,27 @@ class Ajax extends My_Controller {
         echo $str;
     }
     
+
+    public function get_department_by_school() {
+        
+        $school_id  = $this->input->post('school_id');
+        $department_id  = $this->input->post('department_id');
+        
+       $departments = $this->ajax->get_list('department', array('status'=>1, 'school_id'=>$school_id), '','', '', 'id', 'ASC'); 
+        
+       $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
+       $select = 'selected="selected"';
+       if (!empty($departments)) {
+           foreach ($departments as $obj) {   
+               
+               $selected = $department_id == $obj->id ? $select : '';
+               $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name .' </option>';
+               
+           }
+       }
+
+       echo $str;
+   }
     
     /*****************Function get_salary_grade_by_school**********************************
      * @type            : Function

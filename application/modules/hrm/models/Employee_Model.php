@@ -11,11 +11,12 @@ class Employee_Model extends MY_Model {
     
     public function get_employee_list($school_id = null){
         
-        $this->db->select('E.*, S.school_name, U.username, U.role_id, D.name AS designation');
+        $this->db->select('E.*, S.school_name, U.username, U.role_id, D.name AS designation, Dep.name AS department');
         $this->db->from('employees AS E');
         $this->db->join('users AS U', 'U.id = E.user_id', 'left');
         $this->db->join('designations AS D', 'D.id = E.designation_id', 'left');
         $this->db->join('schools AS S', 'S.id = E.school_id', 'left');
+        $this->db->join('department AS Dep', 'Dep.id = E.department_id', 'left');
         
         if($this->session->userdata('role_id') != SUPER_ADMIN){
             $this->db->where('E.school_id', $this->session->userdata('school_id'));

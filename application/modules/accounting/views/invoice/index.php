@@ -44,6 +44,7 @@
                         <div  class="tab-pane fade in <?php if(isset($list)){ echo 'active'; }?>" id="tab_invoice_list" >
                             <div class="x_content">
                             <button style="margin-bottom: 10px" class="btn btn-danger delete_all" data-url="<?php echo base_url('accounting/invoice/delete_all_invoices')?>">Delete All Selected</button>
+                            <!-- <button style="margin-bottom: 10px" class="btn btn-info print_all" data-url="<?php echo base_url('accounting/invoice/print_all_invoices')?>">Print All Selected</button> -->
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -62,6 +63,7 @@
                                         <th><?php echo 'Total installments'; ?></th>
                                         <th><?php echo 'Installment'; ?></th>
                                         <th><?php echo 'Installment Amount'; ?></th>
+                                        <th><?php echo 'Date'; ?></th> 
                                         <th><?php echo $this->lang->line('status'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
@@ -86,6 +88,7 @@
                                             <td><?php echo $obj->installment_no; ?></td>
                                             <td><?php echo round($obj->installment_amount, 2); ?></td>
                                             <td><?php echo get_paid_status($obj->paid_status); ?></td>
+                                            <td><?php echo $obj->date; ?></td>
                                             <td>
                                                 <?php if(has_permission(VIEW, 'accounting', 'invoice')){ ?>
                                                     <a href="<?php echo site_url('accounting/invoice/view/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
@@ -98,7 +101,8 @@
                                                     <?php //if($obj->paid_status == 'unpaid'){ ?>
                                                         <a href="<?php echo site_url('accounting/invoice/delete/'.$obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
                                                     <?php //} ?>
-                                                <?php } ?>                                                       
+                                                <?php } ?> 
+
                                             </td>
                                         </tr>
                                         <?php } ?>
@@ -1077,7 +1081,7 @@ $('#master').on('click', function(e) {
 });
 
 
-$('.delete_all').on('click', function(e) {
+$('.delete_all, .print_all').on('click', function(e) {
 
 
     var allVals = [];  
@@ -1108,16 +1112,9 @@ $('.delete_all').on('click', function(e) {
                     // if (data['success']) {
                         $(".sub_chk:checked").each(function() {  
                             $(this).parents("tr").remove();
-                        });
-                        // alert(data['success']);
+                        }); 
 
-                        location.reload();
-                    // }
-                    // } else if (data['error']) {
-                    //     alert(data['error']);
-                    // } else {
-                    //     alert('Whoops Something went wrong!!');
-                    // }
+                        // location.reload(); 
                 },
                 error: function (data) {
                     alert(data.responseText);

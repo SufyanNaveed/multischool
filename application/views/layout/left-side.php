@@ -206,6 +206,9 @@
                             <?php if(has_permission(VIEW, 'hrm', 'employee')){ ?>   
                                 <li><a href="<?php echo site_url('hrm/employee/index'); ?>"><?php echo $this->lang->line('manage_employee'); ?></a></li>                            
                             <?php } ?>
+                            <?php if(has_permission(VIEW, 'hrm', 'department')){ ?>   
+                                <li><a href="<?php echo site_url('hrm/department/index'); ?>"> <?php echo $this->lang->line('manage_department'); ?></a></li>
+                            <?php } ?>
                         </ul>
                     </li> 
                     <?php } ?>

@@ -63,6 +63,7 @@
                                         <th><?php echo $this->lang->line('photo'); ?></th>
                                         <th><?php echo $this->lang->line('name'); ?></th>
                                         <th><?php echo $this->lang->line('designation'); ?></th>
+                                        <th><?php echo $this->lang->line('department'); ?></th>
                                         <th><?php echo $this->lang->line('phone'); ?></th>
                                         <th><?php echo $this->lang->line('email'); ?></th>
                                         <th><?php echo $this->lang->line('join_date'); ?></th>
@@ -88,6 +89,7 @@
                                             </td>
                                             <td><?php echo ucfirst($obj->name); ?></td>
                                             <td><?php echo $obj->designation; ?></td>
+                                            <td><?php echo $obj->department; ?></td>
                                             <td><?php echo $obj->phone; ?></td>
                                             <td><?php echo $obj->email; ?></td>
                                             <td><?php echo $obj->joining_date; ?></td>
@@ -163,6 +165,19 @@
                                                 <?php } ?>
                                             </select>
                                             <div class="help-block"><?php echo form_error('designation_id'); ?></div> 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="department_id"><?php echo $this->lang->line('department'); ?> <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="department_id" id="add_department_id" required="required">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <?php foreach($departments as $obj){ ?>
+                                                    <option value="<?php echo $obj->id; ?>" <?php if(isset($post['department_id']) && $post['department_id'] == $obj->id){ echo 'selected="selected"'; } ?>><?php echo $obj->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('department_id'); ?></div> 
                                         </div>
                                     </div>
                                     
@@ -461,6 +476,19 @@
                                                 <?php } ?>
                                             </select>  
                                             <div class="help-block"><?php echo form_error('designation_id'); ?></div> 
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="department_id"><?php echo $this->lang->line('department'); ?> <span class="required">*</span></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="department_id" id="edit_department_id" required="required">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <?php foreach($departments as $obj){ ?>
+                                                    <option value="<?php echo $obj->id; ?>" <?php if($employee->department_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('department_id'); ?></div> 
                                         </div>
                                     </div>
                                     
@@ -826,6 +854,37 @@
         });
     }); 
     
+
+    $('.fn_school_id').on('change', function(){
+      
+      var school_id = $(this).val();
+      var department_id = ''; 
+      <?php if(isset($edit) && !empty($edit)){ ?>
+        department_id =  '<?php echo $employee->department_id; ?>'; 
+       <?php } ?> 
+      
+      if(!school_id){
+         toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+         return false;
+      }
+     
+     $.ajax({       
+          type   : "POST",
+          url    : "<?php echo site_url('ajax/get_department_by_school'); ?>",
+          data   : { school_id:school_id, department_id:department_id},               
+          async  : false,
+          success: function(response){                                                   
+             if(response)
+             {  
+                 if(department_id){
+                     $('#edit_department_id').html(response);   
+                 }else{
+                     $('#add_department_id').html(response);   
+                 } 
+             }
+          }
+      });
+  });
     
     function get_salary_grade(school_id, salary_grade_id){
     

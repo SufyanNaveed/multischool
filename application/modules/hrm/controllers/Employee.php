@@ -47,6 +47,7 @@ class Employee extends MY_Controller {
             $condition['school_id'] = $this->session->userdata('school_id');        
             $this->data['designations'] = $this->employee->get_list('designations', $condition, '', '', '', 'id', 'ASC');
             $this->data['grades'] = $this->employee->get_list('salary_grades', $condition, '', '', '', 'id', 'ASC');
+            $this->data['departments'] = $this->employee->get_list('department', $condition, '', '', '', 'id', 'ASC');
         }
             
         $this->data['filter_school_id'] = $school_id;
@@ -330,6 +331,7 @@ class Employee extends MY_Controller {
         $items = array();
         $items[] = 'school_id';
         $items[] = 'designation_id';
+        $items[] = 'department_id';
         $items[] = 'national_id';
         $items[] = 'name';
         $items[] = 'email';

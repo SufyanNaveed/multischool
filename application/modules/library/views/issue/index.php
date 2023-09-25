@@ -202,6 +202,15 @@
                                 </div>
                                 
                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="roll_no"><?php echo $this->lang->line('roll_no'); ?> 
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="roll_no"  id="roll_no" value="" placeholder="<?php echo $this->lang->line('roll_no'); ?>"  type="text" autocomplete="off">
+                                        <div class="help-block"><?php echo form_error('roll_no'); ?></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="member_id"><?php echo $this->lang->line('library_member'); ?> <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">

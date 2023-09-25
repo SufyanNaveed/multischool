@@ -162,6 +162,13 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="net_salary"><?php echo $this->lang->line('tax_deduction'); ?>  </label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="tax_deduction"  id="add_tax_deduction" value="<?php echo isset($post['tax_deduction']) ?  $post['tax_deduction'] : ''; ?>" placeholder="<?php echo $this->lang->line('tax_deduction'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('tax_deduction'); ?></div>
+                                        </div> 
+                                    </div> 
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="total_allowance"><?php echo $this->lang->line('total_allowance'); ?></label>
                                             <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="total_allowance"  id="add_total_allowance" value="<?php echo isset($post['total_allowance']) ?  $post['total_allowance'] : ''; ?>" placeholder="<?php echo $this->lang->line('total_allowance'); ?>" type="number" readonly="readonly" autocomplete="off">
@@ -174,7 +181,9 @@
                                             <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="total_deduction"  id="add_total_deduction" value="<?php echo isset($post['total_deduction']) ?  $post['total_deduction'] : ''; ?>" placeholder="<?php echo $this->lang->line('total_deduction'); ?>" type="number" readonly="readonly" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('total_deduction'); ?></div>
                                         </div>
-                                    </div>
+                                    </div> 
+                               </div>  
+                                <div class="row">   
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="gross_salary"><?php echo $this->lang->line('gross_salary'); ?>  </label>
@@ -182,15 +191,13 @@
                                             <div class="help-block"><?php echo form_error('gross_salary'); ?></div>
                                         </div>
                                     </div>
-                               </div>  
-                                <div class="row">   
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="net_salary"><?php echo $this->lang->line('net_salary'); ?>  </label>
                                             <input  class="form-control col-md-7 col-xs-12 fn_add_claculate"  name="net_salary"  id="add_net_salary" value="<?php echo isset($post['net_salary']) ?  $post['net_salary'] : ''; ?>" placeholder="<?php echo $this->lang->line('net_salary'); ?>" type="number" readonly="readonly" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('net_salary'); ?></div>
                                         </div>
-                                    </div>
+                                    </div> 
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="item form-group">
                                             <label for="note"><?php echo $this->lang->line('note'); ?>  </label>
@@ -282,6 +289,13 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
+                                         <div class="item form-group">
+                                            <label for="net_salary"><?php echo $this->lang->line('tax_deduction'); ?>  </label>
+                                            <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="tax_deduction"  id="edit_tax_deduction" value="<?php echo isset($grade->tax_deduction) ?  $grade->tax_deduction : ''; ?>" placeholder="<?php echo $this->lang->line('tax_deduction'); ?>" type="number" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('tax_deduction'); ?></div>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="total_allowance"><?php echo $this->lang->line('total_allowance'); ?></label>
                                             <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="total_allowance"  id="edit_total_allowance" value="<?php echo isset($grade->total_allowance) ?  $grade->total_allowance : ''; ?>" placeholder="<?php echo $this->lang->line('total_allowance'); ?>"  readonly="readonly" type="number" autocomplete="off">
@@ -294,7 +308,10 @@
                                             <input  class="form-control col-md-7 col-xs-12 fn_edit_claculate"  name="total_deduction"  id="edit_total_deduction" value="<?php echo isset($grade->total_deduction) ?  $grade->total_deduction : ''; ?>" placeholder="<?php echo $this->lang->line('total_deduction'); ?>"  readonly="readonly" type="number" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('total_deduction'); ?></div>
                                         </div>
-                                    </div>
+                                    </div> 
+                                </div>
+                                
+                                <div class="row">    
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="gross_salary"><?php echo $this->lang->line('gross_salary'); ?></label>
@@ -302,9 +319,7 @@
                                             <div class="help-block"><?php echo form_error('gross_salary'); ?></div>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                <div class="row">    
+                                    
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="net_salary"><?php echo $this->lang->line('net_salary'); ?></label>
@@ -406,11 +421,12 @@
         var transport = $('#add_transport').val() ? parseFloat($('#add_transport').val()): 0;
         var medical = $('#add_medical').val() ? parseFloat($('#add_medical').val()) : 0;
         var provident_fund = $('#add_provident_fund').val() ? parseFloat($('#add_provident_fund').val()) : 0;
+        var tax_deduction = $('#add_tax_deduction').val() ? parseFloat($('#add_tax_deduction').val()) : 0;
         
        $('#add_total_allowance').val(house_rent+transport+medical);       
         var total_allowance = $('#add_total_allowance').val() ? parseFloat($('#add_total_allowance').val()) : 0;
         
-        $('#add_total_deduction').val(provident_fund);
+        $('#add_total_deduction').val(provident_fund+tax_deduction);
         var total_deduction = $('#add_total_deduction').val() ? parseFloat($('#add_total_deduction').val()) : 0;
         
         $('#add_gross_salary').val(basic_salary+total_allowance);
@@ -425,11 +441,12 @@
         var transport = $('#edit_transport').val() ? parseFloat($('#edit_transport').val()): 0;
         var medical = $('#edit_medical').val() ? parseFloat($('#edit_medical').val()) : 0;
         var provident_fund = $('#edit_provident_fund').val() ? parseFloat($('#edit_provident_fund').val()) : 0;
-        
+        var tax_deduction = $('#edit_tax_deduction').val() ? parseFloat($('#edit_tax_deduction').val()) : 0;
+
        $('#edit_total_allowance').val(house_rent+transport+medical);       
         var total_allowance = $('#edit_total_allowance').val() ? parseFloat($('#edit_total_allowance').val()) : 0;
         
-        $('#edit_total_deduction').val(provident_fund);
+        $('#edit_total_deduction').val(provident_fund+tax_deduction);
         var total_deduction = $('#edit_total_deduction').val() ? parseFloat($('#edit_total_deduction').val()) : 0;
         
         $('#edit_gross_salary').val(basic_salary+total_allowance);

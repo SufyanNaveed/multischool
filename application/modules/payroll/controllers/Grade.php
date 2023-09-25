@@ -246,6 +246,7 @@ class Grade extends MY_Controller {
         $items[] = 'total_deduction';
         $items[] = 'gross_salary';
         $items[] = 'net_salary';
+        $items[] = 'tax_deduction';
         $items[] = 'note';
         
         $data = elements($items, $_POST);  

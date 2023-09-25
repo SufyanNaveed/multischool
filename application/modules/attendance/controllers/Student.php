@@ -35,9 +35,10 @@ class Student extends MY_Controller {
     * @return          : null 
     * ********************************************************** */ 
     public function index() {
-
+        
         check_permission(VIEW);
-        if ($_POST) {
+        if ($_POST)
+        {
 
             $school_id  = $this->input->post('school_id');
             $class_id = $this->input->post('class_id');

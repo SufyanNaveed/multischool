@@ -11,12 +11,13 @@ class Student_Model extends MY_Model {
     
     public function get_student_list($school_id = null, $class_id = null, $section_id = null, $academic_year_id = null, $status_type = null){
         
-        $this->db->select('S.*, E.roll_no, E.class_id, E.section_id, U.username, U.role_id,  C.name AS class_name, SE.name AS section');
+        $this->db->select('S.*, E.roll_no, E.class_id, E.section_id, U.username, U.role_id,  C.name AS class_name, SE.name AS section, T.name as teacher_name');
         $this->db->from('enrollments AS E');
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
         $this->db->join('users AS U', 'U.id = S.user_id', 'left');
         $this->db->join('classes AS C', 'C.id = E.class_id', 'left');
         $this->db->join('sections AS SE', 'SE.id = E.section_id', 'left');
+        $this->db->join('teachers AS T', 'T.id = C.teacher_id', 'left'); 
         $this->db->where('E.academic_year_id', $academic_year_id);       
         $this->db->where('E.class_id', $class_id);
         
