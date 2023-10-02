@@ -144,6 +144,9 @@ class Issue extends MY_Controller {
         $items[] = 'school_id';
         $items[] = 'library_member_id';
         $items[] = 'book_id';
+        $items[] = 'program_id';
+        $items[] = 'session_id';
+        $items[] = 'student_name';
 
         $data = elements($items, $_POST);
 

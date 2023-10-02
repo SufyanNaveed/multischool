@@ -63,9 +63,8 @@ class Grade extends MY_Controller {
         if ($_POST) {
             $this->_prepare_grade_validation();
             if ($this->form_validation->run() === TRUE) {
-                $data = $this->_get_posted_grade_data();
-
-                $insert_id = $this->grade->insert('salary_grades', $data);
+                $data = $this->_get_posted_grade_data(); 
+                $insert_id = $this->grade->insert('salary_grades', $data); 
                 if ($insert_id) {
                     success($this->lang->line('insert_success'));
                     redirect('payroll/grade/index/'.$data['school_id']);
@@ -235,6 +234,10 @@ class Grade extends MY_Controller {
         $items = array();
         $items[] = 'school_id';
         $items[] = 'grade_name';
+        $items[] = 'bank_name';
+        $items[] = 'account_no';
+        $items[] = 'cheque_no';
+        $items[] = 'clearance_date';
         $items[] = 'basic_salary';
         $items[] = 'house_rent';
         $items[] = 'transport';

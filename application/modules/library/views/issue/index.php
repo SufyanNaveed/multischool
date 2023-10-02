@@ -106,6 +106,39 @@
                                <?php echo form_open_multipart(site_url('library/issue/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
                                 
                                 <?php $this->load->view('layout/school_list_form'); ?> 
+                                
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="program_id"><?php echo $this->lang->line('program'); ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="program_id" id="program_id" required="required"> 
+                                             
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('program_id'); ?></div>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="session_id"><?php echo $this->lang->line('section'); ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="session_id" id="session_id" required="required"> 
+                                             
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('session_id'); ?></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="student_name"><?php echo $this->lang->line('student_name'); ?>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input  class="form-control col-md-7 col-xs-12"  name="student_name"  id="student_name" value="" placeholder="<?php echo $this->lang->line('student_name'); ?>"  type="text" autocomplete="off">
+                                        <div class="help-block"><?php echo form_error('student_name'); ?></div>
+                                    </div>
+                                </div>
+                                
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="book_id"><?php echo $this->lang->line('book'); ?> <span class="required">*</span>
                                     </label>
@@ -271,7 +304,55 @@
                }
             }
         });
-    }); 
+    });
+    
+    $('.fn_school_id').on('change', function(){
+      
+      var school_id = $(this).val(); 
+      
+      if(!school_id){
+         toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+         return false;
+      }
+     
+        $.ajax({       
+          type   : "POST",
+          url    : "<?php echo site_url('ajax/get_class_by_school'); ?>",
+          data   : { school_id:school_id},               
+          async  : false,
+          success: function(response){                                                   
+             if(response)
+             {                     
+                 $('#program_id').html(response);
+             }
+          }
+        });
+    });
+      
+    
+    $('#program_id').on('change', function(){
+      
+      var school_id = $('.fn_school_id').val(); 
+      var class_id = $(this).val(); 
+      
+      if(!school_id){
+         toastr.error('<?php echo $this->lang->line('select_school'); ?>');
+         return false;
+      }
+     
+      $.ajax({       
+          type   : "POST",
+          url    : "<?php echo site_url('ajax/get_section_by_class'); ?>",
+          data   : { school_id:school_id,class_id:class_id},               
+          async  : false,
+          success: function(response){                                                   
+             if(response)
+             {                     
+                 $('#session_id').html(response);
+             }
+          }
+      });
+  });
     
     
     function get_library_member_by_school(school_id){

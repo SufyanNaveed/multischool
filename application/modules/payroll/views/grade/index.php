@@ -52,6 +52,10 @@
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
                                         <th><?php echo $this->lang->line('grade_name'); ?></th>
+                                        <th><?php echo $this->lang->line('bank_name'); ?></th>
+                                        <th><?php echo $this->lang->line('account_no'); ?></th>
+                                        <th><?php echo $this->lang->line('cheque_no'); ?></th>
+                                        <th><?php echo $this->lang->line('clearance_date'); ?></th>
                                         <th><?php echo $this->lang->line('basic_salary'); ?></th>
                                         <th><?php echo $this->lang->line('hourly_rate'); ?></th>
                                         <th><?php echo $this->lang->line('gross_salary'); ?></th>
@@ -69,6 +73,10 @@
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
                                             <td><?php echo $obj->grade_name; ?></td>
+                                            <td><?php echo $obj->bank_name; ?></td>
+                                            <td><?php echo $obj->account_no; ?></td>
+                                            <td><?php echo $obj->cheque_no; ?></td>
+                                            <td><?php echo $obj->clearance_date; ?></td>
                                             <td><?php echo $obj->basic_salary; ?></td>
                                             <td><?php echo $obj->hourly_rate; ?></td>
                                             <td><?php echo $obj->gross_salary; ?></td>
@@ -109,6 +117,39 @@
                                             <div class="help-block"><?php echo form_error('grade_name'); ?></div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="bank_name"><?php echo $this->lang->line('bank_name'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="bank_name"  id="add_bank_name" value="<?php echo isset($post['bank_name']) ?  $post['bank_name'] : ''; ?>" placeholder="<?php echo $this->lang->line('bank_name'); ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('bank_name'); ?></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="account_no"><?php echo $this->lang->line('account_no'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="account_no"  id="add_account_no" value="<?php echo isset($post['account_no']) ?  $post['account_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('account_no'); ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('account_no'); ?></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="cheque_no"><?php echo $this->lang->line('cheque_no'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="cheque_no"  id="add_cheque_no" value="<?php echo isset($post['cheque_no']) ?  $post['cheque_no'] : ''; ?>" placeholder="<?php echo $this->lang->line('cheque_no'); ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('cheque_no'); ?></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="clearance_date"><?php echo $this->lang->line('clearance_date'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="clearance_date"  id="add_clearance_date" value="<?php echo isset($post['clearance_date']) ?  $post['clearance_date'] : ''; ?>" placeholder="<?php echo $this->lang->line('clearance_date'); ?>" required="required" type="date" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('clearance_date'); ?></div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="basic_salary"><?php echo $this->lang->line('basic_salary'); ?> <span class="required">*</span></label>
@@ -236,6 +277,38 @@
                                             <div class="help-block"><?php echo form_error('grade_name'); ?></div>
                                         </div>
                                     </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="bank_name"><?php echo $this->lang->line('bank_name'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="bank_name"  id="edit_bank_name" value="<?php echo isset($grade->bank_name) ?  $grade->bank_name : ''; ?>" placeholder="<?php echo $this->lang->line('bank_name'); ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('bank_name'); ?></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="account_no"><?php echo $this->lang->line('account_no'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="account_no"  id="edit_account_no" value="<?php echo isset($grade->account_no) ?  $grade->account_no : ''; ?>" placeholder="<?php echo $this->lang->line('account_no'); ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('account_no'); ?></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="cheque_no"><?php echo $this->lang->line('cheque_no'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="cheque_no"  id="edit_cheque_no" value="<?php echo isset($grade->cheque_no) ?  $grade->cheque_no : ''; ?>" placeholder="<?php echo $this->lang->line('cheque_no'); ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('cheque_no'); ?></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
+                                            <label for="clearance_date"><?php echo $this->lang->line('clearance_date'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="clearance_date"  id="edit_clearance_date" value="<?php echo isset($grade->clearance_date) ?  $grade->clearance_date : ''; ?>" placeholder="<?php echo $this->lang->line('clearance_date'); ?>" required="required" type="date" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('clearance_date'); ?></div>
+                                        </div>
+                                    </div>
+                                    
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="basic_salary"><?php echo $this->lang->line('basic_salary'); ?> <span class="required">*</span></label>
